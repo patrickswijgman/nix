@@ -11,6 +11,7 @@
       nixosConfigurations = {
         acer = nixpkgs.lib.nixosSystem {
           modules = [
+            ./configuration.nix
             ./hosts/acer/configuration.nix
           ];
         };
