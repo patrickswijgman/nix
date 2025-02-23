@@ -103,9 +103,6 @@
       programs.firefox.enable = true;
       programs.chromium.enable = true;
 
-      # Git.
-      programs.git.enable = true;
-
       # Terminal.
       programs.ghostty.enable = true;
 
@@ -127,6 +124,9 @@
           cmp-cmdline
           telescope-nvim
           neo-tree-nvim
+          # Dependencies.
+          plenary-nvim
+          nui-nvim
         ];
       };
 
@@ -194,6 +194,7 @@
   environment.systemPackages = with pkgs; [
     vim
     curl
+    git
     wl-clipboard
   ];
 
