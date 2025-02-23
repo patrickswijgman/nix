@@ -17,4 +17,4 @@
 
   # Hostname.
   networking.hostName = "patrick-acer";
-};
+}

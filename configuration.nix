@@ -70,7 +70,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with Pipewire.
+  # Enable multimedia via Pipewire.
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -90,49 +90,113 @@
     ];
   };
 
+  # Enable home manager.
+  home-manager = {
+    # Use global nixpkgs config to allow unfree packages.
+    useGlobalPkgs = true;
+
+    users.patrick = {
+      # Browsers.
+      programs.firefox.enable = true;
+      programs.chromium.enable = true;
+
+      # Editor.
+      programs.neovim = {
+        enable = true;
+
+        # Search for plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins+
+        plugins = with pkgs.vimPlugins; [
+          catppuccin-nvim
+          nvim-treesitter.withAllGrammars
+          nvim-lspconfig
+          conform-nvim
+          nvim-cmp
+          cmp-nvim-lsp
+          cmp-buffer
+          cmp-path
+          cmp-cmdline
+          telescope-nvim
+          auto-session
+        ];
+      };
+
+      # Terminal.
+      programs.ghostty.enable = true;
+
+      # Packages (that don't have a 'programs.<package>' option).
+      home.packages = with pkgs; [
+        chezmoi
+
+        fzf
+        ripgrep
+        tree
+
+        nodejs_22
+
+        nixd
+        nixfmt-rfc-style
+        taplo
+        lua
+        lua-language-server
+        stylua
+        typescript-language-server
+        vscode-langservers-extracted
+        prettierd
+
+        spotify
+        slack
+      ];
+
+      # Environment variables.
+      home.sessionVariables = {
+        # Set default editor.
+        EDITOR = "nvim";
+        GIT_EDITOR = "nvim";
+
+        # Enable Wayland for Electron apps.
+        NIXOS_OZONE_WL = "1";
+      };
+
+      # Home Manager needs a bit of information about you and the paths it should manage.
+      home.username = "patrick";
+      home.homeDirectory = "/home/patrick";
+
+      # Let Home Manager install and manage itself.
+      programs.home-manager.enable = true;
+
+      # This value determines the Home Manager release that your configuration is
+      # compatible with. This helps avoid breakage when a new Home Manager release
+      # introduces backwards incompatible changes.
+      #
+      # You should not change this value, even if you update Home Manager. If you do
+      # want to update the value, then make sure to first check the Home Manager
+      # release notes.
+      home.stateVersion = "24.11"; # Please read the comment before changing.
+    };
+  };
+
   # Allow unfree packages such as Spotify.
   nixpkgs.config.allowUnfree = true;
 
-  # Set Fish as the default shell.
+  # Shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
+
+  # Docker.
+  virtualisation.docker.enable = true;
+
+  # Git.
+  programs.git.enable = true;
 
   # Allow execution of dynamic binaries (needed for Zed).
   programs.nix-ld.enable = true;
 
-  # Enable Docker.
-  virtualisation.docker.enable = true;
-
-  # Packages.
+  # Install system-level packages.
   environment.systemPackages = with pkgs; [
     vim
     curl
-    git
-    fzf
-    ripgrep
-    tree
-    chezmoi
-    # Editor language servers and formatters.
-    nixd
-    nixfmt-rfc-style
-    taplo
-    firefox
-    zed-editor
-    helix
-    ghostty
-    spotify
-    slack
+    wl-clipboard
   ];
-
-  # System environment variables.
-  environment.sessionVariables = {
-    # Set default editor.
-    EDITOR = "hx";
-    GIT_EDITOR = "hx";
-
-    # Enable Wayland for Electron apps.
-    NIXOS_OZONE_WL = "1";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

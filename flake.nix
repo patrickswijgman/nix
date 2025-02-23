@@ -3,14 +3,20 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { self, nixpkgs }:
+    { self, nixpkgs, home-manager, ... }:
     {
       nixosConfigurations = {
         acer = nixpkgs.lib.nixosSystem {
           modules = [
+            home-manager.nixosModules.default
             ./configuration.nix
             ./hosts/acer/configuration.nix
           ];
