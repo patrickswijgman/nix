@@ -31,6 +31,9 @@
     "flakes"
   ];
 
+  # Allow unfree packages such as Spotify.
+  nixpkgs.config.allowUnfree = true;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -100,6 +103,12 @@
       programs.firefox.enable = true;
       programs.chromium.enable = true;
 
+      # Git.
+      programs.git.enable = true;
+
+      # Terminal.
+      programs.ghostty.enable = true;
+
       # Editor.
       programs.neovim = {
         enable = true;
@@ -108,6 +117,7 @@
         plugins = with pkgs.vimPlugins; [
           catppuccin-nvim
           nvim-treesitter.withAllGrammars
+          auto-session
           nvim-lspconfig
           conform-nvim
           nvim-cmp
@@ -116,12 +126,9 @@
           cmp-path
           cmp-cmdline
           telescope-nvim
-          auto-session
+          neo-tree-nvim
         ];
       };
-
-      # Terminal.
-      programs.ghostty.enable = true;
 
       # Packages (that don't have a 'programs.<package>' option).
       home.packages = with pkgs; [
@@ -142,6 +149,7 @@
         typescript-language-server
         vscode-langservers-extracted
         prettierd
+        codespell
 
         spotify
         slack
@@ -175,9 +183,6 @@
     };
   };
 
-  # Allow unfree packages such as Spotify.
-  nixpkgs.config.allowUnfree = true;
-
   # Shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
@@ -185,13 +190,7 @@
   # Docker.
   virtualisation.docker.enable = true;
 
-  # Git.
-  programs.git.enable = true;
-
-  # Allow execution of dynamic binaries (needed for Zed).
-  programs.nix-ld.enable = true;
-
-  # Install system-level packages.
+  # System-wide packages.
   environment.systemPackages = with pkgs; [
     vim
     curl
