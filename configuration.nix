@@ -11,7 +11,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  # Select internationalisation properties.
+  # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "nl_NL.UTF-8";
@@ -73,7 +73,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable multimedia via Pipewire.
+  # Enable multimedia via PipeWire.
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -94,6 +94,7 @@
   };
 
   # Enable home manager.
+  # See options here https://home-manager-options.extranix.com/?query=&release=release-24.11
   home-manager = {
     # Use global nixpkgs config to allow unfree packages.
     useGlobalPkgs = true;
@@ -113,6 +114,7 @@
         # Search for plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins+
         plugins = with pkgs.vimPlugins; [
           catppuccin-nvim
+          rose-pine
           nvim-treesitter.withAllGrammars
           auto-session
           nvim-lspconfig
@@ -124,9 +126,8 @@
           cmp-cmdline
           telescope-nvim
           neo-tree-nvim
-          # Dependencies.
-          plenary-nvim
-          nui-nvim
+          plenary-nvim # telescope, neo-tree
+          nui-nvim # neo-tree
         ];
       };
 
@@ -149,21 +150,10 @@
         typescript-language-server
         vscode-langservers-extracted
         prettierd
-        codespell
 
         spotify
         slack
       ];
-
-      # Environment variables.
-      home.sessionVariables = {
-        # Set default editor.
-        EDITOR = "nvim";
-        GIT_EDITOR = "nvim";
-
-        # Enable Wayland for Electron apps.
-        NIXOS_OZONE_WL = "1";
-      };
 
       # Home Manager needs a bit of information about you and the paths it should manage.
       home.username = "patrick";
@@ -197,6 +187,16 @@
     git
     wl-clipboard
   ];
+
+  # Environment variables.
+  environment.sessionVariables = {
+    # Set default editor.
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
+
+    # Enable Wayland for Electron apps.
+    NIXOS_OZONE_WL = "1";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
