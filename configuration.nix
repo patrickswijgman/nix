@@ -98,6 +98,8 @@
   home-manager = {
     # Use global nixpkgs config to allow unfree packages.
     useGlobalPkgs = true;
+
+    # Keep the home manager configuration separate.
     users.patrick = import ./home/patrick/home.nix;
   };
 
