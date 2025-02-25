@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "NixOS flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -11,7 +11,12 @@
   };
 
   outputs =
-    { self, nixpkgs, home-manager, ... }:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
     {
       nixosConfigurations = {
         acer = nixpkgs.lib.nixosSystem {
@@ -19,6 +24,14 @@
             home-manager.nixosModules.default
             ./configuration.nix
             ./hosts/acer/configuration.nix
+          ];
+        };
+
+        work = nixpkgs.lib.nixosSystem {
+          modules = [
+            home-manager.nixosModules.default
+            ./configuration.nix
+            ./hosts/work/configuration.nix
           ];
         };
       };
