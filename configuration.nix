@@ -5,6 +5,15 @@
 { config, pkgs, ... }:
 
 {
+  # Enable flakes.
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  # Allow unfree packages such as Spotify.
+  nixpkgs.config.allowUnfree = true;
+
   # Enable networking.
   networking.networkmanager.enable = true;
 
@@ -25,14 +34,11 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
-  # Enable flakes.
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
-  # Allow unfree packages such as Spotify.
-  nixpkgs.config.allowUnfree = true;
+  # Configure keyboard layout.
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -50,12 +56,6 @@
         xdg-desktop-portal-gtk
       ];
     };
-  };
-
-  # Configure keyboard layout.
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
   };
 
   # Enable Bluetooth.
