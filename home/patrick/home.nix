@@ -18,25 +18,40 @@
 
     # Search for plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins+
     plugins = with pkgs.vimPlugins; [
-      catppuccin-nvim
-      rose-pine
-      nvim-treesitter.withAllGrammars
+      arrow-nvim
       auto-session
-      nvim-lspconfig
-      conform-nvim
-      nvim-cmp
-      cmp-nvim-lsp
+      bufferline-nvim
+      catppuccin-nvim
       cmp-buffer
-      cmp-path
       cmp-cmdline
-      telescope-nvim
-      neo-tree-nvim
-      nvim-surround
-      copilot-vim
+      cmp-nvim-lsp
+      cmp-nvim-lsp-signature-help
+      cmp-path
+      conform-nvim
+      git-conflict-nvim
+      gitlinker-nvim
+      leap-nvim
+      lsp_lines-nvim
+      lualine-nvim
       neogit
+      neotest
+      neotest-vitest
+      nvim-cmp
+      nvim-colorizer-lua
+      nvim-lspconfig
+      nvim-spider
+      nvim-surround
+      nvim-tree-lua
+      nvim-treesitter.withAllGrammars
+      telescope-nvim
+      which-key-nvim
+      zen-mode-nvim
 
-      plenary-nvim # telescope, neo-tree
-      nui-nvim # neo-tree
+      nvim-dap # neotest
+      nvim-nio # neotest
+      nvim-web-devicons # many...
+      plenary-nvim # telescope, neotest
+      repeat # leap
     ];
   };
 
@@ -45,8 +60,12 @@
     # Dot file management
     chezmoi
 
+    # Take breaks...
+    stretchly
+
     # CLI
     fzf
+    fd
     ripgrep
     tree
     openvpn
@@ -60,12 +79,16 @@
     # Language servers and formatters
     nixd
     nixfmt-rfc-style
+
     taplo
+
     lua
     lua-language-server
     stylua
+
     typescript-language-server
     vscode-langservers-extracted
+    tailwindcss-language-server
     prettierd
 
     # Desktop apps

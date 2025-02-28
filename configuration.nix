@@ -47,6 +47,9 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # Ensure gnome-settings-daemon udev rules are enabled for gnomeExtensions.appindicator.
+  services.udev.packages = with pkgs; [ gnome-settings-daemon ];
+
   # Enable screen sharing in Wayland.
   xdg = {
     portal = {
@@ -116,6 +119,9 @@
     curl
     git
     wl-clipboard
+
+    # GNOME extensions
+    gnomeExtensions.appindicator
   ];
 
   # Environment variables.
