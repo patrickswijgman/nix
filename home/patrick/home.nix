@@ -30,6 +30,7 @@
       conform-nvim
       git-conflict-nvim
       gitlinker-nvim
+      gitsigns-nvim
       leap-nvim
       lsp_lines-nvim
       lualine-nvim
