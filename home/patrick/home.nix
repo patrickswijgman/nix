@@ -82,11 +82,13 @@
     nixd
     nixfmt-rfc-style
 
-    taplo
-
     lua
     lua-language-server
     stylua
+
+    taplo
+
+    yaml-language-server
 
     typescript-language-server
     vscode-langservers-extracted
@@ -94,6 +96,7 @@
     prettierd
 
     # Desktop apps
+    gnome-tweaks
     spotify
     slack
   ];
