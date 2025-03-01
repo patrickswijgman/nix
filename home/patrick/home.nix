@@ -28,6 +28,7 @@
       cmp-nvim-lsp-signature-help
       cmp-path
       conform-nvim
+      fidget-nvim
       git-conflict-nvim
       gitlinker-nvim
       gitsigns-nvim

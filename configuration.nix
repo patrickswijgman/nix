@@ -119,6 +119,7 @@
     curl
     git
     wl-clipboard
+    gcc
 
     # GNOME extensions
     gnomeExtensions.appindicator
