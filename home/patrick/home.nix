@@ -75,10 +75,7 @@
     graph-easy
     cowsay
 
-    # Programming languages
-    nodejs_22
-
-    # Language servers and formatters
+    # Programming
     nixd
     nixfmt-rfc-style
 
@@ -86,14 +83,19 @@
     lua-language-server
     stylua
 
-    taplo
-
-    yaml-language-server
-
+    nodejs_22
     typescript-language-server
     vscode-langservers-extracted
     tailwindcss-language-server
     prettierd
+
+    go
+    gopls
+    golangci-lint
+    golangci-lint-langserver
+
+    taplo
+    yaml-language-server
 
     # Desktop apps
     gnome-tweaks
