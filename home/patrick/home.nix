@@ -94,6 +94,10 @@
     golangci-lint
     golangci-lint-langserver
 
+    python3
+    pyright
+    ruff
+
     taplo
     yaml-language-server
 
@@ -101,6 +105,7 @@
     gnome-tweaks
     spotify
     slack
+    aseprite
   ];
 
   # Let Home Manager install and manage itself.
