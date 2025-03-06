@@ -113,6 +113,11 @@
   # Docker.
   virtualisation.docker.enable = true;
 
+  # Enable dynamic linker to execute dynamic binaries.
+  # Needed for some virtual env git hooks.
+  # Needed for Zed as it downloads language servers on-demand.
+  programs.nix-ld.enable = true;
+
   # System-wide packages.
   environment.systemPackages = with pkgs; [
     vim

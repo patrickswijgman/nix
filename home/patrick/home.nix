@@ -25,7 +25,6 @@
       cmp-buffer
       cmp-cmdline
       cmp-nvim-lsp
-      cmp-nvim-lsp-signature-help
       cmp-path
       conform-nvim
       fidget-nvim
@@ -46,6 +45,7 @@
       nvim-tree-lua
       nvim-treesitter.withAllGrammars
       telescope-nvim
+      tsc-nvim
       which-key-nvim
       zen-mode-nvim
 
@@ -71,6 +71,7 @@
     ripgrep
     tree
     openvpn
+    bat
     slides
     graph-easy
     cowsay
@@ -84,6 +85,7 @@
     stylua
 
     nodejs_22
+    typescript
     typescript-language-server
     vscode-langservers-extracted
     tailwindcss-language-server
@@ -95,7 +97,7 @@
     golangci-lint-langserver
 
     python3
-    pyright
+    basedpyright
     ruff
 
     taplo
