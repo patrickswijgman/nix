@@ -37,6 +37,7 @@
       neogit
       neotest
       neotest-vitest
+      nvim-bufdel
       nvim-cmp
       nvim-colorizer-lua
       nvim-lspconfig
@@ -72,6 +73,8 @@
     tree
     openvpn
     bat
+
+    # Presentations
     slides
     graph-easy
     cowsay
@@ -95,6 +98,10 @@
     gopls
     golangci-lint
     golangci-lint-langserver
+
+    rustc
+    cargo
+    rustfmt
 
     python3
     basedpyright
