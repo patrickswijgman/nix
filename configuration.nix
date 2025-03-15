@@ -126,6 +126,9 @@
     wl-clipboard
     gcc
 
+    # Fish plugins
+    fishPlugins.tide
+
     # GNOME extensions
     gnomeExtensions.appindicator
   ];

@@ -30,7 +30,7 @@
     tree
     openvpn
     bat
-    nnn
+    lf
     lazygit
 
     # Presentations
@@ -64,7 +64,8 @@
     ruff
 
     simple-completion-language-server
-    typos-lsp
+    vale
+    vale-ls
 
     taplo
     yaml-language-server
