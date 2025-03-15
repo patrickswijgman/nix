@@ -133,8 +133,8 @@
   # Environment variables.
   environment.sessionVariables = {
     # Set default editor.
-    EDITOR = "nvim";
-    GIT_EDITOR = "nvim";
+    EDITOR = "hx";
+    GIT_EDITOR = "hx";
 
     # Enable Wayland for Electron apps.
     NIXOS_OZONE_WL = "1";

@@ -13,50 +13,7 @@
   programs.ghostty.enable = true;
 
   # Editor.
-  programs.neovim = {
-    enable = true;
-
-    # Search for plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins+
-    plugins = with pkgs.vimPlugins; [
-      arrow-nvim
-      auto-session
-      bufferline-nvim
-      catppuccin-nvim
-      cmp-buffer
-      cmp-cmdline
-      cmp-nvim-lsp
-      cmp-path
-      conform-nvim
-      fidget-nvim
-      git-conflict-nvim
-      gitlinker-nvim
-      gitsigns-nvim
-      leap-nvim
-      lsp_lines-nvim
-      lualine-nvim
-      neogit
-      neotest
-      neotest-vitest
-      nvim-bufdel
-      nvim-cmp
-      nvim-colorizer-lua
-      nvim-lspconfig
-      nvim-spider
-      nvim-surround
-      nvim-tree-lua
-      nvim-treesitter.withAllGrammars
-      telescope-nvim
-      tsc-nvim
-      which-key-nvim
-      zen-mode-nvim
-
-      nvim-dap # neotest
-      nvim-nio # neotest
-      nvim-web-devicons # many...
-      plenary-nvim # telescope, neotest
-      repeat # leap
-    ];
-  };
+  programs.helix.enable = true;
 
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
@@ -73,6 +30,8 @@
     tree
     openvpn
     bat
+    nnn
+    lazygit
 
     # Presentations
     slides
@@ -82,10 +41,6 @@
     # Programming
     nixd
     nixfmt-rfc-style
-
-    lua
-    lua-language-server
-    stylua
 
     nodejs_22
     typescript
@@ -102,10 +57,14 @@
     rustc
     cargo
     rustfmt
+    rust-analyzer
 
     python3
     basedpyright
     ruff
+
+    simple-completion-language-server
+    typos-lsp
 
     taplo
     yaml-language-server
