@@ -114,8 +114,8 @@
   virtualisation.docker.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
-  # Needed for some virtual env git hooks.
-  # Needed for Zed as it downloads language servers on-demand.
+  # Needed for pre-commit to execute git hooks.
+  # Needed for Zed to download and execute language servers.
   programs.nix-ld.enable = true;
 
   # System-wide packages.
@@ -126,7 +126,7 @@
     wl-clipboard
     gcc
 
-    # GNOME extensions
+    # GNOME
     gnomeExtensions.appindicator
   ];
 
@@ -135,6 +135,9 @@
     # Set default editor.
     EDITOR = "hx";
     GIT_EDITOR = "hx";
+
+    # Don't show "(.venv)" in shell prompt.
+    VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
     # Enable Wayland for Electron apps.
     NIXOS_OZONE_WL = "1";

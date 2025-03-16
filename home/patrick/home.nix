@@ -17,6 +17,9 @@
 
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
+    # Shell
+    oh-my-posh
+
     # Dot file management
     chezmoi
 
