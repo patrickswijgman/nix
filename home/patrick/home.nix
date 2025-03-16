@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  codebook = pkgs.callPackage ../../modules/codebook.nix { };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should manage.
   home.username = "patrick";
@@ -47,7 +50,7 @@
 
     nodejs_22
     typescript
-    typescript-language-server
+    vtsls
     vscode-langservers-extracted
     tailwindcss-language-server
     prettierd
@@ -69,6 +72,7 @@
     simple-completion-language-server
     vale
     vale-ls
+    codebook
 
     taplo
     yaml-language-server
