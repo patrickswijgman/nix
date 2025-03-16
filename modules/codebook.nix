@@ -2,7 +2,7 @@
 
 pkgs.rustPlatform.buildRustPackage {
   pname = "codebook";
-  version = "unstable";
+  version = "0.2.4";
 
   src = pkgs.fetchFromGitHub {
     owner = "blopker";
@@ -19,6 +19,10 @@ pkgs.rustPlatform.buildRustPackage {
   ];
 
   doCheck = false;
+
+  versionCheckProgram = "${placeholder "out"}/bin/codebook-lsp";
+  versionCheckProgramArg = [ "--version" ];
+  doInstallCheck = true;
 
   meta = with pkgs.lib; {
     description = "An unholy spellchecker for code.";
