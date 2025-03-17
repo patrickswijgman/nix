@@ -71,8 +71,6 @@ in
     ruff
 
     simple-completion-language-server
-    vale
-    vale-ls
     codebook
 
     taplo
