@@ -47,6 +47,8 @@ in
     nixd
     nixfmt-rfc-style
 
+    fish-lsp
+
     nodejs_22
     typescript
     vtsls
