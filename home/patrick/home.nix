@@ -36,7 +36,6 @@ in
     tree
     openvpn
     bat
-    lf
     lazygit
 
     # Presentations
@@ -66,7 +65,7 @@ in
     rust-analyzer
 
     python3
-    basedpyright
+    pyright
     ruff
 
     simple-completion-language-server
