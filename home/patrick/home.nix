@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  codebook = pkgs.callPackage ../../modules/codebook.nix { };
-in
 {
   # Home Manager needs a bit of information about you and the paths it should manage.
   home.username = "patrick";
@@ -16,7 +13,50 @@ in
   programs.ghostty.enable = true;
 
   # Editor.
-  programs.helix.enable = true;
+  programs.neovim = {
+    enable = true;
+
+    # Search for plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins+
+    plugins = with pkgs.vimPlugins; [
+      arrow-nvim
+      auto-session
+      bufferline-nvim
+      catppuccin-nvim
+      cmp-buffer
+      cmp-cmdline
+      cmp-nvim-lsp
+      cmp-path
+      conform-nvim
+      fidget-nvim
+      git-conflict-nvim
+      gitlinker-nvim
+      gitsigns-nvim
+      leap-nvim
+      lsp_lines-nvim
+      lualine-nvim
+      neogit
+      neotest
+      neotest-vitest
+      nvim-bufdel
+      nvim-cmp
+      nvim-colorizer-lua
+      nvim-lspconfig
+      nvim-spider
+      nvim-surround
+      nvim-tree-lua
+      nvim-treesitter.withAllGrammars
+      telescope-nvim
+      tsc-nvim
+      which-key-nvim
+      zen-mode-nvim
+
+      nvim-dap # neotest
+      nvim-nio # neotest
+      nvim-web-devicons # many...
+      plenary-nvim # telescope, neotest
+      repeat # leap
+    ];
+  };
 
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
@@ -49,9 +89,13 @@ in
 
     fish-lsp
 
+    lua
+    lua-language-server
+    stylua
+
     nodejs_22
     typescript
-    vtsls
+    typescript-language-server
     vscode-langservers-extracted
     tailwindcss-language-server
     prettierd
@@ -69,9 +113,6 @@ in
     python3
     pyright
     ruff
-
-    simple-completion-language-server
-    codebook
 
     taplo
     yaml-language-server

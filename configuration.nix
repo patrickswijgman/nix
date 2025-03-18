@@ -133,8 +133,8 @@
   # Environment variables.
   environment.sessionVariables = {
     # Set default editor.
-    EDITOR = "hx";
-    GIT_EDITOR = "hx";
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
 
     # Don't show "(.venv)" in shell prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
