@@ -26,19 +26,16 @@
 
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
-    # Shell
-    oh-my-posh
-
     # Dot file management
     chezmoi
 
     # CLI
     fzf
-    fd
     ripgrep
     tree
     openvpn
     bat
+    httpie
 
     # Presentations
     slides
@@ -51,6 +48,7 @@
 
     lua
     lua-language-server
+    stylua
 
     fish-lsp
 
@@ -79,7 +77,7 @@
 
     # Desktop apps
     gnome-tweaks
-    spotify
+    spot
     slack
     aseprite
   ];

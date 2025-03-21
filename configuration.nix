@@ -11,7 +11,7 @@
     "flakes"
   ];
 
-  # Allow unfree packages such as Spotify.
+  # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
   # Enable networking.
