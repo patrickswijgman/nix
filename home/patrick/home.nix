@@ -48,7 +48,6 @@
 
     lua
     lua-language-server
-    stylua
 
     fish-lsp
 
