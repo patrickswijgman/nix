@@ -26,10 +26,8 @@
 
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
-    # Dot file management
-    chezmoi
-
     # CLI
+    chezmoi
     fzf
     ripgrep
     tree
@@ -74,9 +72,11 @@
 
     yaml-language-server
 
+    # Terminal apps
+    spotify-player
+
     # Desktop apps
     gnome-tweaks
-    spot
     slack
     aseprite
   ];
