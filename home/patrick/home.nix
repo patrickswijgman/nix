@@ -19,14 +19,16 @@
     # Search for plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins+
     plugins = with pkgs.vimPlugins; [
       catppuccin-nvim
+      rose-pine
       nvim-lspconfig
       nvim-treesitter.withAllGrammars
-      telescope-nvim
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
-      cmp-cmdline
       conform-nvim
+      telescope-nvim
+      nvim-spider
+      auto-session
     ];
   };
 
