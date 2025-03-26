@@ -11,25 +11,24 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      ...
-    }:
+    { self, nixpkgs, ... }@inputs:
     {
       nixosConfigurations = {
         acer = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+          };
           modules = [
-            home-manager.nixosModules.default
             ./configuration.nix
             ./hosts/acer/configuration.nix
           ];
         };
 
         work = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+          };
           modules = [
-            home-manager.nixosModules.default
             ./configuration.nix
             ./hosts/work/configuration.nix
           ];

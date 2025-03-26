@@ -2,9 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
+  # Load modules from flakes.
+  imports = [
+    inputs.home-manager.nixosModules.default
+  ];
+
   # Enable flakes.
   nix.settings.experimental-features = [
     "nix-command"
@@ -96,6 +106,10 @@
   # Enable home manager.
   # See options here https://home-manager-options.extranix.com/?query=&release=release-24.11
   home-manager = {
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+
     # Use global nixpkgs config to allow unfree packages.
     useGlobalPkgs = true;
 

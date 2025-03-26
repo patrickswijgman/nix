@@ -21,6 +21,12 @@
       catppuccin-nvim
       nvim-lspconfig
       nvim-treesitter.withAllGrammars
+      telescope-nvim
+      nvim-cmp
+      cmp-nvim-lsp
+      cmp-buffer
+      cmp-cmdline
+      conform-nvim
     ];
   };
 
@@ -46,6 +52,7 @@
 
     lua
     lua-language-server
+    stylua
 
     fish-lsp
 
@@ -71,6 +78,7 @@
     ruff
 
     yaml-language-server
+    taplo
 
     # Terminal apps
     spotify-player
