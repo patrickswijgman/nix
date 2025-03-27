@@ -18,16 +18,18 @@
 
     # Search for plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins+
     plugins = with pkgs.vimPlugins; [
-      catppuccin-nvim
-      nvim-lspconfig
-      nvim-treesitter.withAllGrammars
-      nvim-cmp
-      cmp-nvim-lsp
-      cmp-buffer
-      conform-nvim
-      telescope-nvim
-      nvim-spider
       auto-session
+      catppuccin-nvim
+      cmp-buffer
+      cmp-nvim-lsp
+      conform-nvim
+      nvim-cmp
+      nvim-lspconfig
+      nvim-spider
+      nvim-surround
+      nvim-tree-lua
+      nvim-treesitter.withAllGrammars
+      telescope-nvim
     ];
   };
 
