@@ -30,6 +30,7 @@
       nvim-tree-lua
       nvim-treesitter.withAllGrammars
       telescope-nvim
+      zen-mode-nvim
     ];
   };
 
@@ -44,7 +45,7 @@
     bat
     httpie
 
-    # Presentations
+    # Presentations (language servers and formatters)
     slides
     graph-easy
     cowsay
