@@ -146,7 +146,7 @@
 
   # Environment variables.
   environment.sessionVariables = {
-    # Set default editor.
+    # Set defaults.
     EDITOR = "nvim";
     GIT_EDITOR = "nvim";
 

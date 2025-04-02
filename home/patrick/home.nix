@@ -25,6 +25,7 @@
       conform-nvim
       nvim-cmp
       nvim-lspconfig
+      nvim-spectre
       nvim-spider
       nvim-surround
       nvim-tree-lua
@@ -44,6 +45,8 @@
     openvpn
     bat
     httpie
+    btop
+    npm-check-updates
 
     # Presentations (language servers and formatters)
     slides
