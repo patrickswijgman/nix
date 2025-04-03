@@ -23,6 +23,7 @@
       cmp-buffer
       cmp-nvim-lsp
       conform-nvim
+      dressing-nvim
       nvim-cmp
       nvim-lspconfig
       nvim-spectre
@@ -46,12 +47,8 @@
     bat
     httpie
     btop
+    presenterm
     npm-check-updates
-
-    # Presentations (language servers and formatters)
-    slides
-    graph-easy
-    cowsay
 
     # Programming
     nixd
