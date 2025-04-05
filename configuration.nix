@@ -81,8 +81,8 @@
   };
 
   services.udev.extraRules = ''
-    # DSEA A/S EPOS ADAPT 1x5
     ATTRS{idVendor}=="1395", ATTRS{idProduct}=="0298", MODE="0666"
+    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a9", MODE="0666"
   '';
 
   # Enable CUPS to print documents.

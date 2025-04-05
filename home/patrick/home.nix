@@ -24,6 +24,7 @@
       cmp-nvim-lsp
       conform-nvim
       dressing-nvim
+      lualine-nvim
       nvim-cmp
       nvim-lspconfig
       nvim-spectre
