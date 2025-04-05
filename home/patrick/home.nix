@@ -23,7 +23,6 @@
       cmp-buffer
       cmp-nvim-lsp
       conform-nvim
-      dressing-nvim
       lualine-nvim
       nvim-cmp
       nvim-lspconfig
@@ -63,7 +62,7 @@
 
     nodejs_22
     typescript
-    typescript-language-server
+    vtsls
     vscode-langservers-extracted
     tailwindcss-language-server
     prettierd
