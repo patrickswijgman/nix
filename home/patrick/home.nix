@@ -15,30 +15,9 @@
   # Editor.
   programs.neovim = {
     enable = true;
-
-    # Search for plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins+
     plugins = with pkgs.vimPlugins; [
-      auto-session
-      cmp-buffer
-      cmp-nvim-lsp
-      conform-nvim
-      lualine-nvim
-      nvim-cmp
-      nvim-lspconfig
-      nvim-spectre
-      nvim-spider
-      nvim-surround
-      nvim-tree-lua
+      # Install only for all grammars.
       nvim-treesitter.withAllGrammars
-      telescope-nvim
-      zen-mode-nvim
-
-      # Colorschemes
-      catppuccin-nvim
-      poimandres-nvim
-      gruvbox-material
-      everforest
-      rose-pine
     ];
   };
 
@@ -48,6 +27,7 @@
     chezmoi
     fzf
     ripgrep
+    fd
     tree
     openvpn
     bat
@@ -95,7 +75,6 @@
     # Desktop apps
     gnome-tweaks
     slack
-    spotube
     aseprite
   ];
 
