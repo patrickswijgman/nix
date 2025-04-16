@@ -16,7 +16,7 @@
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
-      # Install only for all grammars.
+      # Installed only for the grammars.
       nvim-treesitter.withAllGrammars
     ];
   };
@@ -74,7 +74,6 @@
 
     # Desktop apps
     gnome-tweaks
-    slack
     aseprite
   ];
 
