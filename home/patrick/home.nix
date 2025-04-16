@@ -1,13 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the paths it should manage.
   home.username = "patrick";
   home.homeDirectory = "/home/patrick";
-
-  # Browsers.
-  programs.firefox.enable = true;
-  programs.chromium.enable = true;
 
   # Terminal.
   programs.ghostty.enable = true;
@@ -23,6 +24,9 @@
 
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
+    # Browser
+    (inputs.zen-browser.packages."${system}".default)
+
     # CLI
     chezmoi
     fzf
