@@ -16,9 +16,32 @@
   # Editor.
   programs.neovim = {
     enable = true;
+    # Find plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimplugins+
     plugins = with pkgs.vimPlugins; [
-      # Installed only for the grammars.
+      blink-cmp
+      conform-nvim
+      lualine-nvim
+      nvim-spectre
+      nvim-spider
+      nvim-surround
       nvim-treesitter.withAllGrammars
+      oil-nvim
+      telescope-nvim
+
+      # Dependencies
+      nvim-web-devicons
+      plenary-nvim
+
+      # Plugins that are unavailable in nixpkgs
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "vague";
+        src = pkgs.fetchFromGitHub {
+          owner = "vague2k";
+          repo = "vague.nvim";
+          rev = "982453f671332ce0240a15be5eb223d32f877e06";
+          hash = "sha256-QNHNMPPnGrITbzLCQQ8VfwSnJ/cKvc18mq8Kei/sA60=";
+        };
+      })
     ];
   };
 
