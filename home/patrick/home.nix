@@ -38,8 +38,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "vague2k";
           repo = "vague.nvim";
-          rev = "982453f671332ce0240a15be5eb223d32f877e06";
-          hash = "sha256-QNHNMPPnGrITbzLCQQ8VfwSnJ/cKvc18mq8Kei/sA60=";
+          rev = "1.3.1";
+          hash = "sha256-dDtYkRNK4BtWbYtoVDjsvDBmWCVhJ/+qoDt+mJmEKIQ=";
         };
       })
     ];
