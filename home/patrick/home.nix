@@ -5,6 +5,10 @@
   ...
 }:
 
+let
+  codebook = pkgs.callPackage ../../modules/codebook.nix { };
+  vague = pkgs.callPackage ../../modules/vim/plugins/vague.nix { };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should manage.
   home.username = "patrick";
@@ -21,27 +25,19 @@
       blink-cmp
       conform-nvim
       lualine-nvim
+      nvim-autopairs
       nvim-spectre
       nvim-spider
       nvim-surround
       nvim-treesitter.withAllGrammars
       oil-nvim
       telescope-nvim
+      vague
+      which-key-nvim
 
       # Dependencies
       nvim-web-devicons
       plenary-nvim
-
-      # Plugins that are unavailable in nixpkgs
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "vague";
-        src = pkgs.fetchFromGitHub {
-          owner = "vague2k";
-          repo = "vague.nvim";
-          rev = "1.3.1";
-          hash = "sha256-dDtYkRNK4BtWbYtoVDjsvDBmWCVhJ/+qoDt+mJmEKIQ=";
-        };
-      })
     ];
   };
 
@@ -49,6 +45,9 @@
   home.packages = with pkgs; [
     # Browser
     (inputs.zen-browser.packages."${system}".default)
+
+    # Shell
+    oh-my-posh
 
     # CLI
     chezmoi
@@ -98,6 +97,8 @@
 
     yaml-language-server
     taplo
+
+    codebook
 
     # Desktop apps
     gnome-tweaks
