@@ -3,9 +3,9 @@
 pkgs.vimUtils.buildVimPlugin {
   name = "vague";
   src = pkgs.fetchFromGitHub {
-    owner = "vague2k";
+    owner = "patrickswijgman";
     repo = "vague.nvim";
-    rev = "1.3.1";
-    hash = "sha256-dDtYkRNK4BtWbYtoVDjsvDBmWCVhJ/+qoDt+mJmEKIQ=";
+    rev = "f029318b771cdf746f6b470413c786ca6efd06cb";
+    hash = "sha256-d/raxCfHRcypTdfEHVqIEmQ2nVk5HdIvmiutxgaGxrU=";
   };
 }
