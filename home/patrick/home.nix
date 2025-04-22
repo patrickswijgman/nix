@@ -7,8 +7,8 @@
 
 let
   codebook = pkgs.callPackage ../../modules/codebook.nix { };
-  vague = pkgs.callPackage ../../modules/vim/plugins/vague.nix { };
-  lsp-loader-nvim = pkgs.callPackage ../../modules/vim/plugins/lsp-loader-nvim.nix { };
+  vague-nvim = pkgs.callPackage ../../modules/vim/plugins/vague-nvim.nix { };
+  lsp-extra-nvim = pkgs.callPackage ../../modules/vim/plugins/lsp-extra-nvim.nix { };
 in
 {
   # Home Manager needs a bit of information about you and the paths it should manage.
@@ -25,7 +25,7 @@ in
     plugins = with pkgs.vimPlugins; [
       blink-cmp
       conform-nvim
-      lsp-loader-nvim
+      lsp-extra-nvim
       lualine-nvim
       nvim-autopairs
       nvim-spectre
@@ -35,7 +35,7 @@ in
       oil-nvim
       render-markdown-nvim
       telescope-nvim
-      vague
+      vague-nvim
       which-key-nvim
 
       # Dependencies
