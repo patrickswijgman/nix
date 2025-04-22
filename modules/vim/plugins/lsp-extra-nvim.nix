@@ -5,7 +5,7 @@ pkgs.vimUtils.buildVimPlugin {
   src = pkgs.fetchFromGitHub {
     owner = "patrickswijgman";
     repo = "lsp-extra.nvim";
-    rev = "0e10ab13d1946b9077a40523d2ab60d6efbbb82a";
-    hash = "sha256-WxwhzDYqBLpCyhXDBy6AWmW3BUfh4TUXpoW4ps8a8o4=";
+    rev = "678e9277084df4868f7db34d27bf600433883e77";
+    hash = "sha256-9qycEQRz1Ob8Wlv3U4e4WtiBbi13zStj+pItr+BjE5k=";
   };
 }
