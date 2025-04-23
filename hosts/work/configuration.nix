@@ -19,4 +19,13 @@
 
   # Hostname.
   networking.hostName = "patrick-work";
+
+  # Docker.
+  virtualisation.docker.enable = true;
+
+  # WebHID devices.
+  services.udev.extraRules = ''
+    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="0298", MODE="0666"
+    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a9", MODE="0666"
+  '';
 }

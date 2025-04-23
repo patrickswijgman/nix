@@ -80,12 +80,6 @@
     };
   };
 
-  # WebHID devices.
-  services.udev.extraRules = ''
-    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="0298", MODE="0666"
-    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a9", MODE="0666"
-  '';
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -126,9 +120,6 @@
   # Shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
-
-  # Docker.
-  virtualisation.docker.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for pre-commit to execute git hooks.

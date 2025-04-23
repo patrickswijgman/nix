@@ -7,8 +7,8 @@
 
 let
   codebook = pkgs.callPackage ../../modules/codebook.nix { };
-  vague-nvim = pkgs.callPackage ../../modules/vim/plugins/vague-nvim.nix { };
   lsp-extra-nvim = pkgs.callPackage ../../modules/vim/plugins/lsp-extra-nvim.nix { };
+  vague-nvim = pkgs.callPackage ../../modules/vim/plugins/vague-nvim.nix { };
 in
 {
   # Home Manager needs a bit of information about you and the paths it should manage.
