@@ -15,9 +15,6 @@ in
   home.username = "patrick";
   home.homeDirectory = "/home/patrick";
 
-  # Terminal.
-  programs.ghostty.enable = true;
-
   # Editor.
   programs.neovim = {
     enable = true;
@@ -48,6 +45,10 @@ in
   home.packages = with pkgs; [
     # Browser
     (inputs.zen-browser.packages."${system}".default)
+    chromium
+
+    # Terminal
+    ghostty
 
     # Shell
     oh-my-posh
@@ -106,6 +107,7 @@ in
     # Desktop apps
     gnome-tweaks
     aseprite
+    shortwave
   ];
 
   systemd.user.services.pomodoro-timer = {
