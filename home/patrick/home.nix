@@ -22,6 +22,9 @@ in
     plugins = with pkgs.vimPlugins; [
       blink-cmp
       conform-nvim
+      diffview-nvim
+      gitsigns-nvim
+      leap-nvim
       lsp-extra-nvim
       lualine-nvim
       nvim-autopairs
@@ -37,7 +40,8 @@ in
 
       # Dependencies
       nvim-web-devicons
-      plenary-nvim
+      plenary-nvim # telescope
+      vim-repeat # leap
     ];
   };
 
