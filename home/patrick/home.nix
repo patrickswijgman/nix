@@ -8,7 +8,6 @@
 let
   codebook = pkgs.callPackage ../../modules/codebook.nix { };
   lsp-extra-nvim = pkgs.callPackage ../../modules/vim/plugins/lsp-extra-nvim.nix { };
-  vague-nvim = pkgs.callPackage ../../modules/vim/plugins/vague-nvim.nix { };
 in
 {
   # Home Manager needs a bit of information about you and the paths it should manage.
@@ -21,6 +20,7 @@ in
     # Find plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimplugins+
     plugins = with pkgs.vimPlugins; [
       blink-cmp
+      bufferline-nvim
       conform-nvim
       diffview-nvim
       gitsigns-nvim
@@ -35,8 +35,10 @@ in
       oil-nvim
       render-markdown-nvim
       telescope-nvim
-      vague-nvim
       which-key-nvim
+
+      # Colorschemes
+      catppuccin-nvim
 
       # Dependencies
       nvim-web-devicons
@@ -47,7 +49,7 @@ in
 
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
-    # Browser
+    # Browsers
     (inputs.zen-browser.packages."${system}".default)
     chromium
 
@@ -71,6 +73,7 @@ in
     presenterm
     npm-check-updates
     dive
+    appimage-run
 
     # Programming
     nixd

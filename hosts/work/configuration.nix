@@ -23,6 +23,18 @@
   # Docker.
   virtualisation.docker.enable = true;
 
+  # Firewall.
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      80
+      443
+    ];
+    allowedUDPPorts = [
+      3000
+    ];
+  };
+
   # WebHID devices.
   services.udev.extraRules = ''
     ATTRS{idVendor}=="1395", ATTRS{idProduct}=="0298", MODE="0666"
