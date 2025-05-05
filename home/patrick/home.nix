@@ -34,6 +34,7 @@ in
       nvim-treesitter.withAllGrammars
       oil-nvim
       render-markdown-nvim
+      scope-nvim
       telescope-nvim
       which-key-nvim
 
@@ -114,6 +115,7 @@ in
     # Desktop apps
     gnome-tweaks
     aseprite
+    discord
     shortwave
   ];
 

@@ -134,7 +134,18 @@
     git
     wl-clipboard
     gcc
+    protonup
   ];
+
+  # Gaming.
+  # Check Linux compatibility with Proton here: https://www.protondb.com/
+  # Use `protonup` to download the latest version. Set in compatibility settings.
+  programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
+  programs.gamemode.enable = true; # Use 'gamemoderun %command%' in Steam game launch options.
+
+  # Enable OpenGL.
+  hardware.graphics.enable = true;
 
   # Environment variables.
   environment.sessionVariables = {
@@ -147,6 +158,9 @@
 
     # Enable Wayland for Electron apps.
     NIXOS_OZONE_WL = "1";
+
+    # Enable Proton GE for Steam.
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/patrick/.steam/root/compatibilitytools.d";
   };
 
   # This value determines the NixOS release from which the default
