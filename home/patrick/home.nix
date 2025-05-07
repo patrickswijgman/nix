@@ -7,46 +7,11 @@
 
 let
   codebook = pkgs.callPackage ../../modules/codebook.nix { };
-  lsp-extra-nvim = pkgs.callPackage ../../modules/vim/plugins/lsp-extra-nvim.nix { };
 in
 {
   # Home Manager needs a bit of information about you and the paths it should manage.
   home.username = "patrick";
   home.homeDirectory = "/home/patrick";
-
-  # Editor.
-  programs.neovim = {
-    enable = true;
-    # Find plugins here https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimplugins+
-    plugins = with pkgs.vimPlugins; [
-      blink-cmp
-      bufferline-nvim
-      conform-nvim
-      diffview-nvim
-      gitsigns-nvim
-      leap-nvim
-      lsp-extra-nvim
-      lualine-nvim
-      nvim-autopairs
-      nvim-spectre
-      nvim-spider
-      nvim-surround
-      nvim-treesitter.withAllGrammars
-      oil-nvim
-      render-markdown-nvim
-      scope-nvim
-      telescope-nvim
-      which-key-nvim
-
-      # Colorschemes
-      catppuccin-nvim
-
-      # Dependencies
-      nvim-web-devicons
-      plenary-nvim # telescope
-      vim-repeat # leap
-    ];
-  };
 
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
@@ -59,6 +24,9 @@ in
 
     # Shell
     oh-my-posh
+
+    # Editor
+    helix
 
     # CLI
     chezmoi
