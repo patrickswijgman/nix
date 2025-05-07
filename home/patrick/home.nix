@@ -50,10 +50,6 @@ in
     nixd
     nixfmt-rfc-style
 
-    lua
-    lua-language-server
-    stylua
-
     fish-lsp
 
     nodejs_22
