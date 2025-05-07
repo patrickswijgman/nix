@@ -36,12 +36,14 @@ in
     tree
     openvpn
     bat
+    lazygit
+    lazydocker
+    dive
     httpie
     btop
     pomodoro
     presenterm
     npm-check-updates
-    dive
     appimage-run
 
     # Programming
@@ -75,6 +77,7 @@ in
     pyright
     ruff
 
+    simple-completion-language-server
     yaml-language-server
     taplo
 
