@@ -9,11 +9,13 @@
   ...
 }:
 
+let
+  zen-browser = inputs.zen-browser.packages."${pkgs.system}".default;
+  codebook = pkgs.callPackage ./modules/codebook.nix { };
+in
 {
   # Load modules from flakes.
-  imports = [
-    inputs.home-manager.nixosModules.default
-  ];
+  imports = [ ];
 
   # Enable flakes.
   nix.settings.experimental-features = [
@@ -103,20 +105,6 @@
     ];
   };
 
-  # Enable home manager.
-  # See options here https://home-manager-options.extranix.com/?query=&release=release-24.11
-  home-manager = {
-    extraSpecialArgs = {
-      inherit inputs;
-    };
-
-    # Use global nixpkgs config to allow unfree packages.
-    useGlobalPkgs = true;
-
-    # Keep the home manager configuration separate.
-    users.patrick = import ./home/patrick/home.nix;
-  };
-
   # Shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
@@ -136,6 +124,70 @@
     gcc
     protonup
     xdg-terminal-exec
+
+    # Browsers
+    zen-browser
+    chromium
+
+    # Terminal
+    ghostty
+
+    # Shell
+    oh-my-posh
+
+    # Editor
+    helix
+
+    # CLI
+    chezmoi
+    fzf
+    ripgrep
+    fd
+    tree
+    broot
+    openvpn
+    bat
+    lazygit
+    lazydocker
+    dive
+    httpie
+    btop
+    presenterm
+    npm-check-updates
+    appimage-run
+
+    # Programming
+    nixd
+    nixfmt-rfc-style
+
+    fish-lsp
+
+    nodejs_22
+    typescript
+    vtsls
+    vscode-langservers-extracted
+    tailwindcss-language-server
+    prettierd
+
+    go
+    gopls
+    golangci-lint
+    golangci-lint-langserver
+
+    python3
+    pyright
+    ruff
+
+    yaml-language-server
+    taplo
+
+    codebook
+    simple-completion-language-server
+
+    # Desktop apps
+    gnome-tweaks
+    aseprite
+    discord
   ];
 
   # Gaming.
