@@ -99,7 +99,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker" # Provide access to the Docker socket.
+      "video"
     ];
   };
 
@@ -135,11 +135,12 @@
     wl-clipboard
     gcc
     protonup
+    xdg-terminal-exec
   ];
 
   # Gaming.
   # Check Linux compatibility with Proton here: https://www.protondb.com/
-  # Use `protonup` to download the latest version. Set in compatibility settings.
+  # Use `protonup` to download the latest Proton GE version. Set in compatibility settings.
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;
   programs.gamemode.enable = true; # Use 'gamemoderun %command%' in Steam game launch options.
@@ -150,6 +151,8 @@
   # Environment variables.
   environment.sessionVariables = {
     # Set defaults.
+    BROWSER = "zen";
+    TERMINAL = "ghostty";
     EDITOR = "hx";
     GIT_EDITOR = "hx";
 

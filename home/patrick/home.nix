@@ -6,6 +6,7 @@
 }:
 
 let
+  zen-browser = inputs.zen-browser.packages."${pkgs.system}".default;
   codebook = pkgs.callPackage ../../modules/codebook.nix { };
 in
 {
@@ -16,7 +17,7 @@ in
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
     # Browsers
-    (inputs.zen-browser.packages."${system}".default)
+    zen-browser
     chromium
 
     # Terminal
@@ -34,6 +35,7 @@ in
     ripgrep
     fd
     tree
+    broot
     openvpn
     bat
     lazygit

@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -22,6 +27,9 @@
 
   # Docker.
   virtualisation.docker.enable = true;
+  users.users.patrick.extraGroups = [
+    "docker" # Provide access to the Docker socket.
+  ];
 
   # Firewall.
   networking.firewall = {
