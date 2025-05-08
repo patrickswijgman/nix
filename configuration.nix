@@ -174,6 +174,11 @@ in
     golangci-lint
     golangci-lint-langserver
 
+    rustc
+    cargo
+    rustfmt
+    rust-analyzer
+
     python3
     pyright
     ruff
