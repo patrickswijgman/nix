@@ -10,13 +10,9 @@
 }:
 
 let
-  zen-browser = inputs.zen-browser.packages."${pkgs.system}".default;
-  codebook = pkgs.callPackage ./modules/codebook.nix { };
+  zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
 in
 {
-  # Load modules from flakes.
-  imports = [ ];
-
   # Enable flakes.
   nix.settings.experimental-features = [
     "nix-command"
@@ -68,6 +64,14 @@ in
         xdg-desktop-portal-gtk
       ];
     };
+
+    # Set default terminal in GNOME.
+    terminal-exec = {
+      enable = true;
+      settings = {
+        GNOME = [ "com.mitchellh.ghostty.desktop" ];
+      };
+    };
   };
 
   # Enable Bluetooth.
@@ -92,6 +96,7 @@ in
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -110,20 +115,22 @@ in
   users.defaultUserShell = pkgs.fish;
 
   # Enable dynamic linker to execute dynamic binaries.
-  # Needed for pre-commit to execute git hooks.
   # Needed for Zed to download and execute language servers.
+  # Needed for pre-commit to execute git hooks.
   programs.nix-ld.enable = true;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
+    # Core
     usbutils
     vim
     curl
     git
     wl-clipboard
     gcc
-    protonup
-    xdg-terminal-exec
+
+    # Fonts
+    nerd-fonts.fira-code
 
     # Browsers
     zen-browser
@@ -135,8 +142,9 @@ in
     # Shell
     oh-my-posh
 
-    # Editor
-    helix
+    # Editors
+    zed-editor
+    neovim
 
     # CLI
     chezmoi
@@ -144,11 +152,8 @@ in
     ripgrep
     fd
     tree
-    broot
     openvpn
     bat
-    lazygit
-    lazydocker
     dive
     httpie
     btop
@@ -156,43 +161,48 @@ in
     npm-check-updates
     appimage-run
 
+    # Terminal apps
+    lazygit
+    lazydocker
+
     # Programming
     nixd
     nixfmt-rfc-style
 
-    fish-lsp
+    # fish-lsp
 
     nodejs_22
-    typescript
-    vtsls
-    vscode-langservers-extracted
-    tailwindcss-language-server
-    prettierd
+    # typescript
+    # vtsls
+    # vscode-langservers-extracted
+    # tailwindcss-language-server
+    # prettierd
 
     go
-    gopls
-    golangci-lint
-    golangci-lint-langserver
-
-    rustc
-    cargo
-    rustfmt
-    rust-analyzer
+    # gopls
+    # golangci-lint
+    # golangci-lint-langserver
 
     python3
-    pyright
-    ruff
+    # pyright
+    # ruff
 
-    yaml-language-server
-    taplo
+    # marksman
+    # taplo
+    # yaml-language-server
 
-    codebook
-    simple-completion-language-server
+    # codebook
+    # simple-completion-language-server
 
     # Desktop apps
     gnome-tweaks
     aseprite
     discord
+    guitarix
+    helvum
+
+    # Gaming
+    protonup
   ];
 
   # Gaming.
@@ -210,8 +220,8 @@ in
     # Set defaults.
     BROWSER = "zen";
     TERMINAL = "ghostty";
-    EDITOR = "hx";
-    GIT_EDITOR = "hx";
+    EDITOR = "zeditor";
+    GIT_EDITOR = "nvim";
 
     # Don't show "(.venv)" in shell prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";

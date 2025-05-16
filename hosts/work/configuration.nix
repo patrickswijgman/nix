@@ -40,6 +40,10 @@
     ];
     allowedUDPPorts = [
       3000
+      5050
+      8008
+      8009
+      8448
     ];
   };
 
@@ -47,5 +51,6 @@
   services.udev.extraRules = ''
     ATTRS{idVendor}=="1395", ATTRS{idProduct}=="0298", MODE="0666"
     ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a9", MODE="0666"
+    ATTRS{idVendor}=="6993", ATTRS{idProduct}=="b017", MODE="0666"
   '';
 }
