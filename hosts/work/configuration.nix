@@ -27,9 +27,7 @@
 
   # Docker.
   virtualisation.docker.enable = true;
-  users.users.patrick.extraGroups = [
-    "docker" # Provide access to the Docker socket.
-  ];
+  users.users.patrick.extraGroups = [ "docker" ];
 
   # Firewall.
   networking.firewall = {
@@ -41,10 +39,10 @@
     allowedUDPPorts = [
       3000
       5050
-      8008
-      8009
-      8448
     ];
+    extraCommands = ''
+      iptables -A INPUT -s 172.17.0.1/16 -p tcp --dport 8008 -j ACCEPT
+    '';
   };
 
   # WebHID devices.

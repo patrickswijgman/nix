@@ -116,7 +116,7 @@ in
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download and execute language servers.
-  # Needed for pre-commit to execute git hooks.
+  # Needed for pre-commit to execute downloaded git hooks.
   programs.nix-ld.enable = true;
 
   # System-wide packages.
@@ -130,7 +130,7 @@ in
     gcc
 
     # Fonts
-    nerd-fonts.fira-code
+    nerd-fonts.zed-mono
 
     # Browsers
     zen-browser
@@ -168,31 +168,9 @@ in
     # Programming
     nixd
     nixfmt-rfc-style
-
-    # fish-lsp
-
     nodejs_22
-    # typescript
-    # vtsls
-    # vscode-langservers-extracted
-    # tailwindcss-language-server
-    # prettierd
-
     go
-    # gopls
-    # golangci-lint
-    # golangci-lint-langserver
-
     python3
-    # pyright
-    # ruff
-
-    # marksman
-    # taplo
-    # yaml-language-server
-
-    # codebook
-    # simple-completion-language-server
 
     # Desktop apps
     gnome-tweaks
@@ -203,6 +181,7 @@ in
 
     # Gaming
     protonup
+    lutris
   ];
 
   # Gaming.
@@ -214,6 +193,7 @@ in
 
   # Enable OpenGL.
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
 
   # Environment variables.
   environment.sessionVariables = {
