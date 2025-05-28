@@ -10,6 +10,8 @@
 }:
 
 let
+  playwright-test = inputs.playwright.packages.${pkgs.system}.playwright-test;
+  playwright-driver = inputs.playwright.packages.${pkgs.system}.playwright-driver;
   zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
 in
 {
@@ -107,6 +109,7 @@ in
       "networkmanager"
       "wheel"
       "video"
+      "audio"
     ];
   };
 
@@ -130,7 +133,7 @@ in
     gcc
 
     # Fonts
-    nerd-fonts.zed-mono
+    nerd-fonts.hack
 
     # Browsers
     zen-browser
@@ -172,16 +175,23 @@ in
     go
     python3
 
-    # Desktop apps
-    gnome-tweaks
-    aseprite
-    discord
+    # Music
     guitarix
     helvum
+    qjackctl
 
     # Gaming
     protonup
     lutris
+
+    # Desktop apps
+    gnome-tweaks
+    aseprite
+    discord
+
+    # Work
+    playwright-test
+    playwright-driver
   ];
 
   # Gaming.
@@ -211,6 +221,11 @@ in
 
     # Enable Proton GE for Steam.
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/patrick/.steam/root/compatibilitytools.d";
+
+    # Playwright
+    PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+    PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
   };
 
   # This value determines the NixOS release from which the default

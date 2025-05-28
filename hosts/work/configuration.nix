@@ -40,9 +40,6 @@
       3000
       5050
     ];
-    extraCommands = ''
-      iptables -A INPUT -s 172.17.0.1/16 -p tcp --dport 8008 -j ACCEPT
-    '';
   };
 
   # WebHID devices.
