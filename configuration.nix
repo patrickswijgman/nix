@@ -12,9 +12,13 @@
 let
   playwright-test = inputs.playwright.packages.${pkgs.system}.playwright-test;
   playwright-driver = inputs.playwright.packages.${pkgs.system}.playwright-driver;
-  zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
 in
 {
+  # Load modules from flakes.
+  imports = [
+    inputs.home-manager.nixosModules.default
+  ];
+
   # Enable flakes.
   nix.settings.experimental-features = [
     "nix-command"
@@ -57,6 +61,30 @@ in
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  # Remove unused GNOME default software.
+  environment.gnome.excludePackages = with pkgs; [
+    decibels # Audio Player
+    epiphany # Web Browser
+    evince # Document Viewer
+    file-roller
+    geary # Mail
+    gnome-calendar
+    gnome-characters
+    # gnome-clocks
+    gnome-connections
+    gnome-contacts
+    gnome-font-viewer
+    gnome-logs
+    gnome-maps
+    gnome-music
+    gnome-tour
+    gnome-weather
+    simple-scan # Document Scanner
+    snapshot # Camera
+    totem # Videos
+    yelp # Help
+  ];
+
   # Enable screen sharing in Wayland.
   xdg = {
     portal = {
@@ -68,12 +96,12 @@ in
     };
 
     # Set default terminal in GNOME.
-    terminal-exec = {
-      enable = true;
-      settings = {
-        GNOME = [ "com.mitchellh.ghostty.desktop" ];
-      };
-    };
+    # terminal-exec = {
+    #   enable = true;
+    #   settings = {
+    #     GNOME = [ "com.mitchellh.ghostty.desktop" ];
+    #   };
+    # };
   };
 
   # Enable Bluetooth.
@@ -105,12 +133,25 @@ in
   users.users.patrick = {
     isNormalUser = true;
     description = "Patrick";
+    useDefaultShell = true;
     extraGroups = [
       "networkmanager"
       "wheel"
       "video"
       "audio"
     ];
+  };
+
+  # Enable home manager.
+  # See options here https://home-manager-options.extranix.com/?query=&release=release-24.11
+  home-manager = {
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+    # Use global nixpkgs config to allow unfree packages.
+    useGlobalPkgs = true;
+    # Keep the home manager configuration separate.
+    users.patrick = import ./home/patrick/home.nix;
   };
 
   # Shell.
@@ -122,9 +163,25 @@ in
   # Needed for pre-commit to execute downloaded git hooks.
   programs.nix-ld.enable = true;
 
+  # Run AppImage files.
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
+  # Gaming.
+  # Check Linux compatibility with Proton here: https://www.protondb.com/
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
+  };
+  programs.gamemode.enable = true; # Use 'gamemoderun %command%' in Steam game launch options.
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+
   # System-wide packages.
   environment.systemPackages = with pkgs; [
-    # Core
     usbutils
     vim
     curl
@@ -132,97 +189,27 @@ in
     wl-clipboard
     gcc
 
-    # Fonts
-    nerd-fonts.hack
-
-    # Browsers
-    zen-browser
-    chromium
-
-    # Terminal
-    ghostty
-
-    # Shell
-    oh-my-posh
-
-    # Editors
-    zed-editor
-    neovim
-
-    # CLI
-    chezmoi
-    fzf
-    ripgrep
-    fd
-    tree
-    openvpn
-    bat
-    dive
-    httpie
-    btop
-    presenterm
-    npm-check-updates
-    appimage-run
-
-    # Terminal apps
-    lazygit
-    lazydocker
-
-    # Programming
-    nixd
-    nixfmt-rfc-style
-    nodejs_22
-    go
-    python3
-
-    # Music
-    guitarix
-    helvum
-    qjackctl
-
-    # Gaming
-    protonup
-    lutris
-
-    # Desktop apps
-    gnome-tweaks
-    aseprite
-    discord
-
-    # Work
+    # Playwright
+    # Needs to be at system level because the environment variables point to system level as well.
     playwright-test
     playwright-driver
   ];
 
-  # Gaming.
-  # Check Linux compatibility with Proton here: https://www.protondb.com/
-  # Use `protonup` to download the latest Proton GE version. Set in compatibility settings.
-  programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true;
-  programs.gamemode.enable = true; # Use 'gamemoderun %command%' in Steam game launch options.
-
-  # Enable OpenGL.
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
-
   # Environment variables.
+  # Can't be set per user as the shell is not configured via home-manager.
   environment.sessionVariables = {
+    # Enable Wayland for Electron apps.
+    NIXOS_OZONE_WL = "1";
+
     # Set defaults.
     BROWSER = "zen";
-    TERMINAL = "ghostty";
     EDITOR = "zeditor";
     GIT_EDITOR = "nvim";
 
     # Don't show "(.venv)" in shell prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
-    # Enable Wayland for Electron apps.
-    NIXOS_OZONE_WL = "1";
-
-    # Enable Proton GE for Steam.
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/patrick/.steam/root/compatibilitytools.d";
-
-    # Playwright
+    # Playwright.
     PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
     PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
     PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
