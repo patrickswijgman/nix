@@ -24,16 +24,6 @@
     { self, nixpkgs, ... }@inputs:
     {
       nixosConfigurations = {
-        acer = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./configuration.nix
-            ./hosts/acer/configuration.nix
-          ];
-        };
-
         work = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;

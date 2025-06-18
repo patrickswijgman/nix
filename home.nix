@@ -23,10 +23,13 @@
   programs.zed-editor.enable = true;
   programs.neovim.enable = true;
 
+  # Terminal
+  programs.ghostty.enable = true;
+
   # Packages (that don't have a 'programs.<package>' option).
   home.packages = with pkgs; [
     # Fonts
-    nerd-fonts.hack # Install for nerd icons fallback.
+    nerd-fonts.hack # Install for nerd font icons.
 
     # Shell
     oh-my-posh
@@ -60,39 +63,22 @@
     helvum
     qjackctl
 
-    # Gaming
-    lutris
-
     # Desktop apps
     gnome-tweaks
     aseprite
   ];
 
-  # Overwrite desktop entries with e.g. a custom icon.
-  xdg.desktopEntries = {
-    "dev.zed.Zed" = {
-      type = "Application";
-      name = "Zed";
-      genericName = "Text Editor";
-      comment = "A high-performance, multiplayer code editor.";
-      startupNotify = true;
-      exec = "zeditor %U";
-      icon = ../../assets/zed.png;
-      categories = [
-        "Utility"
-        "TextEditor"
-        "Development"
-        "IDE"
-      ];
-      mimeType = [
-        "text/plain"
-        "application/x-zerosize"
-        "x-scheme-handler/zed"
-      ];
+  # Gaming
+  programs.lutris = {
+    enable = true;
+    protonPackages = [ pkgs.proton-ge-bin ];
+    winePackages = [ pkgs.wineWow64Packages.full ];
+    runners.steam.settings.system = {
+      prefix_command = "gamemoderun";
     };
   };
 
-  # Enable font config so that applications can find installed fonts such as Zed.
+  # Enable font config so that applications e.g. Zed can find installed fonts.
   fonts.fontconfig = {
     enable = true;
   };

@@ -56,6 +56,7 @@ in
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.excludePackages = [ pkgs.xterm ];
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
@@ -72,6 +73,7 @@ in
     gnome-characters
     # gnome-clocks
     gnome-connections
+    gnome-console
     gnome-contacts
     gnome-font-viewer
     gnome-logs
@@ -96,12 +98,12 @@ in
     };
 
     # Set default terminal in GNOME.
-    # terminal-exec = {
-    #   enable = true;
-    #   settings = {
-    #     GNOME = [ "com.mitchellh.ghostty.desktop" ];
-    #   };
-    # };
+    terminal-exec = {
+      enable = true;
+      settings = {
+        GNOME = [ "com.mitchellh.ghostty.desktop" ];
+      };
+    };
   };
 
   # Enable Bluetooth.
@@ -151,7 +153,7 @@ in
     # Use global nixpkgs config to allow unfree packages.
     useGlobalPkgs = true;
     # Keep the home manager configuration separate.
-    users.patrick = import ./home/patrick/home.nix;
+    users.patrick = import ./home.nix;
   };
 
   # Shell.
@@ -172,9 +174,7 @@ in
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
+    extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
   programs.gamemode.enable = true; # Use 'gamemoderun %command%' in Steam game launch options.
   hardware.graphics.enable = true;
@@ -203,6 +203,7 @@ in
 
     # Set defaults.
     BROWSER = "zen";
+    TERMINAL = "ghostty";
     EDITOR = "zeditor";
     GIT_EDITOR = "nvim";
 
