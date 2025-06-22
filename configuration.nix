@@ -14,10 +14,17 @@ let
   playwright-driver = inputs.playwright.packages.${pkgs.system}.playwright-driver;
 in
 {
-  # Load modules from flakes.
   imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+
+    # Include modules from flakes.
     inputs.home-manager.nixosModules.default
   ];
+
+  ###########
+  # General #
+  ###########
 
   # Enable flakes.
   nix.settings.experimental-features = [
@@ -28,8 +35,65 @@ in
   # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
+  ########
+  # Boot #
+  ########
+
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  # Don't show generations list on boot.
+  # Should be able to press any key to show generations list.
+  boot.loader.timeout = 0;
+
+  # Encryption.
+  boot.initrd.luks.devices."luks-48be1776-f83e-4539-907c-eaf00884fa7e".device =
+    "/dev/disk/by-uuid/48be1776-f83e-4539-907c-eaf00884fa7e";
+
+  ##########################
+  # Networking and devices #
+  ##########################
+
   # Enable networking.
   networking.networkmanager.enable = true;
+
+  # Hostname.
+  networking.hostName = "patrick-work";
+
+  # Firewall.
+  networking.firewall = {
+    enable = true;
+    allowedUDPPorts = [
+      3000
+      5050
+    ];
+  };
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable Bluetooth.
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        # Enable A2DP profile for modern headsets.
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
+  };
+
+  # WebHID devices.
+  services.udev.extraRules = ''
+    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="0298", MODE="0666"
+    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a9", MODE="0666"
+    ATTRS{idVendor}=="6993", ATTRS{idProduct}=="b017", MODE="0666"
+  '';
+
+  ########################
+  # Internationalization #
+  ########################
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -53,6 +117,10 @@ in
     layout = "us";
     variant = "";
   };
+
+  #######################
+  # Desktop Environment #
+  #######################
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -106,21 +174,6 @@ in
     };
   };
 
-  # Enable Bluetooth.
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        # Enable A2DP profile for modern headsets.
-        Enable = "Source,Sink,Media,Socket";
-      };
-    };
-  };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Enable multimedia via PipeWire.
   security.rtkit.enable = true;
   services.pipewire = {
@@ -130,6 +183,17 @@ in
     pulse.enable = true;
     jack.enable = true;
   };
+
+  ############
+  # Services #
+  ############
+
+  # Enable Docker.
+  virtualisation.docker.enable = true;
+
+  ###############
+  # User (home) #
+  ###############
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.patrick = {
@@ -141,6 +205,7 @@ in
       "wheel"
       "video"
       "audio"
+      "docker"
     ];
   };
 
@@ -153,7 +218,86 @@ in
     # Use global nixpkgs config to allow unfree packages.
     useGlobalPkgs = true;
     # Keep the home manager configuration separate.
-    users.patrick = import ./home.nix;
+    users.patrick = {
+      # Load home-manager modules.
+      imports = [
+        inputs.zen-browser.homeModules.beta
+      ];
+
+      # Home Manager needs a bit of information about you and the paths it should manage.
+      home.username = "patrick";
+      home.homeDirectory = "/home/patrick";
+
+      # Browsers
+      programs.zen-browser.enable = true;
+      programs.chromium.enable = true;
+
+      # Editors
+      programs.zed-editor.enable = true;
+      programs.neovim.enable = true;
+
+      # Terminal
+      programs.ghostty.enable = true;
+
+      # Packages (that don't have a 'programs.<package>' option).
+      home.packages = with pkgs; [
+        # Fonts
+        nerd-fonts.hack # Install for nerd font icons.
+
+        # Shell
+        oh-my-posh
+
+        # CLI
+        chezmoi
+        fzf
+        ripgrep
+        fd
+        tree
+        openvpn
+        bat
+        dive
+        httpie
+        presenterm
+        npm-check-updates
+
+        # Terminal apps
+        lazygit
+        lazydocker
+
+        # Programming
+        nixd
+        nixfmt-rfc-style
+        nodejs_22
+        go
+        python3
+
+        # Music
+        guitarix
+        helvum
+        qjackctl
+
+        # Desktop apps
+        gnome-tweaks
+        aseprite
+      ];
+
+      # Enable font config so that applications e.g. Zed can find installed fonts.
+      fonts.fontconfig = {
+        enable = true;
+      };
+
+      # Let Home Manager install and manage itself.
+      programs.home-manager.enable = true;
+
+      # This value determines the Home Manager release that your configuration is
+      # compatible with. This helps avoid breakage when a new Home Manager release
+      # introduces backwards incompatible changes.
+      #
+      # You should not change this value, even if you update Home Manager. If you do
+      # want to update the value, then make sure to first check the Home Manager
+      # release notes.
+      home.stateVersion = "24.11"; # Please read the comment before changing.
+    };
   };
 
   # Shell.
@@ -169,16 +313,25 @@ in
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 
-  # Gaming.
+  ##########
+  # Gaming #
+  ##########
+
   # Check Linux compatibility with Proton here: https://www.protondb.com/
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
+
   programs.gamemode.enable = true; # Use 'gamemoderun %command%' in Steam game launch options.
+
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
+
+  ##########
+  # System #
+  ##########
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [

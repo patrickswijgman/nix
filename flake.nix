@@ -24,13 +24,12 @@
     { self, nixpkgs, ... }@inputs:
     {
       nixosConfigurations = {
-        work = nixpkgs.lib.nixosSystem {
+        default = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
           };
           modules = [
             ./configuration.nix
-            ./hosts/work/configuration.nix
           ];
         };
       };
