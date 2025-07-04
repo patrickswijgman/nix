@@ -10,7 +10,6 @@
 }:
 
 let
-  zen-browser = inputs.zen-browser.packages.${pkgs.system}.default;
   playwright-test = inputs.playwright.packages.${pkgs.system}.playwright-test;
   playwright-driver = inputs.playwright.packages.${pkgs.system}.playwright-driver;
 in
@@ -18,6 +17,9 @@ in
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
+    # Load modules from flakes.
+    inputs.home-manager.nixosModules.default
   ];
 
   ###########
@@ -207,6 +209,18 @@ in
     ];
   };
 
+  # Enable home manager.
+  # See options here https://home-manager-options.extranix.com/?query=&release=release-24.11
+  home-manager = {
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+    # Use global nixpkgs config to allow unfree packages.
+    useGlobalPkgs = true;
+    # Keep the home manager configuration separate.
+    users.patrick = import ./home/patrick/home.nix;
+  };
+
   ############
   # Programs #
   ############
@@ -237,69 +251,6 @@ in
     wl-clipboard
     gcc
 
-    # Browsers
-    zen-browser
-    chromium
-
-    # Editors
-    helix
-
-    # Terminal
-    ghostty
-
-    # Shell
-    oh-my-posh
-
-    # CLI
-    chezmoi
-    fzf
-    ripgrep
-    fd
-    tree
-    openvpn
-    bat
-    dive
-    httpie
-    presenterm
-    npm-check-updates
-
-    # Terminal apps
-    lazygit
-    lazydocker
-
-    # Programming
-    nixd
-    nixfmt-rfc-style
-
-    nodejs_22
-    vtsls
-    prettierd
-    biome
-
-    go
-
-    rustc
-    cargo
-    rust-analyzer
-    rustfmt
-
-    python3
-    pyright
-    ruff
-
-    taplo
-    yaml-language-server
-    vscode-json-languageserver
-
-    # Music
-    guitarix
-    helvum
-    qjackctl
-
-    # Desktop apps
-    gnome-tweaks
-    aseprite
-
     # Playwright
     # Needs to be at system level because the environment variables point to system level as well.
     playwright-test
@@ -315,8 +266,8 @@ in
     # Set defaults.
     BROWSER = "zen";
     TERMINAL = "ghostty";
-    EDITOR = "hx";
-    GIT_EDITOR = "hx";
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
 
     # Don't show "(.venv)" in shell prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
