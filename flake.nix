@@ -24,12 +24,15 @@
     { self, nixpkgs, ... }@inputs:
     {
       nixosConfigurations = {
-        default = nixpkgs.lib.nixosSystem {
+        work = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
           };
           modules = [
             ./configuration.nix
+            ./hosts/work/configuration.nix
+            ./modules/desktop-environment/gnome.nix
+            ./home/patrick/home.nix
           ];
         };
       };

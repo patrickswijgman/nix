@@ -15,16 +15,9 @@ let
 in
 {
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-
     # Load modules from flakes.
     inputs.home-manager.nixosModules.default
   ];
-
-  ###########
-  # General #
-  ###########
 
   # Enable flakes.
   nix.settings.experimental-features = [
@@ -35,65 +28,11 @@ in
   # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
-  ########
-  # Boot #
-  ########
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  # Don't show generations list on boot.
-  # Should be able to press any key to show generations list.
-  boot.loader.timeout = 0;
-
-  # Encryption.
-  boot.initrd.luks.devices."luks-48be1776-f83e-4539-907c-eaf00884fa7e".device =
-    "/dev/disk/by-uuid/48be1776-f83e-4539-907c-eaf00884fa7e";
-
-  ##########################
-  # Networking and devices #
-  ##########################
-
   # Enable networking.
   networking.networkmanager.enable = true;
 
-  # Hostname.
-  networking.hostName = "patrick-work";
-
-  # Firewall.
-  networking.firewall = {
-    enable = true;
-    allowedUDPPorts = [
-      3000
-      5050
-    ];
-  };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable Bluetooth.
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        # Enable A2DP profile for modern headsets.
-        Enable = "Source,Sink,Media,Socket";
-      };
-    };
-  };
-
-  # WebHID devices.
-  services.udev.extraRules = ''
-    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="0298", MODE="0666"
-    ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a9", MODE="0666"
-    ATTRS{idVendor}=="6993", ATTRS{idProduct}=="b017", MODE="0666"
-  '';
-
-  ########################
-  # Internationalization #
-  ########################
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -118,62 +57,6 @@ in
     variant = "";
   };
 
-  #######################
-  # Desktop Environment #
-  #######################
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.excludePackages = [ pkgs.xterm ];
-
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
-  # Remove unused GNOME default software.
-  environment.gnome.excludePackages = with pkgs; [
-    decibels # Audio Player
-    epiphany # Web Browser
-    evince # Document Viewer
-    file-roller
-    geary # Mail
-    gnome-calendar
-    gnome-characters
-    # gnome-clocks
-    gnome-connections
-    gnome-console
-    gnome-contacts
-    gnome-font-viewer
-    gnome-logs
-    gnome-maps
-    gnome-music
-    gnome-tour
-    gnome-weather
-    simple-scan # Document Scanner
-    snapshot # Camera
-    totem # Videos
-    yelp # Help
-  ];
-
-  # Enable screen sharing in Wayland.
-  xdg = {
-    portal = {
-      enable = true;
-      configPackages = with pkgs; [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
-    };
-
-    # Set default terminal in GNOME.
-    terminal-exec = {
-      enable = true;
-      settings = {
-        GNOME = [ "com.mitchellh.ghostty.desktop" ];
-      };
-    };
-  };
-
   # Enable multimedia via PipeWire.
   security.rtkit.enable = true;
   services.pipewire = {
@@ -184,63 +67,12 @@ in
     jack.enable = true;
   };
 
-  ############
-  # Services #
-  ############
-
-  # Enable Docker.
-  virtualisation.docker.enable = true;
-
-  ########
-  # User #
-  ########
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.patrick = {
-    isNormalUser = true;
-    description = "Patrick";
-    useDefaultShell = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "video"
-      "audio"
-      "docker"
-    ];
-  };
-
   # Enable home manager.
   # See options here https://home-manager-options.extranix.com/?query=&release=release-24.11
   home-manager = {
-    extraSpecialArgs = {
-      inherit inputs;
-    };
     # Use global nixpkgs config to allow unfree packages.
     useGlobalPkgs = true;
-    # Keep the home manager configuration separate.
-    users.patrick = import ./home/patrick/home.nix;
   };
-
-  ############
-  # Programs #
-  ############
-
-  # Shell.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
-
-  # Enable dynamic linker to execute dynamic binaries.
-  # Needed for Zed to download and execute language servers.
-  # Needed for pre-commit to execute downloaded git hooks.
-  programs.nix-ld.enable = true;
-
-  # Run AppImage files.
-  programs.appimage.enable = true;
-  programs.appimage.binfmt = true;
-
-  ##########
-  # System #
-  ##########
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
@@ -248,7 +80,6 @@ in
     vim
     curl
     git
-    wl-clipboard
     gcc
 
     # Playwright
@@ -260,9 +91,6 @@ in
   # Environment variables.
   # Can't be set per user as the shell is not configured via home-manager.
   environment.sessionVariables = {
-    # Enable Wayland for Electron apps.
-    NIXOS_OZONE_WL = "1";
-
     # Set defaults.
     BROWSER = "zen";
     TERMINAL = "ghostty";
