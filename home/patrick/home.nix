@@ -36,6 +36,7 @@ in
         lualine-nvim
         nvim-autopairs
         nvim-lspconfig
+        nvim-spectre
         nvim-spider
         nvim-surround
         nvim-treesitter.withAllGrammars
@@ -78,7 +79,6 @@ in
 
       nodejs_22
       vtsls
-      prettierd
       biome
 
       go
