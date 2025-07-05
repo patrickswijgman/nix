@@ -27,9 +27,11 @@ in
     programs.neovim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [
+        auto-session
         blink-cmp
         catppuccin-nvim
         conform-nvim
+        leap-nvim
         lsp-extra
         lualine-nvim
         nvim-autopairs
