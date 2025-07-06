@@ -9,10 +9,6 @@
   ...
 }:
 
-let
-  playwright-test = inputs.playwright.packages.${pkgs.system}.playwright-test;
-  playwright-driver = inputs.playwright.packages.${pkgs.system}.playwright-driver;
-in
 {
   imports = [
     # Load modules from flakes.
@@ -81,30 +77,10 @@ in
     curl
     git
     gcc
-
-    # Playwright
-    # Needs to be at system level because the environment variables point to system level as well.
-    playwright-test
-    playwright-driver
   ];
 
-  # Environment variables.
-  # Can't be set per user as the shell is not configured via home-manager.
-  environment.sessionVariables = {
-    # Set defaults.
-    BROWSER = "zen";
-    TERMINAL = "ghostty";
-    EDITOR = "nvim";
-    GIT_EDITOR = "nvim";
-
-    # Don't show "(.venv)" in shell prompt.
-    VIRTUAL_ENV_DISABLE_PROMPT = "1";
-
-    # Playwright.
-    PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
-    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-    PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
-  };
+  # System-wide environment variables.
+  environment.sessionVariables = { };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

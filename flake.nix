@@ -13,11 +13,6 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    playwright = {
-      url = "github:pietdevries94/playwright-web-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -32,7 +27,7 @@
             ./configuration.nix
             ./hosts/work/configuration.nix
             ./modules/desktop-environment/gnome.nix
-            ./home/patrick/home.nix
+            ./home-manager/users/patrick/home.nix
           ];
         };
       };

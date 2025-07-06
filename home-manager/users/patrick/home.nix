@@ -6,7 +6,7 @@
 }:
 
 let
-  lsp-extra = pkgs.callPackage ../../modules/vim/plugins/lsp-extra.nix { };
+  lsp-extra-nvim = pkgs.callPackage ../../modules/editor/neovim/plugins/lsp-extra.nix { };
 in
 {
   home-manager.users.patrick = {
@@ -27,12 +27,13 @@ in
     programs.neovim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [
-        auto-session
         blink-cmp
+        bufferline-nvim
         catppuccin-nvim
         conform-nvim
+        copilot-lua
         leap-nvim
-        lsp-extra
+        lsp-extra-nvim
         lualine-nvim
         nvim-autopairs
         nvim-lspconfig
@@ -41,6 +42,7 @@ in
         nvim-surround
         nvim-treesitter.withAllGrammars
         nvim-web-devicons
+        scope-nvim
         telescope-nvim
       ];
     };
@@ -50,9 +52,6 @@ in
 
     # Packages (that don't have a 'programs.<package>' option).
     home.packages = with pkgs; [
-      # Shell
-      oh-my-posh
-
       # CLI
       chezmoi
       fzf
@@ -65,6 +64,10 @@ in
       httpie
       presenterm
       npm-check-updates
+
+      # Shell
+      oh-my-posh
+      babelfish
 
       # Terminal apps
       lazygit
@@ -79,6 +82,7 @@ in
 
       nodejs_22
       vtsls
+      prettierd
       biome
 
       go
@@ -107,6 +111,22 @@ in
       gnome-tweaks
       aseprite
     ];
+
+    # Environment variables.
+    # These need to be loaded in the shell, e.g. fish.
+    home.sessionVariables = {
+      # Set defaults.
+      EDITOR = "nvim";
+      GIT_EDITOR = "nvim";
+
+      # Don't show "(.venv)" in shell prompt.
+      VIRTUAL_ENV_DISABLE_PROMPT = "1";
+
+      # Playwright.
+      PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+      PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
+    };
 
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
