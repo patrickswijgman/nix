@@ -26,7 +26,7 @@
           modules = [
             ./configuration.nix
             ./hosts/work/configuration.nix
-            ./modules/desktop-environment/gnome.nix
+            ./modules/gnome
             ./home-manager/users/patrick/home.nix
           ];
         };

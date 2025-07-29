@@ -6,7 +6,7 @@
 }:
 
 let
-  lsp-extra-nvim = pkgs.callPackage ../../modules/editor/neovim/plugins/lsp-extra.nix { };
+  lsp-extra-nvim = pkgs.callPackage ../../modules/neovim/plugins/lsp-extra.nix { };
 in
 {
   home-manager.users.patrick = {
@@ -23,12 +23,13 @@ in
     programs.zen-browser.enable = true;
     programs.chromium.enable = true;
 
-    # Editor
+    # Editors
+    programs.zed-editor.enable = false;
+    programs.helix.enable = true;
     programs.neovim = {
-      enable = true;
+      enable = false;
       plugins = with pkgs.vimPlugins; [
         blink-cmp
-        bufferline-nvim
         catppuccin-nvim
         conform-nvim
         copilot-lua
@@ -36,14 +37,18 @@ in
         lsp-extra-nvim
         lualine-nvim
         nvim-autopairs
+        nvim-lint
         nvim-lspconfig
         nvim-spectre
         nvim-spider
         nvim-surround
+        nvim-tree-lua
         nvim-treesitter.withAllGrammars
+        nvim-various-textobjs
         nvim-web-devicons
-        scope-nvim
         telescope-nvim
+        vim-moonfly-colors
+        zen-mode-nvim
       ];
     };
 
@@ -64,6 +69,7 @@ in
       httpie
       presenterm
       npm-check-updates
+      jq
 
       # Shell
       oh-my-posh
@@ -83,9 +89,10 @@ in
       nodejs_22
       vtsls
       prettierd
-      biome
+      tailwindcss-language-server
 
       go
+      gopls
 
       rustc
       cargo
@@ -95,12 +102,18 @@ in
       python3
       pyright
       ruff
+      uv
 
       taplo
       yaml-language-server
       vscode-json-languageserver
 
       codebook
+
+      flutter332
+
+      # AI
+      claude-code
 
       # Music
       guitarix
@@ -109,6 +122,7 @@ in
 
       # Desktop apps
       gnome-tweaks
+      godot
       aseprite
     ];
 
@@ -116,16 +130,16 @@ in
     # These need to be loaded in the shell, e.g. fish.
     home.sessionVariables = {
       # Set defaults.
-      EDITOR = "nvim";
-      GIT_EDITOR = "nvim";
+      EDITOR = "hx";
+      GIT_EDITOR = "hx";
 
       # Don't show "(.venv)" in shell prompt.
       VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
       # Playwright.
-      PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
-      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-      PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
+      # PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
+      # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+      # PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
     };
 
     # Let Home Manager install and manage itself.

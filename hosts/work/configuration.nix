@@ -42,6 +42,7 @@
   virtualisation.docker.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
+  # Needed for Zed to download execute language servers.
   # Needed for pre-commit to execute downloaded git hooks.
   programs.nix-ld.enable = true;
 
