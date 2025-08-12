@@ -65,11 +65,13 @@ in
       tree
       openvpn
       bat
-      dive
-      httpie
+      dive # Docker image inspection
+      httpie # REST API tool
       presenterm
       npm-check-updates
-      jq
+      jq # pretty format JSON string
+      scooter # search and replace
+      htop
 
       # Shell
       oh-my-posh
@@ -165,6 +167,7 @@ in
       "wheel"
       "video"
       "audio"
+      "realtime"
       "docker"
     ];
   };
