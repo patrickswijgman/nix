@@ -23,21 +23,17 @@ in
     programs.zen-browser.enable = true;
     programs.chromium.enable = true;
 
-    # Editors
-    programs.zed-editor.enable = false;
-    programs.helix.enable = true;
+    # Editor
     programs.neovim = {
-      enable = false;
+      enable = true;
       plugins = with pkgs.vimPlugins; [
         blink-cmp
-        catppuccin-nvim
         conform-nvim
         copilot-lua
         leap-nvim
         lsp-extra-nvim
         lualine-nvim
         nvim-autopairs
-        nvim-lint
         nvim-lspconfig
         nvim-spectre
         nvim-spider
@@ -47,7 +43,7 @@ in
         nvim-various-textobjs
         nvim-web-devicons
         telescope-nvim
-        vim-moonfly-colors
+        vague-nvim
         zen-mode-nvim
       ];
     };
@@ -70,7 +66,6 @@ in
       presenterm
       npm-check-updates
       jq # pretty format JSON string
-      scooter # search and replace
       htop
 
       # Shell
@@ -106,13 +101,14 @@ in
       ruff
       uv
 
+      flutter332
+
       taplo
       yaml-language-server
       vscode-json-languageserver
 
       codebook
-
-      flutter332
+      simple-completion-language-server
 
       # AI
       claude-code
@@ -124,7 +120,6 @@ in
 
       # Desktop apps
       gnome-tweaks
-      godot
       aseprite
     ];
 
@@ -132,8 +127,8 @@ in
     # These need to be loaded in the shell, e.g. fish.
     home.sessionVariables = {
       # Set defaults.
-      EDITOR = "hx";
-      GIT_EDITOR = "hx";
+      EDITOR = "vim";
+      GIT_EDITOR = "vim";
 
       # Don't show "(.venv)" in shell prompt.
       VIRTUAL_ENV_DISABLE_PROMPT = "1";
