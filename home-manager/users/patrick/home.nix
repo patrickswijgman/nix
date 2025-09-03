@@ -5,9 +5,6 @@
   ...
 }:
 
-let
-  lsp-extra-nvim = pkgs.callPackage ../../modules/neovim/plugins/lsp-extra.nix { };
-in
 {
   home-manager.users.patrick = {
     # Load home-manager modules.
@@ -31,7 +28,6 @@ in
         conform-nvim
         copilot-lua
         leap-nvim
-        lsp-extra-nvim
         lualine-nvim
         nvim-autopairs
         nvim-lspconfig
