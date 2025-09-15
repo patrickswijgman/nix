@@ -24,6 +24,7 @@
     programs.neovim = {
       enable = true;
       plugins = with pkgs.vimPlugins; [
+        actions-preview-nvim
         blink-cmp
         conform-nvim
         copilot-lua
@@ -63,6 +64,7 @@
       npm-check-updates
       jq # pretty format JSON string
       htop
+      copier # project templating tool
 
       # Shell
       oh-my-posh
@@ -111,12 +113,17 @@
 
       # Music
       guitarix
+      tonelib-metal
+      tonelib-gfx
       helvum
       qjackctl
 
       # Desktop apps
       gnome-tweaks
       aseprite
+
+      # GNOME Extensions
+      gnomeExtensions.pip-on-top
     ];
 
     # Environment variables.
