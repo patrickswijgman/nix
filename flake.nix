@@ -26,7 +26,6 @@
           modules = [
             ./configuration.nix
             ./hosts/work/configuration.nix
-            ./users/patrick.nix
           ];
         };
       };
