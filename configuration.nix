@@ -10,9 +10,11 @@
 }:
 
 {
+  # Load flakes and custom modules.
   imports = [
-    # Load modules from flakes.
     inputs.home-manager.nixosModules.default
+    ./modules/gnome
+    ./users/patrick.nix
   ];
 
   # Enable flakes.
@@ -68,6 +70,9 @@
   home-manager = {
     # Use global nixpkgs config to allow unfree packages.
     useGlobalPkgs = true;
+    # Pass inputs to imported modules.
+    extraSpecialArgs = { inherit inputs; };
+    users.patrick = import ./home-manager/users/patrick.nix;
   };
 
   # System-wide packages.

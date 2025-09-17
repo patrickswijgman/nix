@@ -11,8 +11,14 @@ in
 {
   options.gnome.enable = lib.mkOption {
     type = lib.types.bool;
-    default = true;
+    default = false;
     description = "GNOME desktop environment";
+  };
+
+  options.gnome.defaultTerminal = lib.mkOption {
+    type = lib.types.str;
+    default = "gnome-terminal";
+    description = "Default terminal emulator for GNOME";
   };
 
   config = lib.mkIf cfg.enable {
@@ -57,6 +63,12 @@ in
           xdg-desktop-portal-wlr
           xdg-desktop-portal-gtk
         ];
+      };
+      terminal-exec = {
+        enable = true;
+        settings = {
+          GNOME = [ cfg.defaultTerminal ];
+        };
       };
     };
 
