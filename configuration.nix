@@ -69,6 +69,7 @@
   home-manager = {
     # Use global nixpkgs config to allow unfree packages.
     useGlobalPkgs = true;
+
     users.patrick = {
       # Load Home Manager modules.
       imports = [
@@ -92,6 +93,9 @@
 
       # Packages (that don't have a 'programs.<package>' option).
       home.packages = with pkgs; [
+        # Fonts
+        nerd-fonts.hack # Used as a fallback for the nerd font icons.
+
         # CLI
         chezmoi
         fzf
@@ -138,6 +142,7 @@
         # Desktop apps
         gnome-tweaks
         aseprite
+        gimp
       ];
 
       # Environment variables.
@@ -155,6 +160,9 @@
         # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
         # PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
       };
+
+      # Enable fontconfig to make fonts installed by Home Manager available to applications.
+      fonts.fontconfig.enable = true;
 
       # Let Home Manager install and manage itself.
       programs.home-manager.enable = true;
@@ -194,6 +202,14 @@
     enable = true;
     defaultTerminal = "com.mitchellh.ghostty.desktop";
   };
+
+  # Remember SSH passphrase.
+  programs.ssh.startAgent = true;
+
+  # Enable dynamic linker to execute dynamic binaries.
+  # Needed for Zed to download execute language servers.
+  # Needed for pre-commit to execute downloaded git hooks.
+  programs.nix-ld.enable = true;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
