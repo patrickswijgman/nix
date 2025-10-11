@@ -89,24 +89,8 @@
       # Terminal.
       programs.ghostty.enable = true;
 
-      # Desktop environment.
-      programs.fuzzel.enable = true;
-      programs.swaylock.enable = true;
-      services.swayidle.enable = true;
-      services.mako.enable = true;
-      services.kanshi.enable = true;
-      services.polkit-gnome.enable = true;
-      services.gnome-keyring.enable = true;
-
       # Packages (that don't have a 'programs.<package>' option).
       home.packages = with pkgs; [
-        # Desktop environment
-        swaybg
-        xwayland-satellite
-        wl-clipboard
-        brightnessctl
-        playerctl
-
         # Fonts (fallback)
         nerd-fonts.hack
         font-awesome
@@ -185,7 +169,7 @@
         gimp
       ];
 
-      # Discover fonts installed with home.packages.
+      # Discover fonts installed through home.packages.
       fonts.fontconfig.enable = true;
 
       # Make sure cursor is consistent.
@@ -202,7 +186,7 @@
         enable = true;
         theme = {
           package = pkgs.yaru-theme;
-          name = "Yaru-blue-dark";
+          name = "Yaru-blue";
         };
         iconTheme = {
           package = pkgs.adwaita-icon-theme;
@@ -259,8 +243,10 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # Window manager.
+  # Desktop environment.
   programs.niri.enable = true;
+  security.polkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
@@ -269,11 +255,25 @@
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
+    # Core
     usbutils
     vim
     curl
     git
     gcc
+
+    # Desktop environment
+    xwayland-satellite
+    swaylock
+    swayidle
+    swaybg
+    fuzzel
+    mako
+    kanshi
+    wl-clipboard
+    brightnessctl
+    playerctl
+
   ];
 
   # System-wide environment variables.
