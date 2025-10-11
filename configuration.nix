@@ -13,7 +13,6 @@
   # Load flakes and custom modules.
   imports = [
     inputs.home-manager.nixosModules.default
-    ./modules/gnome
   ];
 
   # Enable flakes.
@@ -74,7 +73,6 @@
       # Load Home Manager modules.
       imports = [
         inputs.zen-browser.homeModules.beta
-        ./modules/home-manager/neovim
       ];
 
       # Home Manager needs a bit of information about you and the paths it should manage.
@@ -86,15 +84,32 @@
       programs.chromium.enable = true;
 
       # Editor.
-      programs.zed-editor.enable = true;
+      programs.helix.enable = true;
 
       # Terminal.
       programs.ghostty.enable = true;
 
+      # Desktop environment.
+      programs.fuzzel.enable = true;
+      programs.swaylock.enable = true;
+      services.swayidle.enable = true;
+      services.mako.enable = true;
+      services.kanshi.enable = true;
+      services.polkit-gnome.enable = true;
+      services.gnome-keyring.enable = true;
+
       # Packages (that don't have a 'programs.<package>' option).
       home.packages = with pkgs; [
-        # Fonts
-        nerd-fonts.hack # Used as a fallback for the nerd font icons.
+        # Desktop environment
+        swaybg
+        xwayland-satellite
+        wl-clipboard
+        brightnessctl
+        playerctl
+
+        # Fonts (fallback)
+        nerd-fonts.hack
+        font-awesome
 
         # CLI
         chezmoi
@@ -123,11 +138,35 @@
         # Programming
         nixd
         nixfmt-rfc-style
+
         nodejs_22
+        vtsls
+        prettierd
+        tailwindcss-language-server
+
         go
+        gopls
+
+        rustc
+        cargo
+        rust-analyzer
+        rustfmt
+
         python3
+        pyright
+        ruff
         uv
+
         flutter332
+
+        taplo
+        yaml-language-server
+        vscode-json-languageserver
+
+        fish-lsp
+
+        codebook
+        simple-completion-language-server
 
         # AI
         claude-code
@@ -140,17 +179,43 @@
         qjackctl
 
         # Desktop apps
-        gnome-tweaks
+        spotify
+        slack
         aseprite
         gimp
       ];
+
+      # Discover fonts installed with home.packages.
+      fonts.fontconfig.enable = true;
+
+      # Make sure cursor is consistent.
+      home.pointerCursor = {
+        gtk.enable = true;
+        x11.enable = true;
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Classic";
+        size = 16;
+      };
+
+      # Theming.
+      gtk = {
+        enable = true;
+        theme = {
+          package = pkgs.yaru-theme;
+          name = "Yaru-blue-dark";
+        };
+        iconTheme = {
+          package = pkgs.adwaita-icon-theme;
+          name = "Adwaita";
+        };
+      };
 
       # Environment variables.
       # These need to be loaded in the shell, e.g. fish.
       home.sessionVariables = {
         # Set defaults.
-        EDITOR = "vim";
-        GIT_EDITOR = "vim";
+        EDITOR = "hx";
+        GIT_EDITOR = "hx";
 
         # Don't show "(.venv)" in shell prompt.
         VIRTUAL_ENV_DISABLE_PROMPT = "1";
@@ -160,9 +225,6 @@
         # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
         # PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
       };
-
-      # Enable fontconfig to make fonts installed by Home Manager available to applications.
-      fonts.fontconfig.enable = true;
 
       # Let Home Manager install and manage itself.
       programs.home-manager.enable = true;
@@ -197,14 +259,8 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # Desktop environment.
-  gnome = {
-    enable = true;
-    defaultTerminal = "com.mitchellh.ghostty.desktop";
-  };
-
-  # Remember SSH passphrase.
-  programs.ssh.startAgent = true;
+  # Window manager.
+  programs.niri.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
@@ -221,7 +277,13 @@
   ];
 
   # System-wide environment variables.
-  environment.sessionVariables = { };
+  environment.sessionVariables = {
+    # Default terminal for terminal apps started with a launcher.
+    TERMINAL = "ghostty";
+
+    # Run Electron apps in native Wayland.
+    NIXOS_OZONE_WL = "1";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
