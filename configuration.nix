@@ -13,6 +13,7 @@
   # Load flakes and custom modules.
   imports = [
     inputs.home-manager.nixosModules.default
+    inputs.walker.nixosModules.default
   ];
 
   # Enable flakes.
@@ -73,7 +74,6 @@
       # Load Home Manager modules.
       imports = [
         inputs.zen-browser.homeModules.beta
-        inputs.walker.homeManagerModules.default
       ];
 
       # Home Manager needs a bit of information about you and the paths it should manage.
@@ -89,12 +89,6 @@
 
       # Terminal.
       programs.ghostty.enable = true;
-
-      # Launcher.
-      programs.walker = {
-        enable = true;
-        runAsService = true;
-      };
 
       # Packages (that don't have a 'programs.<package>' option).
       home.packages = with pkgs; [
@@ -254,6 +248,12 @@
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
+  # Launcher.
+  programs.walker = {
+    enable = true;
+    runAsService = true;
+  };
+
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
   # Needed for pre-commit to execute downloaded git hooks.
@@ -270,11 +270,14 @@
 
     # Desktop environment
     xwayland-satellite
-    swaylock
+    swaylock-effects
     swayidle
     swaybg
+    swayosd
     mako
     kanshi
+    grim
+    slurp
     wl-clipboard
     brightnessctl
     playerctl
