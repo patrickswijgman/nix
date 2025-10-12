@@ -73,6 +73,7 @@
       # Load Home Manager modules.
       imports = [
         inputs.zen-browser.homeModules.beta
+        inputs.walker.homeManagerModules.default
       ];
 
       # Home Manager needs a bit of information about you and the paths it should manage.
@@ -88,6 +89,12 @@
 
       # Terminal.
       programs.ghostty.enable = true;
+
+      # Launcher.
+      programs.walker = {
+        enable = true;
+        runAsService = true;
+      };
 
       # Packages (that don't have a 'programs.<package>' option).
       home.packages = with pkgs; [
@@ -165,7 +172,6 @@
         # Desktop apps
         spotify
         slack
-        aseprite
         gimp
       ];
 
@@ -267,13 +273,11 @@
     swaylock
     swayidle
     swaybg
-    fuzzel
     mako
     kanshi
     wl-clipboard
     brightnessctl
     playerctl
-
   ];
 
   # System-wide environment variables.
