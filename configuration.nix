@@ -13,7 +13,6 @@
   # Load flakes and custom modules.
   imports = [
     inputs.home-manager.nixosModules.default
-    inputs.walker.nixosModules.default
   ];
 
   # Enable flakes.
@@ -146,7 +145,7 @@
 
         taplo
         yaml-language-server
-        vscode-json-languageserver
+        vscode-langservers-extracted
 
         fish-lsp
 
@@ -248,12 +247,6 @@
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
-  # Launcher.
-  programs.walker = {
-    enable = true;
-    runAsService = true;
-  };
-
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
   # Needed for pre-commit to execute downloaded git hooks.
@@ -274,6 +267,7 @@
     swayidle
     swaybg
     swayosd
+    fuzzel
     mako
     kanshi
     grim
