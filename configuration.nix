@@ -84,14 +84,36 @@
       programs.chromium.enable = true;
 
       # Editor.
-      programs.helix.enable = true;
+      programs.neovim = {
+        enable = true;
+        plugins = with pkgs.vimPlugins; [
+          actions-preview-nvim
+          blink-cmp
+          catppuccin-nvim
+          conform-nvim
+          copilot-lua
+          leap-nvim
+          lualine-nvim
+          nvim-autopairs
+          nvim-lspconfig
+          nvim-spectre
+          nvim-spider
+          nvim-surround
+          nvim-tree-lua
+          nvim-treesitter.withAllGrammars
+          nvim-various-textobjs
+          nvim-web-devicons
+          telescope-nvim
+          zen-mode-nvim
+        ];
+      };
 
       # Terminal.
-      programs.ghostty.enable = true;
+      programs.alacritty.enable = true;
 
       # Packages (that don't have a 'programs.<package>' option).
       home.packages = with pkgs; [
-        # Fonts (fallback)
+        # Fonts
         nerd-fonts.hack
         font-awesome
 
@@ -122,6 +144,9 @@
         # Programming
         nixd
         nixfmt-rfc-style
+
+        lua-language-server
+        stylua
 
         nodejs_22
         vtsls
@@ -175,8 +200,8 @@
       home.pointerCursor = {
         gtk.enable = true;
         x11.enable = true;
-        package = pkgs.bibata-cursors;
-        name = "Bibata-Modern-Classic";
+        package = pkgs.yaru-theme;
+        name = "Yaru";
         size = 16;
       };
 
@@ -188,8 +213,8 @@
           name = "Yaru-blue";
         };
         iconTheme = {
-          package = pkgs.adwaita-icon-theme;
-          name = "Adwaita";
+          package = pkgs.yaru-theme;
+          name = "Yaru-blue";
         };
       };
 
@@ -265,13 +290,14 @@
     xwayland-satellite
     swaylock-effects
     swayidle
-    swaybg
     swayosd
     fuzzel
     mako
     kanshi
     grim
     slurp
+    gammastep
+    bato
     wl-clipboard
     brightnessctl
     playerctl
@@ -280,7 +306,7 @@
   # System-wide environment variables.
   environment.sessionVariables = {
     # Default terminal for terminal apps started with a launcher.
-    TERMINAL = "ghostty";
+    TERMINAL = "alacritty";
 
     # Run Electron apps in native Wayland.
     NIXOS_OZONE_WL = "1";

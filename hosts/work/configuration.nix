@@ -38,6 +38,9 @@
     };
   };
 
+  # Laptop power saving.
+  services.tlp.enable = true;
+
   # Enable Docker.
   virtualisation.docker.enable = true;
 
