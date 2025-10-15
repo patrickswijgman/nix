@@ -9,6 +9,9 @@
   ...
 }:
 
+let
+  wizard-nvim = pkgs.callPackage ./modules/neovim/plugins/wizard-nvim.nix { };
+in
 {
   # Load flakes and custom modules.
   imports = [
@@ -104,6 +107,7 @@
           nvim-various-textobjs
           nvim-web-devicons
           telescope-nvim
+          wizard-nvim
           zen-mode-nvim
         ];
       };
@@ -132,10 +136,10 @@
         jq # pretty format JSON string
         htop
         copier # project templating tool
+        libnotify # desktop notifications
 
         # Shell
         oh-my-posh
-        babelfish
 
         # Terminal apps
         lazygit
@@ -218,22 +222,6 @@
         };
       };
 
-      # Environment variables.
-      # These need to be loaded in the shell, e.g. fish.
-      home.sessionVariables = {
-        # Set defaults.
-        EDITOR = "hx";
-        GIT_EDITOR = "hx";
-
-        # Don't show "(.venv)" in shell prompt.
-        VIRTUAL_ENV_DISABLE_PROMPT = "1";
-
-        # Playwright.
-        # PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
-        # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-        # PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
-      };
-
       # Let Home Manager install and manage itself.
       programs.home-manager.enable = true;
 
@@ -301,15 +289,26 @@
     wl-clipboard
     brightnessctl
     playerctl
+    wayland-pipewire-idle-inhibit
   ];
 
   # System-wide environment variables.
   environment.sessionVariables = {
-    # Default terminal for terminal apps started with a launcher.
+    # Set defaults.
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
     TERMINAL = "alacritty";
+
+    # Don't show "(.venv)" in shell prompt.
+    VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
     # Run Electron apps in native Wayland.
     NIXOS_OZONE_WL = "1";
+
+    # Playwright.
+    # PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
+    # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+    # PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
   };
 
   # This value determines the NixOS release from which the default
