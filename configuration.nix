@@ -184,13 +184,6 @@ in
         # AI
         claude-code
 
-        # Music
-        guitarix
-        tonelib-metal
-        tonelib-gfx
-        helvum
-        qjackctl
-
         # Desktop apps
         spotify
         slack
