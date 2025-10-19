@@ -193,7 +193,7 @@ in
       # Discover fonts installed through home.packages.
       fonts.fontconfig.enable = true;
 
-      # Make sure cursor is consistent.
+      # Cursor theme.
       home.pointerCursor = {
         gtk.enable = true;
         x11.enable = true;
@@ -202,7 +202,7 @@ in
         size = 16;
       };
 
-      # Theming.
+      # Theme.
       gtk = {
         enable = true;
         theme = {

@@ -5,7 +5,7 @@ pkgs.vimUtils.buildVimPlugin {
   src = pkgs.fetchFromGitHub {
     owner = "patrickswijgman";
     repo = "wizard.nvim";
-    rev = "35dbebd917ee77e9eafcf746c42ad7b9419ce4a8";
-    hash = "sha256-hE1zk6KIBh7uZJfg+MxEvEJo/lZN2GjD9PmbqZ8vrNE=";
+    rev = "ad2356be0fdfc78ff567fa9c206212e23a65c14c";
+    hash = "sha256-D4FkBES+CkZkGRvCMs9X/Eo8eeXspRW0yug56TlvFGU=";
   };
 }
