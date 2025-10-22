@@ -268,21 +268,22 @@ in
     gcc
 
     # Desktop environment
-    xwayland-satellite
+    xwayland-satellite # Niri dependency, run X11 apps on Wayland
     swaylock-effects
     swayidle
-    swayosd
+    swayosd # On-screen display for brightness/volume changes
     fuzzel
     mako
     kanshi
-    grim
-    slurp
-    gammastep
-    bato
+    grim # Screenshot tool
+    slurp # Screen region selection tool
+    gammastep # Blue light filter
+    bato # Battery notifier
     wl-clipboard
     brightnessctl
     playerctl
-    wayland-pipewire-idle-inhibit
+    blueman # Bluetooth manager
+    wayland-pipewire-idle-inhibit # Prevent idle on audio/video playback
   ];
 
   # System-wide environment variables.
