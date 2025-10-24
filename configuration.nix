@@ -107,6 +107,7 @@ in
           nvim-various-textobjs
           nvim-web-devicons
           telescope-nvim
+          vim-helm # syntax highlighting for go templates (chezmoi)
           wizard-nvim
           zen-mode-nvim
         ];
@@ -271,19 +272,19 @@ in
     xwayland-satellite # Niri dependency, run X11 apps on Wayland
     swaylock-effects
     swayidle
-    swayosd # On-screen display for brightness/volume changes
+    swayosd # on-screen display for brightness/volume changes
     fuzzel
     mako
     kanshi
-    grim # Screenshot tool
-    slurp # Screen region selection tool
-    gammastep # Blue light filter
-    bato # Battery notifier
+    grim # screenshot tool
+    slurp # screen region selection tool
+    gammastep # blue light filter
+    bato # battery notifier
     wl-clipboard
     brightnessctl
     playerctl
-    blueman # Bluetooth manager
-    wayland-pipewire-idle-inhibit # Prevent idle on audio/video playback
+    blueman # bluetooth manager
+    wayland-pipewire-idle-inhibit # prevent idle on audio/video playback
   ];
 
   # System-wide environment variables.
@@ -296,7 +297,7 @@ in
     # Don't show "(.venv)" in shell prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
-    # Run Electron apps in native Wayland.
+    # Run Electron apps in Wayland.
     NIXOS_OZONE_WL = "1";
 
     # Playwright.
