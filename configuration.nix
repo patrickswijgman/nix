@@ -9,13 +9,11 @@
   ...
 }:
 
-let
-  wizard-nvim = pkgs.callPackage ./modules/neovim/plugins/wizard-nvim.nix { };
-in
 {
   # Load flakes and custom modules.
   imports = [
     inputs.home-manager.nixosModules.default
+    inputs.walker.nixosModules.default
   ];
 
   # Enable flakes.
@@ -63,7 +61,7 @@ in
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
+    jack.enable = false;
   };
 
   # Enable home manager.
@@ -89,28 +87,33 @@ in
       # Editor.
       programs.neovim = {
         enable = true;
-        plugins = with pkgs.vimPlugins; [
-          actions-preview-nvim
-          blink-cmp
-          catppuccin-nvim
-          conform-nvim
-          copilot-lua
-          leap-nvim
-          lualine-nvim
-          nvim-autopairs
-          nvim-lspconfig
-          nvim-spectre
-          nvim-spider
-          nvim-surround
-          nvim-tree-lua
-          nvim-treesitter.withAllGrammars
-          nvim-various-textobjs
-          nvim-web-devicons
-          telescope-nvim
-          vim-helm # syntax highlighting for go templates (chezmoi)
-          wizard-nvim
-          zen-mode-nvim
-        ];
+        plugins =
+          with pkgs.vimPlugins;
+          let
+            wizard-nvim = pkgs.callPackage ./modules/neovim/plugins/wizard-nvim.nix { };
+          in
+          [
+            actions-preview-nvim
+            blink-cmp
+            catppuccin-nvim
+            conform-nvim
+            copilot-lua
+            leap-nvim
+            lualine-nvim
+            nvim-autopairs
+            nvim-lspconfig
+            nvim-spectre
+            nvim-spider
+            nvim-surround
+            nvim-tree-lua
+            nvim-treesitter.withAllGrammars
+            nvim-various-textobjs
+            nvim-web-devicons
+            telescope-nvim
+            vim-helm # syntax highlighting for go templates (chezmoi)
+            wizard-nvim
+            zen-mode-nvim
+          ];
       };
 
       # Terminal.
@@ -121,6 +124,7 @@ in
         # Fonts
         nerd-fonts.hack
         font-awesome
+        noto-fonts-color-emoji
 
         # CLI
         chezmoi
@@ -198,21 +202,21 @@ in
       home.pointerCursor = {
         gtk.enable = true;
         x11.enable = true;
-        package = pkgs.yaru-theme;
-        name = "Yaru";
+        package = pkgs.phinger-cursors;
+        name = "phinger-cursors-dark";
         size = 16;
       };
 
       # Theme.
       gtk = {
         enable = true;
-        theme = {
-          package = pkgs.yaru-theme;
-          name = "Yaru-blue";
-        };
+        # theme = {
+        #   package = pkgs.yaru-theme;
+        #   name = "Yaru-blue";
+        # };
         iconTheme = {
-          package = pkgs.yaru-theme;
-          name = "Yaru-blue";
+          package = pkgs.adwaita-icon-theme;
+          name = "Adwaita";
         };
       };
 
@@ -250,9 +254,17 @@ in
   users.defaultUserShell = pkgs.fish;
 
   # Desktop environment.
-  programs.niri.enable = true;
-  security.polkit.enable = true;
-  services.gnome.gnome-keyring.enable = true;
+  programs.hyprland.enable = true;
+  programs.walker.enable = true;
+
+  # Enable XDG portal for sandboxed applications.
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      # Add GTK portal as Hyprland portal does not implement a file picker.
+      xdg-desktop-portal-gtk
+    ];
+  };
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
@@ -269,21 +281,20 @@ in
     gcc
 
     # Desktop environment
-    xwayland-satellite # Niri dependency, run X11 apps on Wayland
-    swaylock-effects
-    swayidle
+    ashell # bar
+    hypridle
+    hyprlock
+    hyprshot # screenshot tool
     swayosd # on-screen display for brightness/volume changes
-    fuzzel
+    swaybg
     mako
     kanshi
-    grim # screenshot tool
-    slurp # screen region selection tool
     gammastep # blue light filter
     bato # battery notifier
     wl-clipboard
     brightnessctl
     playerctl
-    blueman # bluetooth manager
+    blueman # bluetooth manager and notifier
     wayland-pipewire-idle-inhibit # prevent idle on audio/video playback
   ];
 

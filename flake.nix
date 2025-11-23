@@ -14,6 +14,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    elephant = {
+      url = "github:abenz1267/elephant";
+    };
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+    };
+
     # playwright = {
     #   url = "github:pietdevries94/playwright-web-flake";
     #   inputs.nixpkgs.follows = "nixpkgs";

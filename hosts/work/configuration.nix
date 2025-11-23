@@ -38,8 +38,10 @@
     };
   };
 
-  # Laptop power saving.
-  services.tlp.enable = true;
+  # Laptop power management.
+  powerManagement.enable = true;
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   # Enable Docker.
   virtualisation.docker.enable = true;
