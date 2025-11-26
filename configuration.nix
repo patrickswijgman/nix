@@ -16,6 +16,20 @@
     inputs.walker.nixosModules.default
   ];
 
+  nixpkgs.overlays = [
+    # Overlay to run Spotify on X11 instead of Wayland.
+    (final: prev: {
+      spotify = prev.symlinkJoin {
+        name = "spotify-x11";
+        paths = [ prev.spotify ];
+        buildInputs = [ prev.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/spotify --add-flags "--ozone-platform=x11"
+        '';
+      };
+    })
+  ];
+
   # Enable flakes.
   nix.settings.experimental-features = [
     "nix-command"
@@ -117,11 +131,11 @@
       };
 
       # Terminal.
-      programs.alacritty.enable = true;
+      programs.ghostty.enable = true;
 
       # Packages (that don't have a 'programs.<package>' option).
       home.packages = with pkgs; [
-        # Fonts
+        # Fonts (character fallback)
         nerd-fonts.hack
         font-awesome
         noto-fonts-color-emoji
@@ -192,33 +206,34 @@
         # Desktop apps
         spotify
         slack
+        discord
         gimp
       ];
 
+      # # Cursor theme.
+      # home.pointerCursor = {
+      #   gtk.enable = true;
+      #   x11.enable = true;
+      #   package = pkgs.yaru-theme;
+      #   name = "Yaru";
+      #   size = 16;
+      # };
+      #
+      # # Theme.
+      # gtk = {
+      #   enable = true;
+      #   theme = {
+      #     package = pkgs.yaru-theme;
+      #     name = "Yaru-dark";
+      #   };
+      #   iconTheme = {
+      #     package = pkgs.yaru-theme;
+      #     name = "Yaru";
+      #   };
+      # };
+
       # Discover fonts installed through home.packages.
       fonts.fontconfig.enable = true;
-
-      # Cursor theme.
-      home.pointerCursor = {
-        gtk.enable = true;
-        x11.enable = true;
-        package = pkgs.phinger-cursors;
-        name = "phinger-cursors-dark";
-        size = 16;
-      };
-
-      # Theme.
-      gtk = {
-        enable = true;
-        # theme = {
-        #   package = pkgs.yaru-theme;
-        #   name = "Yaru-blue";
-        # };
-        iconTheme = {
-          package = pkgs.adwaita-icon-theme;
-          name = "Adwaita";
-        };
-      };
 
       # Let Home Manager install and manage itself.
       programs.home-manager.enable = true;
@@ -244,6 +259,7 @@
       "wheel"
       "video"
       "audio"
+      "input"
       "realtime"
       "docker"
     ];
@@ -253,17 +269,53 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # Desktop environment.
-  programs.hyprland.enable = true;
-  programs.walker.enable = true;
+  # Enable the GNOME Desktop Environment.
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
-  # Enable XDG portal for sandboxed applications.
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      # Add GTK portal as Hyprland portal does not implement a file picker.
-      xdg-desktop-portal-gtk
-    ];
+  # Enable dconf database system service for GTK apps.
+  # programs.dconf.enable = true;
+
+  # Remove unused GNOME default software.
+  environment.gnome.excludePackages = with pkgs; [
+    decibels # Audio Player
+    epiphany # Web Browser
+    evince # Document Viewer
+    file-roller
+    geary # Mail
+    gnome-calendar
+    gnome-characters
+    gnome-clocks
+    gnome-connections
+    gnome-console
+    gnome-contacts
+    gnome-font-viewer
+    gnome-logs
+    gnome-maps
+    gnome-music
+    gnome-tour
+    gnome-weather
+    simple-scan # Document Scanner
+    snapshot # Camera
+    totem # Videos
+    yelp # Help
+  ];
+
+  xdg = {
+    portal = {
+      enable = true;
+      # Enable screen sharing in Wayland.
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+    };
+    terminal-exec = {
+      enable = true;
+      settings = {
+        GNOME = [ "com.mitchellh.ghostty.desktop" ];
+      };
+    };
   };
 
   # Enable dynamic linker to execute dynamic binaries.
@@ -279,23 +331,6 @@
     curl
     git
     gcc
-
-    # Desktop environment
-    ashell # bar
-    hypridle
-    hyprlock
-    hyprshot # screenshot tool
-    swayosd # on-screen display for brightness/volume changes
-    swaybg
-    mako
-    kanshi
-    gammastep # blue light filter
-    bato # battery notifier
-    wl-clipboard
-    brightnessctl
-    playerctl
-    blueman # bluetooth manager and notifier
-    wayland-pipewire-idle-inhibit # prevent idle on audio/video playback
   ];
 
   # System-wide environment variables.
@@ -303,7 +338,7 @@
     # Set defaults.
     EDITOR = "nvim";
     GIT_EDITOR = "nvim";
-    TERMINAL = "alacritty";
+    TERMINAL = "ghostty";
 
     # Don't show "(.venv)" in shell prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
