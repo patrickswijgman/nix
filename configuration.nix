@@ -2,73 +2,96 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
-  # Load flakes and custom modules.
   imports = [
-    inputs.home-manager.nixosModules.default
-    inputs.walker.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
   ];
 
-  nixpkgs.overlays = [
-    # Overlay to run Spotify on X11 instead of Wayland.
-    (final: prev: {
-      spotify = prev.symlinkJoin {
-        name = "spotify-x11";
-        paths = [ prev.spotify ];
-        buildInputs = [ prev.makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/spotify --add-flags "--ozone-platform=x11"
-        '';
-      };
-    })
-  ];
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  # Enable flakes.
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  boot.initrd.luks.devices."luks-71936e47-c47f-47e7-8c39-c942ace26eb1".device =
+    "/dev/disk/by-uuid/71936e47-c47f-47e7-8c39-c942ace26eb1";
+  networking.hostName = "patrick-swijgman-work";
 
-  # Allow unfree packages.
-  nixpkgs.config.allowUnfree = true;
-
-  # Enable networking.
+  # Enable networking
   networking.networkmanager.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  # Select internationalization properties.
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nl_NL.UTF-8";
-    LC_IDENTIFICATION = "nl_NL.UTF-8";
-    LC_MEASUREMENT = "nl_NL.UTF-8";
-    LC_MONETARY = "nl_NL.UTF-8";
-    LC_NAME = "nl_NL.UTF-8";
-    LC_NUMERIC = "nl_NL.UTF-8";
-    LC_PAPER = "nl_NL.UTF-8";
-    LC_TELEPHONE = "nl_NL.UTF-8";
-    LC_TIME = "nl_NL.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keyboard layout.
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+  services.xserver.excludePackages = [ pkgs.xterm ];
+
+  # Enable the GNOME Desktop Environment.
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.extraGSettingsOverrides = ''
+    [org.gnome.mutter]
+    experimental-features=['scale-monitor-framebuffer', 'xwayland-native-scaling']
+  '';
+
+  # Remove unused GNOME default software.
+  environment.gnome.excludePackages = with pkgs; [
+    # baobab
+    decibels
+    epiphany
+    geary
+    gnome-calculator
+    gnome-calendar
+    gnome-characters
+    gnome-clocks
+    gnome-connections
+    # gnome-console
+    gnome-contacts
+    gnome-font-viewer
+    gnome-logs
+    gnome-maps
+    gnome-music
+    gnome-system-monitor
+    gnome-text-editor
+    gnome-tour
+    gnome-weather
+    # loupe
+    # nautilus
+    # papers
+    showtime
+    simple-scan
+    snapshot
+    yelp
+  ];
+
+  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Enable multimedia via PipeWire.
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -78,190 +101,22 @@
     jack.enable = false;
   };
 
-  # Enable home manager.
-  # See options here https://home-manager-options.extranix.com/?query=&release=release-24.11
-  home-manager = {
-    # Use global nixpkgs config to allow unfree packages.
-    useGlobalPkgs = true;
-
-    users.patrick = {
-      # Load Home Manager modules.
-      imports = [
-        inputs.zen-browser.homeModules.beta
-      ];
-
-      # Home Manager needs a bit of information about you and the paths it should manage.
-      home.username = "patrick";
-      home.homeDirectory = "/home/patrick";
-
-      # Browsers.
-      programs.zen-browser.enable = true;
-      programs.chromium.enable = true;
-
-      # Editor.
-      programs.neovim = {
-        enable = true;
-        plugins =
-          with pkgs.vimPlugins;
-          let
-            wizard-nvim = pkgs.callPackage ./modules/neovim/plugins/wizard-nvim.nix { };
-          in
-          [
-            actions-preview-nvim
-            blink-cmp
-            catppuccin-nvim
-            conform-nvim
-            copilot-lua
-            leap-nvim
-            lualine-nvim
-            nvim-autopairs
-            nvim-lspconfig
-            nvim-spectre
-            nvim-spider
-            nvim-surround
-            nvim-tree-lua
-            nvim-treesitter.withAllGrammars
-            nvim-various-textobjs
-            nvim-web-devicons
-            telescope-nvim
-            vim-helm # syntax highlighting for go templates (chezmoi)
-            wizard-nvim
-            zen-mode-nvim
-          ];
-      };
-
-      # Terminal.
-      programs.ghostty.enable = true;
-
-      # Packages (that don't have a 'programs.<package>' option).
-      home.packages = with pkgs; [
-        # Fonts (character fallback)
-        nerd-fonts.hack
-        font-awesome
-        noto-fonts-color-emoji
-
-        # CLI
-        chezmoi
-        fzf
-        ripgrep
-        fd
-        tree
-        openvpn
-        bat
-        dive # Docker image inspection
-        httpie # REST API tool
-        presenterm
-        npm-check-updates
-        jq # pretty format JSON string
-        htop
-        copier # project templating tool
-        libnotify # desktop notifications
-
-        # Shell
-        oh-my-posh
-
-        # Terminal apps
-        lazygit
-        lazydocker
-
-        # Programming
-        nixd
-        nixfmt-rfc-style
-
-        lua-language-server
-        stylua
-
-        nodejs_22
-        vtsls
-        prettierd
-        tailwindcss-language-server
-
-        go
-        gopls
-
-        rustc
-        cargo
-        rust-analyzer
-        rustfmt
-
-        python3
-        pyright
-        ruff
-        uv
-
-        flutter332
-
-        taplo
-        yaml-language-server
-        vscode-langservers-extracted
-
-        fish-lsp
-
-        codebook
-        simple-completion-language-server
-
-        # AI
-        claude-code
-
-        # Desktop apps
-        spotify
-        slack
-        discord
-        gimp
-      ];
-
-      # # Cursor theme.
-      # home.pointerCursor = {
-      #   gtk.enable = true;
-      #   x11.enable = true;
-      #   package = pkgs.yaru-theme;
-      #   name = "Yaru";
-      #   size = 16;
-      # };
-      #
-      # # Theme.
-      # gtk = {
-      #   enable = true;
-      #   theme = {
-      #     package = pkgs.yaru-theme;
-      #     name = "Yaru-dark";
-      #   };
-      #   iconTheme = {
-      #     package = pkgs.yaru-theme;
-      #     name = "Yaru";
-      #   };
-      # };
-
-      # Discover fonts installed through home.packages.
-      fonts.fontconfig.enable = true;
-
-      # Let Home Manager install and manage itself.
-      programs.home-manager.enable = true;
-
-      # This value determines the Home Manager release that your configuration is
-      # compatible with. This helps avoid breakage when a new Home Manager release
-      # introduces backwards incompatible changes.
-      #
-      # You should not change this value, even if you update Home Manager. If you do
-      # want to update the value, then make sure to first check the Home Manager
-      # release notes.
-      home.stateVersion = "24.11"; # Please read the comment before changing.
-    };
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.patrick = {
     isNormalUser = true;
     description = "Patrick";
-    useDefaultShell = true;
     extraGroups = [
       "networkmanager"
       "wheel"
-      "video"
-      "audio"
-      "input"
-      "realtime"
       "docker"
+    ];
+    useDefaultShell = true;
+    packages = with pkgs; [
+      zed-editor
+      chromium
+      nodejs_22
+      nixd
+      nixfmt-rfc-style
     ];
   };
 
@@ -269,94 +124,51 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  # Browser.
+  programs.firefox.enable = true;
 
-  # Enable dconf database system service for GTK apps.
-  # programs.dconf.enable = true;
-
-  # Remove unused GNOME default software.
-  environment.gnome.excludePackages = with pkgs; [
-    decibels # Audio Player
-    epiphany # Web Browser
-    evince # Document Viewer
-    file-roller
-    geary # Mail
-    gnome-calendar
-    gnome-characters
-    gnome-clocks
-    gnome-connections
-    gnome-console
-    gnome-contacts
-    gnome-font-viewer
-    gnome-logs
-    gnome-maps
-    gnome-music
-    gnome-tour
-    gnome-weather
-    simple-scan # Document Scanner
-    snapshot # Camera
-    totem # Videos
-    yelp # Help
-  ];
-
-  xdg = {
-    portal = {
-      enable = true;
-      # Enable screen sharing in Wayland.
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
-    };
-    terminal-exec = {
-      enable = true;
-      settings = {
-        GNOME = [ "com.mitchellh.ghostty.desktop" ];
-      };
-    };
-  };
+  # Docker.
+  virtualisation.docker.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
   # Needed for pre-commit to execute downloaded git hooks.
   programs.nix-ld.enable = true;
 
-  # System-wide packages.
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Enable flakes.
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # Core
-    usbutils
     vim
-    curl
     git
-    gcc
   ];
 
   # System-wide environment variables.
   environment.sessionVariables = {
     # Set defaults.
-    EDITOR = "nvim";
-    GIT_EDITOR = "nvim";
-    TERMINAL = "ghostty";
+    EDITOR = "vim";
+    GIT_EDITOR = "vim";
 
     # Don't show "(.venv)" in shell prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
     # Run Electron apps in Wayland.
     NIXOS_OZONE_WL = "1";
-
-    # Playwright.
-    # PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
-    # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-    # PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
   };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
+  # on your system were taken. It‘s perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }
