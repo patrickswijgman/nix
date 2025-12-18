@@ -24,9 +24,8 @@
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  # Select internationalisation properties.
+  # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -116,7 +115,7 @@
       chromium
       nodejs_22
       nixd
-      nixfmt-rfc-style
+      nixfmt
     ];
   };
 
@@ -129,6 +128,13 @@
 
   # Docker.
   virtualisation.docker.enable = true;
+
+  # Use Neovim as terminal editor.
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    vimAlias = true;
+  };
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
@@ -147,16 +153,11 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
     git
   ];
 
   # System-wide environment variables.
   environment.sessionVariables = {
-    # Set defaults.
-    EDITOR = "vim";
-    GIT_EDITOR = "vim";
-
     # Don't show "(.venv)" in shell prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
