@@ -116,6 +116,7 @@
       nodejs_22
       nixd
       nixfmt
+      pinta
     ];
   };
 
