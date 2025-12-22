@@ -155,6 +155,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    openvpn
   ];
 
   # System-wide environment variables.
