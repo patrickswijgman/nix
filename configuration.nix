@@ -42,7 +42,7 @@
   services.xserver.enable = true;
   services.xserver.excludePackages = [ pkgs.xterm ];
 
-  # Enable the GNOME Desktop Environment.
+  # Enable the GNOME Desktop Environment (with fractional scaling support).
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
   services.desktopManager.gnome.extraGSettingsOverrides = ''
@@ -113,10 +113,12 @@
     packages = with pkgs; [
       zed-editor
       chromium
-      nodejs_22
+      nodejs_24
       nixd
       nixfmt
+      claude-code
       pinta
+      fishPlugins.nvm
     ];
   };
 
@@ -130,6 +132,12 @@
   # Docker.
   virtualisation.docker.enable = true;
 
+  # Firmware updates.
+  services.fwupd.enable = true;
+
+  # Allow 'npm link'.
+  programs.npm.enable = true;
+
   # Use Neovim as terminal editor.
   programs.neovim = {
     enable = true;
@@ -141,6 +149,10 @@
   # Needed for Zed to download execute language servers.
   # Needed for pre-commit to execute downloaded git hooks.
   programs.nix-ld.enable = true;
+
+  # Run AppImage files.
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
