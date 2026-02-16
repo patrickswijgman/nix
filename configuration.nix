@@ -61,7 +61,7 @@
     gnome-characters
     gnome-clocks
     gnome-connections
-    # gnome-console
+    gnome-console
     gnome-contacts
     gnome-font-viewer
     gnome-logs
@@ -111,12 +111,16 @@
     ];
     useDefaultShell = true;
     packages = with pkgs; [
-      zed-editor
+      ghostty
+      helix
       chromium
       nodejs_24
       nixd
       nixfmt
+      taplo
+      typescript-language-server
       claude-code
+      go
       pinta
       fishPlugins.nvm
     ];
@@ -137,13 +141,6 @@
 
   # Allow 'npm link'.
   programs.npm.enable = true;
-
-  # Use Neovim as terminal editor.
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
-  };
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
@@ -177,6 +174,10 @@
 
     # Run Electron apps in Wayland.
     NIXOS_OZONE_WL = "1";
+
+    # Default editor.
+    EDITOR = "hx";
+    GIT_EDITOR = "hx";
   };
 
   # This value determines the NixOS release from which the default
