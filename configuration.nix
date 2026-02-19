@@ -113,25 +113,36 @@
     packages = with pkgs; [
       ghostty
       helix
-      chromium
       nodejs_24
       nixd
       nixfmt
       taplo
       typescript-language-server
+      prettierd
       claude-code
-      go
+      go_1_25
       pinta
       fishPlugins.nvm
     ];
+  };
+
+  # Set default terminal.
+  xdg.terminal-exec = {
+    enable = true;
+    settings = {
+      default = [
+        "com.mitchellh.ghostty.desktop"
+      ];
+    };
   };
 
   # Shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # Browser.
+  # Browsers.
   programs.firefox.enable = true;
+  programs.chromium.enable = true;
 
   # Docker.
   virtualisation.docker.enable = true;
@@ -164,6 +175,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    wl-clipboard
     openvpn
   ];
 
