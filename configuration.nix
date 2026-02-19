@@ -111,16 +111,17 @@
     ];
     useDefaultShell = true;
     packages = with pkgs; [
+      chromium
       ghostty
       helix
-      nodejs_24
       nixd
       nixfmt
       taplo
+      nodejs_24
       typescript-language-server
       prettierd
-      claude-code
       go_1_25
+      claude-code
       pinta
       fishPlugins.nvm
     ];
@@ -140,9 +141,8 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # Browsers.
+  # Browser.
   programs.firefox.enable = true;
-  programs.chromium.enable = true;
 
   # Docker.
   virtualisation.docker.enable = true;
