@@ -111,18 +111,30 @@
     ];
     useDefaultShell = true;
     packages = with pkgs; [
+      # Apps
       chromium
       ghostty
       helix
+      pinta
+      htop
+
+      # Dev
       nixd
       nixfmt
       taplo
       nodejs_24
       typescript-language-server
+      vscode-css-languageserver
+      vscode-json-languageserver
+      yaml-language-server
       prettierd
+      codebook
       go_1_25
+      uv
+      gcc # needed for pre-commit hooks
       claude-code
-      pinta
+
+      # Shell
       fishPlugins.nvm
     ];
   };
