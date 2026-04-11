@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -14,18 +14,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices."luks-71936e47-c47f-47e7-8c39-c942ace26eb1".device =
-    "/dev/disk/by-uuid/71936e47-c47f-47e7-8c39-c942ace26eb1";
-  networking.hostName = "patrick-swijgman-work";
-
   # Enable networking
+  networking.hostName = "nixos"; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  # Select internationalization properties.
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -107,7 +105,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
     ];
     useDefaultShell = true;
     packages = with pkgs; [
@@ -115,8 +112,8 @@
       chromium
       ghostty
       helix
-      pinta
       htop
+      aseprite
 
       # Dev
       nixd
@@ -129,9 +126,6 @@
       yaml-language-server
       prettierd
       codebook
-      go_1_25
-      uv
-      gcc # needed for pre-commit hooks
       claude-code
 
       # Shell
@@ -153,26 +147,8 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # Browser.
+  # Install firefox.
   programs.firefox.enable = true;
-
-  # Docker.
-  virtualisation.docker.enable = true;
-
-  # Firmware updates.
-  services.fwupd.enable = true;
-
-  # Allow 'npm link'.
-  programs.npm.enable = true;
-
-  # Enable dynamic linker to execute dynamic binaries.
-  # Needed for Zed to download execute language servers.
-  # Needed for pre-commit to execute downloaded git hooks.
-  programs.nix-ld.enable = true;
-
-  # Run AppImage files.
-  programs.appimage.enable = true;
-  programs.appimage.binfmt = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -188,7 +164,6 @@
   environment.systemPackages = with pkgs; [
     git
     wl-clipboard
-    openvpn
   ];
 
   # System-wide environment variables.
@@ -211,4 +186,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
+
 }

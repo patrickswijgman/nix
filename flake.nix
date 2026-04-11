@@ -8,7 +8,11 @@
     {
       nixosConfigurations = {
         work = nixpkgs.lib.nixosSystem {
-          modules = [ ./configuration.nix ];
+          modules = [ ./hosts/work/configuration.nix ];
+        };
+
+        desktop = nixpkgs.lib.nixosSystem {
+          modules = [ ./hosts/desktop/configuration.nix ];
         };
       };
     };
