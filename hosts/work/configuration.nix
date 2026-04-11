@@ -169,6 +169,7 @@
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
   # Needed for pre-commit to execute downloaded git hooks.
+  # Needed for binaries installed via node_modules.
   programs.nix-ld.enable = true;
 
   # Run AppImage files.
