@@ -87,6 +87,7 @@
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  # Use Nvidia driver instead of Nouveau.
   hardware.nvidia = {
     # Modesetting is required for Wayland.
     modesetting.enable = true;
@@ -188,6 +189,11 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Gaming.
+  programs.steam.enable = true;
+  programs.steam.extraCompatPackages = with pkgs; [ proton-ge-bin ];
+  programs.gamemode.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
