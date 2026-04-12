@@ -84,7 +84,7 @@
     enable32Bit = true;
   };
 
-  # Load nvidia driver for Xorg and Wayland
+  # Load Nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
   # Use Nvidia driver instead of Nouveau.
@@ -96,7 +96,7 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
@@ -116,6 +116,13 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  # Fix for waking up from sleep?
+  systemd.services."systemd-suspend" = {
+    serviceConfig = {
+      Environment = ''"SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false"'';
+    };
   };
 
   # Configure keymap in X11
@@ -168,6 +175,9 @@
       codebook
       claude-code
 
+      # Utils
+      tree
+
       # Shell
       fishPlugins.nvm
     ];
@@ -198,7 +208,7 @@
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
   # Needed for pre-commit to execute downloaded git hooks.
-  # Needed for binaries installed via node_modules.
+  # Needed for binaries installed in node_modules via NPM.
   programs.nix-ld.enable = true;
 
   # Allow unfree packages
@@ -219,9 +229,6 @@
 
   # System-wide environment variables.
   environment.sessionVariables = {
-    # Don't show "(.venv)" in shell prompt.
-    VIRTUAL_ENV_DISABLE_PROMPT = "1";
-
     # Run Electron apps in Wayland.
     NIXOS_OZONE_WL = "1";
 

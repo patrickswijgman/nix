@@ -135,6 +135,9 @@
       gcc # needed for pre-commit hooks
       claude-code
 
+      # Utils
+      tree
+
       # Shell
       fishPlugins.nvm
     ];
@@ -169,7 +172,7 @@
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
   # Needed for pre-commit to execute downloaded git hooks.
-  # Needed for binaries installed via node_modules.
+  # Needed for binaries installed in node_modules via NPM.
   programs.nix-ld.enable = true;
 
   # Run AppImage files.
