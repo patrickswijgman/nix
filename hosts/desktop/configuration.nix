@@ -155,6 +155,9 @@
     ];
     useDefaultShell = true;
     packages = with pkgs; [
+      # Dotfiles
+      chezmoi
+
       # Apps
       chromium
       ghostty
