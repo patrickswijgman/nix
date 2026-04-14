@@ -78,6 +78,10 @@
     yelp
   ];
 
+  # Auto login
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "patrick";
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;

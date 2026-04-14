@@ -81,6 +81,10 @@
     yelp
   ];
 
+  # Auto login
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "patrick";
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
