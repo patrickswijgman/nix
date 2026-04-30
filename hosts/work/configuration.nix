@@ -138,6 +138,11 @@
       prettierd
       codebook
       go_1_25
+      gopls
+      golangci-lint
+      golangci-lint-langserver
+      python314
+      python314Packages.python-lsp-server
       uv
       gcc # needed for pre-commit hooks
       claude-code
@@ -172,6 +177,10 @@
 
   # Firmware updates.
   services.fwupd.enable = true;
+
+  # Thunderbolt device manager — authorizes the CalDigit dock at boot so GNOME
+  # detects the external monitor without needing a suspend/wake cycle.
+  services.hardware.bolt.enable = true;
 
   # Allow 'npm link'.
   programs.npm.enable = true;
