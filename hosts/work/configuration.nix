@@ -135,6 +135,7 @@
       vscode-css-languageserver
       vscode-json-languageserver
       yaml-language-server
+      efm-langserver
       prettierd
       codebook
       go_1_25
