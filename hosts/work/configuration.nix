@@ -150,9 +150,11 @@
 
       # Utils
       tree
+      fzf
 
       # Shell
       fishPlugins.nvm
+      fishPlugins.hydro
     ];
   };
 

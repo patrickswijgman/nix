@@ -161,6 +161,7 @@
       helix
       htop
       aseprite
+      prismlauncher
 
       # Dev
       nixd
@@ -171,15 +172,18 @@
       vscode-css-languageserver
       vscode-json-languageserver
       yaml-language-server
+      efm-langserver
       prettierd
       codebook
       claude-code
 
       # Utils
       tree
+      fzf
 
       # Shell
       fishPlugins.nvm
+      fishPlugins.hydro
     ];
   };
 
@@ -197,7 +201,7 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # Install firefox.
+  # Browser.
   programs.firefox.enable = true;
 
   # Gaming.
