@@ -54,7 +54,7 @@
     decibels
     epiphany
     geary
-    gnome-calculator
+    # gnome-calculator
     gnome-calendar
     gnome-characters
     gnome-clocks
@@ -180,6 +180,7 @@
       # Utils
       tree
       fzf
+      jq
 
       # Shell
       fishPlugins.nvm

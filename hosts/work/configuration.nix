@@ -57,7 +57,7 @@
     decibels
     epiphany
     geary
-    gnome-calculator
+    # gnome-calculator
     gnome-calendar
     gnome-characters
     gnome-clocks
@@ -151,6 +151,7 @@
       # Utils
       tree
       fzf
+      jq
 
       # Shell
       fishPlugins.nvm
@@ -180,10 +181,6 @@
 
   # Firmware updates.
   services.fwupd.enable = true;
-
-  # Thunderbolt device manager — authorizes the CalDigit dock at boot so GNOME
-  # detects the external monitor without needing a suspend/wake cycle.
-  services.hardware.bolt.enable = true;
 
   # Allow 'npm link'.
   programs.npm.enable = true;
