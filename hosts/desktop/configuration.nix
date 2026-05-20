@@ -162,7 +162,7 @@
       htop
       aseprite
       prismlauncher
-      # lutris
+      heroic
 
       # Dev
       nixd
