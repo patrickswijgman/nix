@@ -138,6 +138,7 @@
       efm-langserver
       prettierd
       codebook
+      marksman
       go_1_25
       gopls
       golangci-lint

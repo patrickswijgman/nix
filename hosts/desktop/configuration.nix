@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable networking
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "patrick-desktop"; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -162,6 +162,7 @@
       htop
       aseprite
       prismlauncher
+      # lutris
 
       # Dev
       nixd
@@ -175,6 +176,7 @@
       efm-langserver
       prettierd
       codebook
+      marksman
       claude-code
 
       # Utils
@@ -209,9 +211,6 @@
   programs.steam.enable = true;
   programs.steam.extraCompatPackages = with pkgs; [ proton-ge-bin ];
   programs.gamemode.enable = true;
-
-  # Allow 'npm link'.
-  programs.npm.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
