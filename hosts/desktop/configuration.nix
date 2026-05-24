@@ -161,6 +161,7 @@
       helix
       htop
       aseprite
+      tiled
       prismlauncher
       heroic
 
@@ -175,6 +176,8 @@
       yaml-language-server
       efm-langserver
       prettierd
+      lua
+      lua-language-server
       codebook
       marksman
       claude-code
