@@ -4,6 +4,9 @@
 
 { config, pkgs, ... }:
 
+let
+  treesitter = pkgs.callPackage ../../pkgs/treesitter.nix { };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -158,19 +161,17 @@
       # Apps
       chromium
       ghostty
-      helix
+      neovim
       htop
       aseprite
       tiled
-      prismlauncher
-      heroic
 
       # Dev
       nixd
       nixfmt
       taplo
       nodejs_24
-      typescript-language-server
+      vtsls
       vscode-css-languageserver
       vscode-json-languageserver
       yaml-language-server
@@ -180,16 +181,14 @@
       lua-language-server
       codebook
       marksman
+      fish-lsp
       claude-code
 
       # Utils
       tree
+      ripgrep
       fzf
       jq
-
-      # Shell
-      fishPlugins.nvm
-      fishPlugins.hydro
     ];
   };
 
@@ -243,8 +242,11 @@
     NIXOS_OZONE_WL = "1";
 
     # Default editor.
-    EDITOR = "hx";
-    GIT_EDITOR = "hx";
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
+
+    # Points to the derivation containing the treesitter parser (*.so) files and query (*.scm) files.
+    TREESITTER_PATH = "${treesitter}";
   };
 
   # This value determines the NixOS release from which the default
