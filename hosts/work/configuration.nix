@@ -4,6 +4,9 @@
 
 { pkgs, ... }:
 
+let
+  treesitter = pkgs.callPackage ../../pkgs/treesitter.nix { };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -21,6 +24,9 @@
   # Enable networking
   networking.hostName = "patrick-swijgman-work";
   networking.networkmanager.enable = true;
+  networking.hosts = {
+    "127.0.0.1" = [ "localhost" ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -122,7 +128,7 @@
       # Apps
       chromium
       ghostty
-      helix
+      neovim
       pinta
       htop
 
@@ -131,7 +137,7 @@
       nixfmt
       taplo
       nodejs_24
-      typescript-language-server
+      vtsls
       vscode-css-languageserver
       vscode-json-languageserver
       yaml-language-server
@@ -146,17 +152,16 @@
       python314
       python314Packages.python-lsp-server
       uv
-      gcc # needed for pre-commit hooks
+      fish-lsp
       claude-code
+      gcc # needed for pre-commit hooks
 
       # Utils
       tree
+      ripgrep
       fzf
+      fd
       jq
-
-      # Shell
-      fishPlugins.nvm
-      fishPlugins.hydro
     ];
   };
 
@@ -216,14 +221,17 @@
   # System-wide environment variables.
   environment.sessionVariables = {
     # Don't show "(.venv)" in shell prompt.
-    VIRTUAL_ENV_DISABLE_PROMPT = "1";
+    # VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
     # Run Electron apps in Wayland.
     NIXOS_OZONE_WL = "1";
 
     # Default editor.
-    EDITOR = "hx";
-    GIT_EDITOR = "hx";
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
+
+    # Points to the derivation containing the treesitter parser (*.so) files and query (*.scm) files.
+    TREESITTER_PATH = "${treesitter}";
   };
 
   # This value determines the NixOS release from which the default
