@@ -4,8 +4,8 @@
   vimPlugins,
 }:
 
-# Symlink all treesitter parsers and query files into a single directory.
-# Parsers come from `vimPlugins.nvim-treesitter-parsers.<name>`, queries from `vimPlugins.nvim-treesitter.passthru.queries.<name>`.
+# Symlink all treesitter parser files (*.so) and query files (*.scm) into a single directory.
+# The nvim-treesitter plugin manages its own query files which contain specific improvements for the builtin treesitter in Neovim.
 let
   inherit (vimPlugins) nvim-treesitter-parsers nvim-treesitter;
   parsers = builtins.filter lib.isDerivation (builtins.attrValues nvim-treesitter-parsers);

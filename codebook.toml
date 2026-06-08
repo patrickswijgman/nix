@@ -1,0 +1,18 @@
+words = [
+    "alsa",
+    "efi",
+    "neovim",
+    "networkmanager",
+    "nixos",
+    "nixpkgs",
+    "nvidia",
+    "nvim",
+    "passthru",
+    "pipewire",
+    "pkgs",
+    "pulseaudio",
+    "rtkit",
+    "xdg",
+    "xkb",
+    "xwayland",
+]
