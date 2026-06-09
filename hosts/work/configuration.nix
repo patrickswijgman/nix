@@ -143,6 +143,9 @@ in
       yaml-language-server
       efm-langserver
       prettierd
+      lua
+      lua-language-server
+      stylua
       codebook
       marksman
       go_1_25

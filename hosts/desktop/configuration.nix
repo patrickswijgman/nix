@@ -179,6 +179,7 @@ in
       prettierd
       lua
       lua-language-server
+      stylua
       codebook
       marksman
       fish-lsp
