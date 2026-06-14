@@ -1,6 +1,8 @@
 words = [
     "alsa",
     "efi",
+    "ghostty",
+    "ints",
     "neovim",
     "networkmanager",
     "nixos",
@@ -10,6 +12,7 @@ words = [
     "passthru",
     "pipewire",
     "pkgs",
+    "pomodoro",
     "pulseaudio",
     "rtkit",
     "xdg",

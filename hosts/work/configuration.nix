@@ -4,15 +4,10 @@
 
 { pkgs, ... }:
 
-let
-  treesitter = pkgs.callPackage ../../pkgs/treesitter.nix { };
-in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # Services.
-    ../../services/pomodoro.nix
   ];
 
   # Bootloader.
@@ -129,8 +124,6 @@ in
 
       # Apps
       chromium
-      ghostty
-      neovim
       pinta
       htop
 
@@ -170,19 +163,17 @@ in
     ];
   };
 
-  # Set default terminal.
-  xdg.terminal-exec = {
-    enable = true;
-    settings = {
-      default = [
-        "com.mitchellh.ghostty.desktop"
-      ];
-    };
-  };
+  # Terminal.
+  modules.ghostty.enable = true;
+
+  # Editor.
+  modules.neovim.enable = true;
+
+  # Pomodoro timer.
+  services.pomodoro.enable = true;
 
   # Shell.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
+  modules.fish.enable = true;
 
   # Browser.
   programs.firefox.enable = true;
@@ -234,9 +225,6 @@ in
     # Default editor.
     EDITOR = "nvim";
     GIT_EDITOR = "nvim";
-
-    # Points to the derivation containing the treesitter parser (*.so) files and query (*.scm) files.
-    TREESITTER_PATH = "${treesitter}";
   };
 
   # This value determines the NixOS release from which the default
