@@ -1,5 +1,3 @@
-# Gaming: Steam with Proton-GE and GameMode.
-
 {
   config,
   lib,

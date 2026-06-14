@@ -1,5 +1,3 @@
-# Ghostty terminal emulator, set as the default terminal.
-
 {
   config,
   lib,
