@@ -120,7 +120,7 @@
   programs.firefox.enable = true;
 
   # Gaming.
-  modules.gaming.enable = true;
+  modules.steam.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.

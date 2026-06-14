@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg = config.modules.gaming;
+  cfg = config.modules.steam;
 in
 {
-  options.modules.gaming = {
-    enable = lib.mkEnableOption "Steam and gaming tweaks";
+  options.modules.steam = {
+    enable = lib.mkEnableOption "Steam";
   };
 
   config = lib.mkIf cfg.enable {
