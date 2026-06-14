@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -36,97 +36,12 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.excludePackages = [ pkgs.xterm ];
+  # Desktop environment.
+  modules.gnome.enable = true;
+  modules.gnome.autoLogin = "patrick";
 
-  # Enable the GNOME Desktop Environment (with fractional scaling support).
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  services.desktopManager.gnome.extraGSettingsOverrides = ''
-    [org.gnome.mutter]
-    experimental-features=['scale-monitor-framebuffer', 'xwayland-native-scaling']
-  '';
-
-  # Remove unused GNOME default software.
-  environment.gnome.excludePackages = with pkgs; [
-    # baobab
-    decibels
-    epiphany
-    geary
-    # gnome-calculator
-    gnome-calendar
-    gnome-characters
-    gnome-clocks
-    gnome-connections
-    gnome-console
-    gnome-contacts
-    gnome-font-viewer
-    gnome-logs
-    gnome-maps
-    gnome-music
-    gnome-system-monitor
-    gnome-text-editor
-    gnome-tour
-    gnome-weather
-    # loupe
-    # nautilus
-    # papers
-    showtime
-    simple-scan
-    snapshot
-    yelp
-  ];
-
-  # Auto login
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "patrick";
-
-  # Enable OpenGL
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-
-  # Load Nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Use Nvidia driver instead of Nouveau.
-  hardware.nvidia = {
-    # Modesetting is required for Wayland.
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the Nvidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    open = true;
-
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # Graphics.
+  modules.nvidia.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -205,9 +120,7 @@
   programs.firefox.enable = true;
 
   # Gaming.
-  programs.steam.enable = true;
-  programs.steam.extraCompatPackages = with pkgs; [ proton-ge-bin ];
-  programs.gamemode.enable = true;
+  modules.gaming.enable = true;
 
   # Enable dynamic linker to execute dynamic binaries.
   # Needed for Zed to download execute language servers.
@@ -231,16 +144,6 @@
     wl-clipboard
   ];
 
-  # System-wide environment variables.
-  environment.sessionVariables = {
-    # Run Electron apps in Wayland.
-    NIXOS_OZONE_WL = "1";
-
-    # Default editor.
-    EDITOR = "nvim";
-    GIT_EDITOR = "nvim";
-  };
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
@@ -248,5 +151,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }

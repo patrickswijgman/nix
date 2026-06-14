@@ -20,6 +20,10 @@ in
     ];
 
     environment.sessionVariables = {
+      # Default editor.
+      EDITOR = "nvim";
+      GIT_EDITOR = "nvim";
+
       # Points to the derivation containing the Treesitter parser (*.so) files and query (*.scm) files.
       TREESITTER_PATH = "${treesitter}";
     };

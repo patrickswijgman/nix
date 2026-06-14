@@ -42,57 +42,8 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.excludePackages = [ pkgs.xterm ];
-
-  # Enable the GNOME Desktop Environment (with fractional scaling support).
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  services.desktopManager.gnome.extraGSettingsOverrides = ''
-    [org.gnome.mutter]
-    experimental-features=['scale-monitor-framebuffer', 'xwayland-native-scaling']
-  '';
-
-  # Remove unused GNOME default software.
-  environment.gnome.excludePackages = with pkgs; [
-    # baobab
-    decibels
-    epiphany
-    geary
-    # gnome-calculator
-    gnome-calendar
-    gnome-characters
-    gnome-clocks
-    gnome-connections
-    gnome-console
-    gnome-contacts
-    gnome-font-viewer
-    gnome-logs
-    gnome-maps
-    gnome-music
-    gnome-system-monitor
-    gnome-text-editor
-    gnome-tour
-    gnome-weather
-    # loupe
-    # nautilus
-    # papers
-    showtime
-    simple-scan
-    snapshot
-    yelp
-  ];
-
-  # Auto login
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "patrick";
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # Desktop environment.
+  modules.gnome.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -218,13 +169,6 @@
   environment.sessionVariables = {
     # Don't show "(.venv)" in shell prompt.
     # VIRTUAL_ENV_DISABLE_PROMPT = "1";
-
-    # Run Electron apps in Wayland.
-    NIXOS_OZONE_WL = "1";
-
-    # Default editor.
-    EDITOR = "nvim";
-    GIT_EDITOR = "nvim";
   };
 
   # This value determines the NixOS release from which the default
