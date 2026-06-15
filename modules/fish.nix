@@ -1,5 +1,3 @@
-# Fish shell, set as the default user shell.
-
 {
   config,
   lib,

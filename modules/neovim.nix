@@ -15,8 +15,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.neovim
+    environment.systemPackages = with pkgs; [
+      neovim
+      ripgrep
+      curl
+      git
+      wl-clipboard
     ];
 
     environment.sessionVariables = {

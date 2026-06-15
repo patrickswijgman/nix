@@ -10,12 +10,12 @@ let
 in
 {
   options.modules.ghostty = {
-    enable = lib.mkEnableOption "Ghostty terminal emulator";
+    enable = lib.mkEnableOption "Ghostty terminal";
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.ghostty
+    environment.systemPackages = with pkgs; [
+      ghostty
     ];
 
     # Set as the default terminal.

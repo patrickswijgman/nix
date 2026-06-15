@@ -75,8 +75,18 @@ in
       yelp
     ];
 
-    # Run Electron apps in Wayland.
+    # Enable pipewire for multimedia (screen sharing and audio).
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = false;
+    };
+
     environment.sessionVariables = {
+      # Run Electron apps in Wayland.
       NIXOS_OZONE_WL = "1";
     };
   };

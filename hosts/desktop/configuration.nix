@@ -40,6 +40,9 @@
   modules.gnome.enable = true;
   modules.gnome.autoLogin = "patrick";
 
+  modules.sway.enable = false;
+  modules.sway.useNvidia = true;
+
   # Graphics.
   modules.nvidia.enable = true;
 
@@ -110,7 +113,7 @@
   # Editor.
   modules.neovim.enable = true;
 
-  # Pomodoro timer.
+  # Break timer.
   services.pomodoro.enable = true;
 
   # Shell.

@@ -6,5 +6,6 @@
     ./neovim.nix
     ./nvidia.nix
     ./steam.nix
+    ./sway.nix
   ];
 }
