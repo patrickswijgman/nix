@@ -37,28 +37,12 @@
   };
 
   # Desktop environment.
-  modules.gnome.enable = true;
-  modules.gnome.autoLogin = "patrick";
-
-  modules.sway.enable = false;
+  modules.sway.enable = true;
   modules.sway.useNvidia = true;
-
-  # Graphics.
   modules.nvidia.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = false;
-  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.patrick = {
@@ -75,6 +59,7 @@
 
       # Apps
       chromium
+      spotify
       htop
       aseprite
       tiled
@@ -106,9 +91,6 @@
       jq
     ];
   };
-
-  # Terminal.
-  modules.ghostty.enable = true;
 
   # Editor.
   modules.neovim.enable = true;
