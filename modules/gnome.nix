@@ -45,6 +45,24 @@ in
       user = cfg.autoLogin;
     };
 
+    # Enable pipewire for multimedia (screen sharing and audio).
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = false;
+    };
+
+    # Set Ghostty as the default terminal.
+    xdg.terminal-exec = {
+      enable = true;
+      settings = {
+        default = [ "com.mitchellh.ghostty.desktop" ];
+      };
+    };
+
     # Remove unused GNOME default software.
     environment.gnome.excludePackages = with pkgs; [
       # baobab
@@ -75,15 +93,9 @@ in
       yelp
     ];
 
-    # Enable pipewire for multimedia (screen sharing and audio).
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = false;
-    };
+    environment.systemPackages = with pkgs; [
+      ghostty
+    ];
 
     environment.sessionVariables = {
       # Run Electron apps in Wayland.

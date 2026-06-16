@@ -51,6 +51,14 @@ in
       wlr.enable = true;
     };
 
+    # Set Alacritty as the default terminal.
+    xdg.terminal-exec = {
+      enable = true;
+      settings = {
+        default = [ "Alacritty.desktop" ];
+      };
+    };
+
     # Install and set default fonts.
     fonts = {
       packages = with pkgs; [

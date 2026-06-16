@@ -103,9 +103,6 @@
     ];
   };
 
-  # Terminal.
-  modules.ghostty.enable = true;
-
   # Editor.
   modules.neovim.enable = true;
 
