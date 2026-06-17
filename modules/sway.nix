@@ -82,6 +82,7 @@ in
       kanshi
       swayidle
       swaylock
+      pomodoro
       wl-clipboard
     ];
 
