@@ -53,62 +53,16 @@
       "wheel"
     ];
     useDefaultShell = true;
-    packages = with pkgs; [
-      # Dotfiles
-      chezmoi
-
-      # Apps
-      chromium
-      spotify
-      htop
-      aseprite
-      tiled
-
-      # Dev
-      nixd
-      nixfmt
-      taplo
-      nodejs_24
-      vtsls
-      vscode-css-languageserver
-      vscode-json-languageserver
-      yaml-language-server
-      efm-langserver
-      prettierd
-      lua
-      lua-language-server
-      stylua
-      codebook
-      marksman
-      fish-lsp
-      claude-code
-
-      # Utils
-      tree
-      ripgrep
-      fzf
-      fd
-      jq
-    ];
   };
-
-  # Editor.
-  modules.neovim.enable = true;
-
-  # Shell.
-  modules.fish.enable = true;
 
   # Browser.
   programs.firefox.enable = true;
 
-  # Gaming.
+  # Modules.
+  modules.neovim.enable = true;
+  modules.fish.enable = true;
+  modules.dev.enable = true;
   modules.steam.enable = true;
-
-  # Enable dynamic linker to execute dynamic binaries.
-  # Needed for Zed to download execute language servers.
-  # Needed for pre-commit to execute downloaded git hooks.
-  # Needed for binaries installed in node_modules via NPM.
-  programs.nix-ld.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -122,6 +76,23 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # Dotfiles
+    chezmoi
+
+    # Apps
+    chromium
+    spotify
+    htop
+    aseprite
+    tiled
+
+    # Utils
+    tree
+    ripgrep
+    fzf
+    fd
+    jq
+
     vim
     git
     wl-clipboard

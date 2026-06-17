@@ -58,74 +58,21 @@
       "docker"
     ];
     useDefaultShell = true;
-    packages = with pkgs; [
-      # Dotfiles
-      chezmoi
-
-      # Apps
-      chromium
-      pinta
-      htop
-
-      # Dev
-      nixd
-      nixfmt
-      taplo
-      nodejs_24
-      vtsls
-      vscode-css-languageserver
-      vscode-json-languageserver
-      yaml-language-server
-      efm-langserver
-      prettierd
-      lua
-      lua-language-server
-      stylua
-      codebook
-      marksman
-      go_1_25
-      gopls
-      golangci-lint
-      golangci-lint-langserver
-      python314
-      python314Packages.python-lsp-server
-      uv
-      fish-lsp
-      claude-code
-      gcc # needed for pre-commit hooks
-
-      # Utils
-      tree
-      ripgrep
-      fzf
-      fd
-      jq
-    ];
   };
-
-  # Editor.
-  modules.neovim.enable = true;
-
-  # Shell.
-  modules.fish.enable = true;
 
   # Browser.
   programs.firefox.enable = true;
+
+  # Modules.
+  modules.neovim.enable = true;
+  modules.fish.enable = true;
+  modules.dev.enable = true;
 
   # Docker.
   virtualisation.docker.enable = true;
 
   # Firmware updates.
   services.fwupd.enable = true;
-
-  # Allow 'npm link'.
-  programs.npm.enable = true;
-
-  # Enable dynamic linker to execute dynamic binaries.
-  # Needed for Zed to download execute language servers.
-  # Needed for pre-commit to execute downloaded git hooks.
-  # Needed for binaries installed in node_modules via NPM.
-  programs.nix-ld.enable = true;
 
   # Run AppImage files.
   programs.appimage.enable = true;
@@ -143,6 +90,21 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # Dotfiles
+    chezmoi
+
+    # Apps
+    chromium
+    pinta
+    htop
+
+    # Utils
+    tree
+    ripgrep
+    fzf
+    fd
+    jq
+
     vim
     git
     wl-clipboard
