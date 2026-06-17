@@ -106,9 +106,6 @@
   # Editor.
   modules.neovim.enable = true;
 
-  # Pomodoro timer.
-  services.pomodoro.enable = true;
-
   # Shell.
   modules.fish.enable = true;
 

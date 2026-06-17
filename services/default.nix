@@ -1,5 +1,3 @@
 {
-  imports = [
-    ./pomodoro.nix
-  ];
+  imports = [ ];
 }
