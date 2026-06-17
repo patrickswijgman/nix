@@ -18,7 +18,7 @@ in
     # Enable dynamic linker to execute dynamic binaries.
     # Needed for Zed to download execute language servers.
     # Needed for pre-commit to execute downloaded git hooks.
-    # Needed for binaries installed in node_modules via NPM, e.g. Biome.
+    # Needed for binaries installed in node_modules with NPM, e.g. Biome.
     programs.nix-ld.enable = true;
 
     environment.systemPackages = with pkgs; [
@@ -53,9 +53,6 @@ in
       ruff
       uv
 
-      # Docker
-      docker-language-server
-
       # Lua
       lua
       lua-language-server
@@ -83,6 +80,9 @@ in
 
       # GitLab
       gitlab-ci-ls
+
+      # Docker
+      docker-language-server
 
       # Jinja
       jinja-lsp
