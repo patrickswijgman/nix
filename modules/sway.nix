@@ -7,6 +7,7 @@
 
 let
   cfg = config.modules.sway;
+  swayline = pkgs.callPackage ../pkgs/swayline.nix { };
 in
 {
   options.modules.sway = {
@@ -82,6 +83,7 @@ in
       kanshi
       swayidle
       swaylock
+      swayline
       pomodoro
       wl-clipboard
     ];

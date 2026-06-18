@@ -65,11 +65,13 @@ in
       # Markdown
       marksman
 
-      # Yaml
+      # YAML
       yaml-language-server
       spectral-language-server
+      docker-language-server
+      gitlab-ci-ls
 
-      # Toml
+      # TOML
       taplo
 
       # JSON
@@ -77,12 +79,6 @@ in
 
       # Fish
       fish-lsp
-
-      # GitLab
-      gitlab-ci-ls
-
-      # Docker
-      docker-language-server
 
       # Jinja
       jinja-lsp
