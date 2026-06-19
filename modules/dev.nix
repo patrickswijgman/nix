@@ -41,12 +41,6 @@ in
       golangci-lint-langserver
       gopls
 
-      # Rust
-      rustc
-      rust-analyzer
-      rustfmt
-      clippy
-
       # Python
       python314
       python314Packages.python-lsp-server
@@ -62,14 +56,9 @@ in
       nixd
       nixfmt
 
-      # Markdown
-      marksman
-
       # YAML
       yaml-language-server
-      spectral-language-server
       docker-language-server
-      gitlab-ci-ls
 
       # TOML
       taplo
