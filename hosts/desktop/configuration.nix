@@ -41,18 +41,15 @@
   modules.sway.useNvidia = true;
   modules.nvidia.enable = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.patrick = {
     isNormalUser = true;
     description = "Patrick";
+    useDefaultShell = true;
     extraGroups = [
       "networkmanager"
       "wheel"
     ];
-    useDefaultShell = true;
   };
 
   # Browser.

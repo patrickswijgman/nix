@@ -52,12 +52,12 @@
   users.users.patrick = {
     isNormalUser = true;
     description = "Patrick";
+    useDefaultShell = true;
     extraGroups = [
       "networkmanager"
       "wheel"
       "docker"
     ];
-    useDefaultShell = true;
   };
 
   # Browser.
@@ -95,7 +95,7 @@
 
     # Apps
     chromium
-    pinta
+    gimp
     htop
 
     # Utils
