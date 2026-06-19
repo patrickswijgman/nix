@@ -1,5 +1,6 @@
 {
   imports = [
+    ./common.nix
     ./dev.nix
     ./fish.nix
     ./gnome.nix

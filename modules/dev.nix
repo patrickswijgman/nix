@@ -22,6 +22,9 @@ in
     programs.nix-ld.enable = true;
 
     environment.systemPackages = with pkgs; [
+      # Browser
+      chromium
+
       # General
       efm-langserver
       codebook
@@ -32,7 +35,6 @@ in
       vtsls
       vscode-css-languageserver
       cssmodules-language-server
-      css-variables-language-server
       emmet-language-server
 
       # Go
@@ -40,6 +42,13 @@ in
       golangci-lint
       golangci-lint-langserver
       gopls
+
+      # Rust
+      rustc
+      rust-analyzer
+      rustfmt
+      cargo
+      clippy
 
       # Python
       python314

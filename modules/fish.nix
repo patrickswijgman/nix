@@ -19,7 +19,8 @@ in
     users.defaultUserShell = pkgs.fish;
 
     environment.systemPackages = with pkgs; [
-      fzf # comes with fish shell integrations
+      fzf
+      keychain
     ];
   };
 }

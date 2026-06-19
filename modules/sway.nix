@@ -34,6 +34,7 @@ in
     # Enable the gnome-keyring secrets vault.
     # Will be exposed through DBus to programs willing to store secrets.
     services.gnome.gnome-keyring.enable = true;
+    security.pam.services.login.enableGnomeKeyring = true;
 
     # Enable Pipewire for multimedia (screen sharing and audio).
     security.rtkit.enable = true;
@@ -49,7 +50,10 @@ in
     # Also requires pipewire to be enabled.
     xdg.portal = {
       enable = true;
-      wlr.enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
+      ];
     };
 
     # Set Alacritty as the default terminal.
@@ -80,6 +84,7 @@ in
       pamixer
       grim
       slurp
+      still
       mako
       kanshi
       swayidle
