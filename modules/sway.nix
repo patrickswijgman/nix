@@ -73,6 +73,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
+      adwaita-icon-theme # mouse cursor and icons
       alacritty
       brightnessctl
       playerctl
