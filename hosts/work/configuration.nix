@@ -43,7 +43,7 @@
   };
 
   # Desktop environment.
-  modules.gnome.enable = true;
+  modules.sway.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -67,6 +67,17 @@
   modules.neovim.enable = true;
   modules.fish.enable = true;
   modules.dev.enable = true;
+
+  # Bluetooth.
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
+  };
 
   # Docker.
   virtualisation.docker.enable = true;
