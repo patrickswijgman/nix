@@ -16,7 +16,6 @@ in
     useNvidia = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      example = true;
       description = ''
         Pass `--unsupported-gpu` to Sway. Required to start on the proprietary
         NVIDIA driver, which wlroots otherwise refuses to run on.
@@ -31,12 +30,9 @@ in
       extraOptions = lib.optionals cfg.useNvidia [ "--unsupported-gpu" ];
     };
 
-    # Enable the gnome-keyring secrets vault.
-    # Will be exposed through DBus to programs willing to store secrets.
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.login.enableGnomeKeyring = true;
 
-    # Enable Pipewire for multimedia (screen sharing and audio).
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
@@ -46,8 +42,6 @@ in
       jack.enable = false;
     };
 
-    # Enable desktop portal for screen sharing.
-    # Also requires pipewire to be enabled.
     xdg.portal = {
       enable = true;
       wlr = {
@@ -63,7 +57,6 @@ in
       ];
     };
 
-    # Set Alacritty as the default terminal.
     xdg.terminal-exec = {
       enable = true;
       settings = {
@@ -71,7 +64,6 @@ in
       };
     };
 
-    # Install and set default fonts.
     fonts = {
       packages = with pkgs; [
         nerd-fonts.jetbrains-mono
@@ -84,7 +76,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      adwaita-icon-theme # mouse cursor and icons
+      yaru-theme
       alacritty
       brightnessctl
       playerctl
@@ -102,7 +94,6 @@ in
     ];
 
     environment.sessionVariables = {
-      # Run Electron apps in Wayland.
       NIXOS_OZONE_WL = "1";
     };
   };

@@ -15,18 +15,8 @@
   networking.hostName = "patrick-swijgman-work";
   networking.networkmanager.enable = true;
 
-  users.users.patrick = {
-    isNormalUser = true;
-    description = "Patrick";
-    useDefaultShell = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-    ];
-  };
-
   modules.common.enable = true;
+  modules.common.extraUserGroups = [ "docker" ];
   modules.sway.enable = true;
   modules.neovim.enable = true;
   modules.fish.enable = true;

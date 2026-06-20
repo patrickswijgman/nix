@@ -15,10 +15,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Run unpatched dynamic binaries.
-    # Needed for Zed to download execute language servers.
+    # Needed for Zed to download and start language servers.
     # Needed for pre-commit to execute downloaded git hooks.
-    # Needed for binaries installed in node_modules with NPM, e.g. Biome.
+    # Needed for binaries installed in node_modules with npm, e.g. Biome.
     programs.nix-ld.enable = true;
 
     environment.systemPackages = with pkgs; [
@@ -83,6 +82,7 @@ in
 
       # Tools
       claude-code
+      jq # needed for claude statusline
       gcc # needed for pre-commit hooks
     ];
   };

@@ -11,16 +11,6 @@
   networking.hostName = "patrick-desktop";
   networking.networkmanager.enable = true;
 
-  users.users.patrick = {
-    isNormalUser = true;
-    description = "Patrick";
-    useDefaultShell = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-  };
-
   modules.common.enable = true;
   modules.sway.enable = true;
   modules.sway.useNvidia = true;

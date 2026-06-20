@@ -19,6 +19,7 @@ in
     users.defaultUserShell = pkgs.fish;
 
     environment.systemPackages = with pkgs; [
+      fd
       fzf
       keychain
     ];

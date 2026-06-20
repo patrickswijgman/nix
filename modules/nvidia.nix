@@ -13,13 +13,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Enable OpenGL.
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
     };
 
-    # Load Nvidia driver for Xorg and Wayland.
     services.xserver.videoDrivers = [ "nvidia" ];
 
     # Use Nvidia driver instead of Nouveau.

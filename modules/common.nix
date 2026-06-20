@@ -11,6 +11,12 @@ in
 {
   options.modules.common = {
     enable = lib.mkEnableOption "Common packages and system configuration";
+
+    extraUserGroups = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "Extra groups to add to the patrick user.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -36,24 +42,37 @@ in
       LC_TIME = "en_US.UTF-8";
     };
 
+    users.users.patrick = {
+      isNormalUser = true;
+      description = "Patrick";
+      useDefaultShell = true;
+      extraGroups = [
+        "networkmanager"
+        "video"
+        "wheel"
+      ]
+      ++ cfg.extraUserGroups;
+    };
+
     programs.firefox.enable = true;
 
     environment.systemPackages = with pkgs; [
+      spotify
+      gimp
+
       btop
+
+      git
       fd
       fzf
-      gimp
-      git
-      jq
       ripgrep
-      spotify
       tree
       wl-clipboard
     ];
 
     environment.sessionVariables = {
-      # Don't show "(.venv)" in shell prompt.
       VIRTUAL_ENV_DISABLE_PROMPT = "1";
+      FZF_DEFAULT_OPTS_FILE = "/home/patrick/.config/fzf/config";
     };
   };
 }

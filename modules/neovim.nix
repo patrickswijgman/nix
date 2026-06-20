@@ -17,18 +17,17 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       neovim
-      ripgrep
+      ripgrep # needed for plugins
+      fd # needed for plugins
+      fzf # needed for plugins
       curl
       git
       wl-clipboard
     ];
 
     environment.sessionVariables = {
-      # Default editor.
       EDITOR = "nvim";
       GIT_EDITOR = "nvim";
-
-      # Points to the derivation containing the Treesitter parser (*.so) files and query (*.scm) files.
       TREESITTER_PATH = "${treesitter}";
     };
   };
