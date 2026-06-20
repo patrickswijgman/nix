@@ -55,6 +55,7 @@ words = [
     "ripgrep",
     "rtkit",
     "rustfmt",
+    "screencast",
     "stylua",
     "swayidle",
     "swayline",

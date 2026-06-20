@@ -50,9 +50,16 @@ in
     # Also requires pipewire to be enabled.
     xdg.portal = {
       enable = true;
+      wlr = {
+        enable = true;
+        settings = {
+          screencast = {
+            chooser_type = "none";
+          };
+        };
+      };
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
       ];
     };
 
