@@ -15,7 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Enable dynamic linker to execute dynamic binaries.
+    # Run unpatched dynamic binaries.
     # Needed for Zed to download execute language servers.
     # Needed for pre-commit to execute downloaded git hooks.
     # Needed for binaries installed in node_modules with NPM, e.g. Biome.

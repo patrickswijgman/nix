@@ -14,6 +14,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    nixpkgs.config.allowUnfree = true;
+
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
     time.timeZone = "Europe/Amsterdam";
 
     i18n.defaultLocale = "en_US.UTF-8";
@@ -29,30 +36,24 @@ in
       LC_TIME = "en_US.UTF-8";
     };
 
-    nixpkgs.config.allowUnfree = true;
-
-    nix.settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    programs.firefox.enable = true;
 
     environment.systemPackages = with pkgs; [
-      # Dotfiles
-      chezmoi
-
-      # Apps
       btop
-      spotify
-      gimp
-
-      # Utils
-      tree
-      ripgrep
-      fzf
       fd
-      jq
+      fzf
+      gimp
       git
+      jq
+      ripgrep
+      spotify
+      tree
       wl-clipboard
     ];
+
+    environment.sessionVariables = {
+      # Don't show "(.venv)" in shell prompt.
+      VIRTUAL_ENV_DISABLE_PROMPT = "1";
+    };
   };
 }
