@@ -23,5 +23,9 @@ in
       fzf
       keychain
     ];
+
+    environment.sessionVariables = {
+      VIRTUAL_ENV_DISABLE_PROMPT = "1";
+    };
   };
 }

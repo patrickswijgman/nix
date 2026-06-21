@@ -15,7 +15,7 @@ in
     extraUserGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
-      description = "Extra groups to add to the patrick user.";
+      description = "Extra groups to add to the user.";
     };
   };
 
@@ -71,7 +71,6 @@ in
     ];
 
     environment.sessionVariables = {
-      VIRTUAL_ENV_DISABLE_PROMPT = "1";
       FZF_DEFAULT_OPTS_FILE = "/home/patrick/.config/fzf/config";
     };
   };

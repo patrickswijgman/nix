@@ -1,6 +1,11 @@
 {
+  lib,
   buildGoModule,
   fetchFromGitHub,
+  makeBinaryWrapper,
+  pulseaudio,
+  pamixer,
+  inotify-tools,
 }:
 
 buildGoModule {
@@ -10,9 +15,22 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "patrickswijgman";
     repo = "swayline";
-    rev = "d8d652adac6e05754babcc5eed996b8f13a11c46";
-    hash = "sha256-uyieZpsZngHY3zm7XLxh5mLV3olNIU3ycZ/41PyBPfg=";
+    rev = "e2173152029ce17188ed8f77b98156ce09653876";
+    hash = "sha256-oFIKoA7K68MCPzWDp4wDWruWGu55cP2/fa0FEycp3HU=";
   };
 
   vendorHash = null;
+
+  nativeBuildInputs = [ makeBinaryWrapper ];
+
+  postInstall = ''
+    wrapProgramBinary $out/bin/swayline \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          pulseaudio
+          pamixer
+          inotify-tools
+        ]
+      }
+  '';
 }
