@@ -42,25 +42,26 @@ in
       jack.enable = false;
     };
 
-    xdg.portal = {
-      enable = true;
-      wlr = {
+    xdg = {
+      portal = {
         enable = true;
-        settings = {
-          screencast = {
-            chooser_type = "none";
+        wlr = {
+          enable = true;
+          settings = {
+            screencast = {
+              chooser_type = "none";
+            };
           };
         };
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-gtk
+        ];
       };
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-      ];
-    };
-
-    xdg.terminal-exec = {
-      enable = true;
-      settings = {
-        default = [ "Alacritty.desktop" ];
+      terminal-exec = {
+        enable = true;
+        settings = {
+          default = [ "Alacritty.desktop" ];
+        };
       };
     };
 
@@ -76,7 +77,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      yaru-theme
+      adwaita-icon-theme
       alacritty
       brightnessctl
       playerctl

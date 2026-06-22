@@ -15,8 +15,8 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "patrickswijgman";
     repo = "swayline";
-    rev = "e2173152029ce17188ed8f77b98156ce09653876";
-    hash = "sha256-oFIKoA7K68MCPzWDp4wDWruWGu55cP2/fa0FEycp3HU=";
+    rev = "0188b36c926f913dd6a7d512f37bacba751db1cc";
+    hash = "sha256-A2Uf57DVJOmBn/R+g8vfHz+f2uYHOO8HzWRp/8h2yBc=";
   };
 
   vendorHash = null;
