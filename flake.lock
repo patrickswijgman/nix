@@ -18,7 +18,28 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "swayline": "swayline"
+      }
+    },
+    "swayline": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782154816,
+        "narHash": "sha256-kWz1WCR3D74AI3hPFEeUhd4MYlGeFa4LgWdrFmqkZmw=",
+        "owner": "patrickswijgman",
+        "repo": "swayline",
+        "rev": "fb3931aaaa44e285625c6beb1aa738ea13561767",
+        "type": "github"
+      },
+      "original": {
+        "owner": "patrickswijgman",
+        "repo": "swayline",
+        "type": "github"
       }
     }
   },

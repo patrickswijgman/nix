@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -7,7 +8,7 @@
 
 let
   cfg = config.modules.sway;
-  swayline = pkgs.callPackage ../pkgs/swayline.nix { };
+  swayline = inputs.swayline.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   options.modules.sway = {
