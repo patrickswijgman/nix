@@ -130,6 +130,7 @@ in
   environment.sessionVariables = {
     EDITOR = "nvim";
     GIT_EDITOR = "nvim";
+
     TREESITTER_PATH = "${treesitter}";
 
     VIRTUAL_ENV_DISABLE_PROMPT = "1";

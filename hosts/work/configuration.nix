@@ -12,7 +12,6 @@
     "/dev/disk/by-uuid/71936e47-c47f-47e7-8c39-c942ace26eb1";
 
   networking.hostName = "patrick-swijgman-work";
-  users.users.patrick.extraGroups = [ "docker" ];
 
   modules.sway.enable = true;
 
@@ -27,6 +26,7 @@
   };
 
   virtualisation.docker.enable = true;
+  users.users.patrick.extraGroups = [ "docker" ];
 
   services.printing.enable = true;
   services.fwupd.enable = true;
