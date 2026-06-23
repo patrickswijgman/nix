@@ -9,15 +9,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "patrick-desktop";
-  networking.networkmanager.enable = true;
 
-  modules.common.enable = true;
-  modules.sway.enable = true;
-  modules.sway.useNvidia = true;
   modules.nvidia.enable = true;
-  modules.neovim.enable = true;
-  modules.fish.enable = true;
-  modules.dev.enable = true;
+
+  modules.sway = {
+    enable = true;
+    useNvidia = true;
+  };
+
   modules.steam.enable = true;
 
   environment.systemPackages = with pkgs; [

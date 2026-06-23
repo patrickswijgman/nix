@@ -18,7 +18,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./modules
-            ./services
             ./hosts/work/configuration.nix
           ];
         };
@@ -27,7 +26,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./modules
-            ./services
             ./hosts/desktop/configuration.nix
           ];
         };

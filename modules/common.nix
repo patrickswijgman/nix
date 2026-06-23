@@ -1,77 +1,139 @@
 {
-  config,
-  lib,
   pkgs,
   ...
 }:
 
 let
-  cfg = config.modules.common;
+  treesitter = pkgs.callPackage ../pkgs/treesitter.nix { };
+  cssmodules-language-server = pkgs.callPackage ../pkgs/cssmodules-language-server.nix { };
 in
 {
-  options.modules.common = {
-    enable = lib.mkEnableOption "Common packages and system configuration";
+  nixpkgs.config.allowUnfree = true;
 
-    extraUserGroups = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-      description = "Extra groups to add to the user.";
-    };
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  networking.networkmanager.enable = true;
+
+  time.timeZone = "Europe/Amsterdam";
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 
-  config = lib.mkIf cfg.enable {
-    nixpkgs.config.allowUnfree = true;
-
-    nix.settings.experimental-features = [
-      "nix-command"
-      "flakes"
+  users.users.patrick = {
+    isNormalUser = true;
+    description = "Patrick";
+    useDefaultShell = true;
+    extraGroups = [
+      "networkmanager"
+      "video"
+      "wheel"
     ];
+  };
 
-    time.timeZone = "Europe/Amsterdam";
+  programs.firefox.enable = true;
 
-    i18n.defaultLocale = "en_US.UTF-8";
-    i18n.extraLocaleSettings = {
-      LC_ADDRESS = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "en_US.UTF-8";
-      LC_MONETARY = "en_US.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
-      LC_PAPER = "en_US.UTF-8";
-      LC_TELEPHONE = "en_US.UTF-8";
-      LC_TIME = "en_US.UTF-8";
-    };
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
 
-    users.users.patrick = {
-      isNormalUser = true;
-      description = "Patrick";
-      useDefaultShell = true;
-      extraGroups = [
-        "networkmanager"
-        "video"
-        "wheel"
-      ]
-      ++ cfg.extraUserGroups;
-    };
+  # Needed for Zed to download and start language servers.
+  # Needed for pre-commit to execute downloaded git hooks.
+  # Needed for binaries installed in node_modules with npm, e.g. Biome.
+  programs.nix-ld.enable = true;
 
-    programs.firefox.enable = true;
+  environment.systemPackages = with pkgs; [
+    # GUI
+    chromium
+    spotify
+    gimp
 
-    environment.systemPackages = with pkgs; [
-      spotify
-      gimp
+    # TUI
+    neovim
+    btop
+    claude-code
 
-      btop
+    # CLI
+    git
+    curl
+    fd
+    fzf
+    ripgrep
+    tree
+    keychain
+    wl-clipboard
+    jq # needed for claude statusline
+    gcc # needed for pre-commit hooks
 
-      git
-      fd
-      fzf
-      ripgrep
-      tree
-      wl-clipboard
-    ];
+    ### Dev
 
-    environment.sessionVariables = {
-      FZF_DEFAULT_OPTS_FILE = "/home/patrick/.config/fzf/config";
-    };
+    # Web
+    nodejs_24
+    vtsls
+    vscode-css-languageserver
+    cssmodules-language-server
+    emmet-language-server
+
+    # Go
+    go_1_25
+    gopls
+    golangci-lint
+    golangci-lint-langserver
+
+    # Rust
+    rustc
+    rust-analyzer
+    rustfmt
+    cargo
+    clippy
+
+    # Python
+    python314
+    python314Packages.python-lsp-server
+    ruff
+    uv
+
+    # Lua
+    lua
+    lua-language-server
+    stylua
+
+    # Nix
+    nixd
+    nixfmt
+
+    # Fish
+    fish-lsp
+
+    # Misc
+    codebook
+    docker-language-server
+    efm-langserver
+    jinja-lsp
+    prettierd
+    taplo
+    vscode-json-languageserver
+    yaml-language-server
+  ];
+
+  environment.sessionVariables = {
+    EDITOR = "nvim";
+    GIT_EDITOR = "nvim";
+    TREESITTER_PATH = "${treesitter}";
+
+    VIRTUAL_ENV_DISABLE_PROMPT = "1";
+
+    FZF_DEFAULT_OPTS_FILE = "/home/patrick/.config/fzf/config";
   };
 }

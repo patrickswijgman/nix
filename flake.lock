@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782197977,
-        "narHash": "sha256-uCiuPAn8/9jaTItYRPkcIlvgVLiEHK+NiwwBdNZtkTs=",
+        "lastModified": 1782233481,
+        "narHash": "sha256-FPzCHhfBvgBGFe+bW2MtULhDiFJJn/T+P9rkBjDovpI=",
         "owner": "patrickswijgman",
         "repo": "swayline",
-        "rev": "29b02473545ff96d8f030f889013e1d60a17dc19",
+        "rev": "fa9fea81c32a9e596eb4645548e459ecb394993a",
         "type": "github"
       },
       "original": {

@@ -8,19 +8,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Full disk encryption
   boot.initrd.luks.devices."luks-71936e47-c47f-47e7-8c39-c942ace26eb1".device =
     "/dev/disk/by-uuid/71936e47-c47f-47e7-8c39-c942ace26eb1";
 
   networking.hostName = "patrick-swijgman-work";
-  networking.networkmanager.enable = true;
+  users.users.patrick.extraGroups = [ "docker" ];
 
-  modules.common.enable = true;
-  modules.common.extraUserGroups = [ "docker" ];
   modules.sway.enable = true;
-  modules.neovim.enable = true;
-  modules.fish.enable = true;
-  modules.dev.enable = true;
 
   hardware.bluetooth = {
     enable = true;

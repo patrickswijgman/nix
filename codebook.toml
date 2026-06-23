@@ -58,6 +58,7 @@ words = [
     "rustfmt",
     "screencast",
     "statusline",
+    "stdenv",
     "stylua",
     "swayidle",
     "swayline",
