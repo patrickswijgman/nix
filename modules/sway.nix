@@ -88,6 +88,7 @@ in
       still
       mako
       kanshi
+      gammastep
       swayidle
       swaylock
       swayline
