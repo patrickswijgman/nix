@@ -81,18 +81,19 @@ in
       adwaita-icon-theme
       alacritty
       brightnessctl
-      playerctl
-      pamixer
+      gammastep
       grim
+      kanshi
+      mako
+      pamixer
+      playerctl
+      pomodoro
       slurp
       still
-      mako
-      kanshi
-      gammastep
       swayidle
-      swaylock
       swayline
-      pomodoro
+      swaylock
+      tofi
       wl-clipboard
     ];
 
