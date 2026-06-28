@@ -98,7 +98,11 @@ in
     ];
 
     environment.sessionVariables = {
+      # Run Electron apps in Wayland.
       NIXOS_OZONE_WL = "1";
+
+      # Default terminal.
+      TERMINAL = "alacritty -e";
     };
   };
 }
