@@ -143,7 +143,6 @@ in
   environment.sessionVariables = {
     # Default editor.
     EDITOR = "nvim";
-    GIT_EDITOR = "nvim";
 
     # Treesitter path for Neovim.
     TREESITTER_PATH = "${treesitter}";
