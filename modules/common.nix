@@ -103,13 +103,6 @@ in
     golangci-lint
     golangci-lint-langserver
 
-    # Rust
-    rustc
-    rust-analyzer
-    rustfmt
-    cargo
-    clippy
-
     # Python
     python314
     python314Packages.python-lsp-server
@@ -128,10 +121,9 @@ in
     # Fish
     fish-lsp
 
-    # Misc
+    # Other
     codebook
     docker-language-server
-    efm-langserver
     jinja-lsp
     prettierd
     taplo
