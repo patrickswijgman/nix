@@ -61,7 +61,7 @@ in
       terminal-exec = {
         enable = true;
         settings = {
-          default = [ "Alacritty.desktop" ];
+          default = [ "foot.desktop" ];
         };
       };
     };
@@ -85,6 +85,7 @@ in
       gammastep
       grim
       kanshi
+      libnotify # used by Foot for desktop notifications
       mako
       pamixer
       playerctl
@@ -96,7 +97,6 @@ in
       swaylock
       tofi
       wl-clipboard
-      libnotify # used by Foot for desktop notifications
     ];
 
     environment.sessionVariables = {
@@ -104,7 +104,7 @@ in
       NIXOS_OZONE_WL = "1";
 
       # Default terminal for launchers.
-      TERMINAL = "alacritty -e";
+      TERMINAL = "foot";
     };
   };
 }
