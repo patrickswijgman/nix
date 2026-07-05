@@ -37,6 +37,7 @@
   modules.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
+    # GUI
     aseprite
     tiled
   ];

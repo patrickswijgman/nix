@@ -45,7 +45,10 @@
   programs.appimage.binfmt = true;
 
   environment.systemPackages = with pkgs; [
+    # GUI
     slack
+
+    # CLI
     openvpn
   ];
 
