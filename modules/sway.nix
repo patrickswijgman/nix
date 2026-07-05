@@ -81,6 +81,7 @@ in
       adwaita-icon-theme
       alacritty
       brightnessctl
+      foot
       gammastep
       grim
       kanshi
@@ -95,6 +96,7 @@ in
       swaylock
       tofi
       wl-clipboard
+      libnotify # used by Foot for desktop notifications
     ];
 
     environment.sessionVariables = {
