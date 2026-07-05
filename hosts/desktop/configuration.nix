@@ -13,20 +13,26 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Make monitor show up as a backlight device so that can be
-  # controlled via e.g. brightnessctl.
+  # Make desktop monitor show up as a backlight device so that
+  # it can be controlled via e.g. brightnessctl.
   boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
   boot.kernelModules = [ "ddcci_backlight" ];
+  hardware.i2c.enable = true;
+
+  ### Network
 
   networking.hostName = "patrick-desktop"; # Define your hostname.
 
-  # Enable Nvidia proprietary driver.
+  ### Desktop environment
+
   modules.nvidia.enable = true;
 
   modules.sway = {
     enable = true;
     useNvidia = true;
   };
+
+  ### Programs and services
 
   modules.steam.enable = true;
 
@@ -35,5 +41,11 @@
     tiled
   ];
 
-  system.stateVersion = "25.11";
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It's perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "25.11"; # Did you read the comment?
 }

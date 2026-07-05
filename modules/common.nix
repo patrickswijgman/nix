@@ -8,22 +8,26 @@ let
   cssmodules-language-server = pkgs.callPackage ../pkgs/cssmodules-language-server.nix { };
 in
 {
+
+  ### Nix options
+
   # Allow unfree packages (e.g. Spotify).
   nixpkgs.config.allowUnfree = true;
 
-  # Enable flakes.
+  # Enable nix flakes.
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
-  # Enable networking.
+  ### Network
+
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
+  ### Locales
+
   time.timeZone = "Europe/Amsterdam";
 
-  # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
@@ -37,6 +41,8 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
+  ### Users
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.patrick = {
     isNormalUser = true;
@@ -49,10 +55,12 @@ in
     ];
   };
 
-  # Install firefox.
+  ### Programs and services
+
+  # Browser
   programs.firefox.enable = true;
 
-  # Use fish as the default shell.
+  # Shell
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
@@ -61,8 +69,6 @@ in
   # Needed for binaries installed in node_modules with npm, e.g. Biome.
   programs.nix-ld.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     # GUI
     chromium
@@ -131,21 +137,23 @@ in
     yaml-language-server
   ];
 
-  # Set system level environment variables. Requires a restart to take effect.
+  ### Environment
+
   environment.sessionVariables = {
     # Default editor.
     EDITOR = "nvim";
 
-    # Treesitter path for Neovim.
+    # Treesitter parser and query files for Neovim.
     TREESITTER_PATH = "${treesitter}";
 
-    # Disable builtin virtual env in prompt.
+    # Disable builtin virtual env in Fish prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
     # Location to default FZF options file.
     FZF_DEFAULT_OPTS_FILE = "/home/patrick/.config/fzf/config";
 
     # Set default theme for Bat (does not have a config file).
+    # Don't forget to rebuild cache with `bat cache --build`
     BAT_THEME = "vague";
   };
 }

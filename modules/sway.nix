@@ -101,7 +101,7 @@ in
       # Run Electron apps in Wayland.
       NIXOS_OZONE_WL = "1";
 
-      # Default terminal.
+      # Default terminal for launchers.
       TERMINAL = "alacritty -e";
     };
   };
