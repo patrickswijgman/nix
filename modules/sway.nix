@@ -9,6 +9,7 @@
 let
   cfg = config.modules.sway;
   swayline = inputs.swayline.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  swayopacity = pkgs.callPackage ../pkgs/swayopacity.nix { };
 in
 {
   options.modules.sway = {
@@ -95,6 +96,7 @@ in
       swayidle
       swayline
       swaylock
+      swayopacity
       tofi
       wl-clipboard
     ];
