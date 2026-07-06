@@ -154,6 +154,6 @@ in
 
     # Set default theme for Bat (does not have a config file).
     # Don't forget to rebuild cache with `bat cache --build`
-    BAT_THEME = "vague";
+    BAT_THEME = "ansi";
   };
 }

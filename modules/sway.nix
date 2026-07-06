@@ -80,7 +80,6 @@ in
 
     environment.systemPackages = with pkgs; [
       adwaita-icon-theme
-      alacritty
       brightnessctl
       foot
       gammastep
@@ -90,7 +89,6 @@ in
       mako
       pamixer
       playerctl
-      pomodoro
       slurp
       still
       swayidle
