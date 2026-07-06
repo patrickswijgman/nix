@@ -52,6 +52,7 @@ in
           settings = {
             screencast = {
               chooser_type = "none";
+              max_fps = 30;
             };
           };
         };
