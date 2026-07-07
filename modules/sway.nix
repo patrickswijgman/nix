@@ -26,6 +26,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Pin only xdg-desktop-portal-wlr to stable (0.8.2). 0.8.3 stalls
+    # screen sharing. Remove overlay when 0.8.4 fixes it upstream.
+    nixpkgs.overlays = [
+      (_: prev: {
+        xdg-desktop-portal-wlr =
+          inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-wlr;
+      })
+    ];
+
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
