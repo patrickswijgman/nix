@@ -64,6 +64,16 @@ in
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
+  # Editor
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    runtime = {
+      "parser".source = "${treesitter}/parser";
+      "queries".source = "${treesitter}/queries";
+    };
+  };
+
   # Needed for Zed to download and start language servers.
   # Needed for pre-commit to execute downloaded git hooks.
   # Needed for binaries installed in node_modules with npm, e.g. Biome.
@@ -76,7 +86,6 @@ in
     gimp
 
     # TUI
-    neovim
     btop
     claude-code
 
@@ -87,7 +96,6 @@ in
     fzf
     ripgrep
     tree
-    bat
     keychain
     wl-clipboard
     jq # needed for claude statusline
@@ -98,7 +106,7 @@ in
     # Web
     nodejs_24
     vtsls
-    typescript-language-server # needed for claude LSP
+    typescript-language-server # needed for claude code LSP
     vscode-css-languageserver
     cssmodules-language-server
     emmet-language-server
@@ -140,20 +148,7 @@ in
   ### Environment
 
   environment.sessionVariables = {
-    # Default editor.
-    EDITOR = "nvim";
-
-    # Treesitter parser and query files for Neovim.
-    TREESITTER_PATH = "${treesitter}";
-
-    # Disable builtin virtual env in Fish prompt.
+    # Disable builtin virtual env segment in Fish prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
-
-    # Location to default FZF options file.
-    FZF_DEFAULT_OPTS_FILE = "/home/patrick/.config/fzf/config";
-
-    # Set default theme for Bat (does not have a config file).
-    # Don't forget to rebuild cache with `bat cache --build`
-    BAT_THEME = "ansi";
   };
 }
