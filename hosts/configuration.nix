@@ -254,6 +254,7 @@
       swayline
       swaylock
       tofi
+      wlopm
     ];
 
   ### Environment
