@@ -1,0 +1,48 @@
+diff --git a/src/Tags.zig b/src/Tags.zig
+index b503b32..03f8545 100644
+--- a/src/Tags.zig
++++ b/src/Tags.zig
+@@ -16,7 +16,7 @@ output_status: *zriver.OutputStatusV1,
+ tags: [9]Tag,
+
+ pub const Tag = struct {
+-    label: u8,
++    label: u32,
+     focused: bool = false,
+     occupied: bool = false,
+     urgent: bool = false,
+diff --git a/src/render.zig b/src/render.zig
+index 8c14c0e..b6a1d32 100644
+--- a/src/render.zig
++++ b/src/render.zig
+@@ -47,7 +47,7 @@ pub fn renderTags(bar: *Bar) !void {
+     // Separator tag to visually separate last focused tag from
+     // focused window title (both use the same background color).
+     const offset: i16 = @intCast(bar.height * tags.len);
+-    try renderTag(buffer.pix.?, &Tag{ .label = '|' }, bar.height, offset);
++    try renderTag(buffer.pix.?, &Tag{ .label = '•' }, bar.height, offset);
+
+     bar.tags_width = width;
+     surface.setBufferScale(bar.monitor.scale);
+@@ -108,10 +108,8 @@ pub fn renderTitle(bar: *Bar, title: ?[]const u8) !void {
+     if (buffer.buffer == null) return;
+     buffer.busy = true;
+
+-    var bg_color = state.config.normalBgColor;
+-    if (title) |t| {
+-        if (t.len > 0) bg_color = state.config.focusBgColor;
+-    }
++    // Style the title like the status text: bar background, normal fg.
++    const bg_color = state.config.normalBgColor;
+     const bg_area = [_]pixman.Rectangle16{
+         .{ .x = 0, .y = 0, .width = width, .height = bar.height },
+     };
+@@ -137,7 +135,7 @@ pub fn renderTitle(bar: *Bar, title: ?[]const u8) !void {
+         }
+
+         var x: i32 = bar.text_padding;
+-        const color = pixman.Image.createSolidFill(&state.config.focusFgColor).?;
++        const color = pixman.Image.createSolidFill(&state.config.normalFgColor).?;
+         x += try renderRun(bar.text_padding, buffer, color, bar, run.glyphs, max_glyphs);
+         if (run.count > max_glyphs) { // if abbreviated
+             _ = try renderRun(x, buffer, color, bar, bar.abbrev_run.glyphs, bar.abbrev_run.count);

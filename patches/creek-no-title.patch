@@ -1,0 +1,85 @@
+diff --git a/src/Seat.zig b/src/Seat.zig
+index 8949519..85fe975 100644
+--- a/src/Seat.zig
++++ b/src/Seat.zig
+@@ -136,14 +136,8 @@ fn unfocusedOutput(self: *Seat, output: *wl.Output) void {
+                     .{bar.monitor.globalName, @errorName(err)});
+             };
+             bar.text.surface.commit();
+-
+-            render.renderTitle(bar, null) catch |err| {
+-                log.err("renderTitle failed on unfocus for monitor {}: {s}",
+-                    .{bar.monitor.globalName, @errorName(err)});
+-                return;
+-            };
+-
+-            bar.title.surface.commit();
++            // Parent commit applies the synchronized text subsurface state
++            // above; without it the buffer is never released (NoAvailableBuffers).
+             bar.background.surface.commit();
+         }
+     } else {
+@@ -155,16 +149,6 @@ fn unfocusedOutput(self: *Seat, output: *wl.Output) void {
+ 
+ fn focusedView(self: *Seat, title: [*:0]const u8) void {
+     self.updateTitle(title);
+-    if (self.focusedBar()) |bar| {
+-        render.renderTitle(bar, self.window_title) catch |err| {
+-            log.err("renderTitle failed on focused view for monitor {}: {s}",
+-                .{bar.monitor.globalName, @errorName(err)});
+-            return;
+-        };
+-
+-        bar.title.surface.commit();
+-        bar.background.surface.commit();
+-    }
+ }
+ 
+ fn seatListener(
+diff --git a/src/render.zig b/src/render.zig
+index 8c14c0e..a940cfd 100644
+--- a/src/render.zig
++++ b/src/render.zig
+@@ -34,7 +34,7 @@ pub fn renderTags(bar: *Bar) !void {
+     const buffers = &bar.tags.buffers;
+     const shm = state.wayland.shm.?;
+ 
+-    const width = bar.height * @as(u16, tags.len + 1);
++    const width = bar.height * @as(u16, tags.len);
+     const buffer = try Buffer.nextBuffer(buffers, shm, width, bar.height);
+     if (buffer.buffer == null) return;
+     buffer.busy = true;
+@@ -44,11 +44,6 @@ pub fn renderTags(bar: *Bar) !void {
+         try renderTag(buffer.pix.?, tag, bar.height, offset);
+     }
+ 
+-    // Separator tag to visually separate last focused tag from
+-    // focused window title (both use the same background color).
+-    const offset: i16 = @intCast(bar.height * tags.len);
+-    try renderTag(buffer.pix.?, &Tag{ .label = '|' }, bar.height, offset);
+-
+     bar.tags_width = width;
+     surface.setBufferScale(bar.monitor.scale);
+     surface.damageBuffer(0, 0, width, bar.height);
+@@ -223,19 +218,8 @@ pub fn renderText(bar: *Bar, text: []const u8) !void {
+     surface.damageBuffer(0, 0, width, bar.height);
+     surface.attach(buffer.buffer, 0, 0);
+ 
+-    // render title again if text width changed
+-    if (width != bar.text_width) {
+-        bar.text_width = width;
+-
+-        if (state.wayland.river_seat) |seat| {
+-            seat.mtx.lock();
+-            defer seat.mtx.unlock();
+-
+-            try renderTitle(bar, seat.window_title);
+-            bar.title.surface.commit();
+-            bar.background.surface.commit();
+-        }
+-    }
++    // keep stored text width in sync for status-text positioning
++    bar.text_width = width;
+ }
+ 
+ fn renderTag(
