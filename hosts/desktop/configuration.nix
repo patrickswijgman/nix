@@ -9,7 +9,9 @@
     ./hardware-configuration.nix
   ];
 
-  # Bootloader.
+  ### Boot
+
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -50,7 +52,7 @@
 
   ### Network
 
-  networking.hostName = "patrick-desktop"; # Define your hostname.
+  networking.hostName = "patrick-desktop";
 
   ### Graphics
 
@@ -94,6 +96,7 @@
 
   ### Programs and services
 
+  # Gaming
   programs.steam.enable = true;
   programs.steam.extraCompatPackages = [ pkgs.proton-ge-bin ];
   programs.gamemode.enable = true;

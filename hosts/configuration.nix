@@ -26,7 +26,7 @@
       xdg-desktop-portal-wlr =
         inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-wlr;
 
-      # Creek patches, adjust the title styling.
+      # Patches for Creek (River) bar.
       creek = prev.creek.overrideAttrs (old: {
         patches = (old.patches or [ ]) ++ [ ../patches/creek-title-style.patch ];
       });
@@ -76,9 +76,6 @@
     # Don't install the default packages.
     extraPackages = [ ];
   };
-
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.login.enableGnomeKeyring = true;
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -242,12 +239,12 @@
       adwaita-icon-theme
       brightnessctl
       creek
-      fnott
       foot
       gammastep
       grim
       kanshi
-      libnotify # test notifications with `notify-send`
+      libnotify
+      mako
       pamixer
       playerctl
       slurp

@@ -9,11 +9,13 @@
     ./hardware-configuration.nix
   ];
 
-  # Bootloader.
+  ### Boot
+
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Full disk encryption.
+  # Full disk encryption
   boot.initrd.luks.devices."luks-71936e47-c47f-47e7-8c39-c942ace26eb1".device =
     "/dev/disk/by-uuid/71936e47-c47f-47e7-8c39-c942ace26eb1";
 
@@ -33,10 +35,13 @@
     };
   };
 
+  ### Users
+
+  users.users.patrick.extraGroups = [ "docker" ];
+
   ### Programs and services
 
   virtualisation.docker.enable = true;
-  users.users.patrick.extraGroups = [ "docker" ];
 
   services.printing.enable = true;
   services.fwupd.enable = true;
