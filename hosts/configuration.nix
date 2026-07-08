@@ -89,12 +89,14 @@
   xdg = {
     portal = {
       enable = true;
-      config.river = {
-        # Auto-select backends as before, but disable the D-Bus Inhibit portal
-        # so Firefox falls back to the wayland idle-inhibit protocol (which
-        # river honors); the gtk portal's inhibit is a no-op for swayidle.
-        default = "*";
-        "org.freedesktop.impl.portal.Inhibit" = "none";
+      config = {
+        river = {
+          # Auto-select backends as before, but disable the D-Bus Inhibit portal
+          # so Firefox falls back to the wayland idle-inhibit protocol (which
+          # river honors); the gtk portal's inhibit is a no-op for swayidle.
+          default = "*";
+          "org.freedesktop.impl.portal.Inhibit" = "none";
+        };
       };
       wlr = {
         enable = true;
