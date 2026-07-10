@@ -180,6 +180,7 @@
     in
     [
       # GUI
+      qutebrowser
       chromium
       spotify
       gimp
