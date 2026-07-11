@@ -35,13 +35,10 @@
     };
   };
 
-  ### Users
-
-  users.users.patrick.extraGroups = [ "docker" ];
-
   ### Programs and services
 
   virtualisation.docker.enable = true;
+  users.users.patrick.extraGroups = [ "docker" ];
 
   services.printing.enable = true;
   services.fwupd.enable = true;

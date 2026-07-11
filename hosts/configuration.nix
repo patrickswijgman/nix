@@ -9,27 +9,50 @@
 }:
 
 {
-  ### Nix options
+  ### Nix
 
   # Allow unfree packages (e.g. Spotify).
   nixpkgs.config.allowUnfree = true;
 
-  # Enable nix flakes.
+  # Enable flakes.
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
+  # Overlays.
   nixpkgs.overlays = [
     (_: prev: {
       # Pin xdg-desktop-portal-wlr to stable (0.8.2), unstable (0.8.3) freezes when screen sharing.
       xdg-desktop-portal-wlr =
         inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-wlr;
 
-      # Patches for Creek (River) bar.
       creek = prev.creek.overrideAttrs (old: {
         patches = (old.patches or [ ]) ++ [ ../patches/creek-title-style.patch ];
       });
+
+      librewolf = prev.librewolf.override {
+        extraPolicies = {
+          SearchEngines = {
+            Add = [ ];
+            Remove = [
+              "Google"
+              "Bing"
+              "Amazon.com"
+              "eBay"
+              "Twitter"
+              "Perplexity"
+              "Wikipedia (en)"
+            ];
+          };
+          ExtensionSettings = {
+            "moz-addon-prod@7tv.app" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/7tv-extension/latest.xpi";
+              installation_mode = "normal_installed";
+            };
+          };
+        };
+      };
     })
   ];
 
@@ -135,9 +158,6 @@
 
   ### Programs and services
 
-  # Browser
-  programs.firefox.enable = true;
-
   # Shell
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
@@ -173,21 +193,17 @@
   programs.nix-ld.enable = true;
 
   environment.systemPackages =
-    with pkgs;
     let
       cssmodules-language-server = pkgs.callPackage ../pkgs/cssmodules-language-server.nix { };
       swayline = inputs.swayline.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
+    with pkgs;
     [
       # GUI
-      qutebrowser
+      librewolf
       chromium
       spotify
       gimp
-
-      # TUI
-      btop
-      claude-code
 
       # CLI
       git
@@ -235,10 +251,11 @@
       # Fish
       fish-lsp
 
+      # AI
+      claude-code
+
       # Other
       codebook
-      docker-language-server
-      jinja-lsp
       prettierd
       taplo
       vscode-json-languageserver
