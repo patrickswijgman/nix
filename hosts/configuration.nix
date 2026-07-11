@@ -287,6 +287,9 @@
   ### Environment
 
   environment.sessionVariables = {
+    # Needed for dbus environment variables so that the desktop portal config for river is used.
+    XDG_CURRENT_DESKTOP = "river";
+
     # Disable builtin virtual env segment in Fish prompt.
     VIRTUAL_ENV_DISABLE_PROMPT = "1";
 
