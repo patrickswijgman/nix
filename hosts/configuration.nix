@@ -20,16 +20,12 @@
     "flakes"
   ];
 
-  # Overlays.
+  # Package overlays.
   nixpkgs.overlays = [
     (_: prev: {
       # Pin xdg-desktop-portal-wlr to stable (0.8.2), unstable (0.8.3) freezes when screen sharing.
       xdg-desktop-portal-wlr =
         inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-wlr;
-
-      creek = prev.creek.overrideAttrs (old: {
-        patches = (old.patches or [ ]) ++ [ ../patches/creek-title-style.patch ];
-      });
 
       librewolf = prev.librewolf.override {
         extraPolicies = {
@@ -195,7 +191,6 @@
   environment.systemPackages =
     let
       cssmodules-language-server = pkgs.callPackage ../pkgs/cssmodules-language-server.nix { };
-      swayline = inputs.swayline.packages.${pkgs.stdenv.hostPlatform.system}.default;
     in
     with pkgs;
     [
@@ -265,7 +260,6 @@
 
       adwaita-icon-theme
       brightnessctl
-      creek
       foot
       gammastep
       grim
@@ -278,7 +272,6 @@
       still
       swaybg
       swayidle
-      swayline
       swaylock
       tofi
       wlopm
