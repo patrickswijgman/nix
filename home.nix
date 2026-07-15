@@ -73,6 +73,7 @@
     settings = {
       theme = "Vague";
       mouse-scroll-multiplier = 2;
+      notify-on-command-finish = "never";
       keybind = [
         "ctrl+shift+h=previous_tab"
         "ctrl+shift+l=next_tab"
