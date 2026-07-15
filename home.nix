@@ -69,9 +69,28 @@
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;
+    systemd.enable = true;
     settings = {
       theme = "Vague";
       mouse-scroll-multiplier = 2;
+      keybind = [
+        "ctrl+shift+h=previous_tab"
+        "ctrl+shift+l=next_tab"
+
+        "ctrl+alt+h=goto_split:left"
+        "ctrl+alt+j=goto_split:down"
+        "ctrl+alt+k=goto_split:up"
+        "ctrl+alt+l=goto_split:right"
+
+        "ctrl+alt+shift+h=new_split:left"
+        "ctrl+alt+shift+j=new_split:down"
+        "ctrl+alt+shift+k=new_split:up"
+        "ctrl+alt+shift+l=new_split:right"
+
+        "ctrl+tab=unbind"
+        "ctrl+shift+o=unbind"
+        "ctrl+shift+e=unbind"
+      ];
     };
   };
 
