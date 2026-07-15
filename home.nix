@@ -3,7 +3,7 @@
 {
   # Modules
   imports = [
-    ../../modules/dconf
+    ./modules/dconf
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -19,7 +19,7 @@
       "browser.startup.page" = 3;
       "browser.toolbars.bookmarks.visibility" = "never";
       "browser.translations.enable" = false;
-      "browser.uiCustomization.state" = builtins.readFile ../../modules/librewolf/toolbar.json;
+      "browser.uiCustomization.state" = builtins.readFile ./modules/librewolf/toolbar.json;
       "devtools.theme" = "dark";
       "network.cookie.lifetimePolicy" = 0;
       "privacy.clearOnShutdown_v2.cache" = true;
@@ -71,7 +71,6 @@
     enableFishIntegration = true;
     settings = {
       theme = "Vague";
-      maximize = true;
       mouse-scroll-multiplier = 2;
     };
   };
@@ -80,9 +79,9 @@
   programs.fish = {
     enable = true;
     functions = {
-      fish_prompt.body = builtins.readFile ../../modules/fish/functions/fish_prompt.fish;
+      fish_prompt.body = builtins.readFile ./modules/fish/functions/fish_prompt.fish;
     };
-    shellInit = builtins.readFile ../../modules/fish/config.fish;
+    shellInit = builtins.readFile ./modules/fish/config.fish;
   };
 
   # Tools
@@ -122,7 +121,7 @@
   # Packages (these don't have a programs option or override my configuration file by force).
   home.packages =
     let
-      cssmodules-language-server = pkgs.callPackage ../../../pkgs/cssmodules-language-server.nix { };
+      cssmodules-language-server = pkgs.callPackage ./pkgs/cssmodules-language-server.nix { };
     in
     with pkgs;
     [
@@ -207,7 +206,7 @@
 
   home.sessionVariables =
     let
-      treesitter = pkgs.callPackage ../../../pkgs/treesitter.nix { };
+      treesitter = pkgs.callPackage ./pkgs/treesitter.nix { };
     in
     {
       # Default editor.

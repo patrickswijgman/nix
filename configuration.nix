@@ -65,7 +65,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
-    users.patrick.imports = [ ./home/users/patrick/home.nix ];
+    users.patrick.imports = [ ./home.nix ];
   };
 
   ### Desktop environment

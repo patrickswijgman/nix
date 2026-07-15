@@ -61,7 +61,7 @@
 
   ### Home manager
 
-  home-manager.users.patrick.imports = [ ../../home/hosts/desktop/home.nix ];
+  home-manager.users.patrick.imports = [ ./home.nix ];
 
   ### Programs and services
 
