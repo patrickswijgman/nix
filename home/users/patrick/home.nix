@@ -21,8 +21,10 @@
       "browser.translations.enable" = false;
       "browser.uiCustomization.state" = builtins.readFile ../../modules/librewolf/toolbar.json;
       "devtools.theme" = "dark";
-      "privacy.clearOnShutdown_v2.cache" = false;
-      "privacy.sanitize.sanitizeOnShutdown" = false;
+      "network.cookie.lifetimePolicy" = 0;
+      "privacy.clearOnShutdown_v2.cache" = true;
+      "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
+      "privacy.sanitize.sanitizeOnShutdown" = true;
       "sidebar.visibility" = "hide-sidebar";
     };
     policies = {
