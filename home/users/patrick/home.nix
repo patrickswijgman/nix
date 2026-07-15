@@ -58,17 +58,6 @@
     };
   };
 
-  # Default apps
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "text/html" = "librewolf.desktop";
-      "x-scheme-handler/http" = "librewolf.desktop";
-      "x-scheme-handler/https" = "librewolf.desktop";
-      "application/xhtml+xml" = "librewolf.desktop";
-    };
-  };
-
   programs.chromium = {
     enable = true;
     commandLineArgs = [
@@ -198,6 +187,19 @@
       vscode-json-languageserver
       yaml-language-server
     ];
+
+  ### XDG configuration
+
+  # Default apps
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "librewolf.desktop";
+      "x-scheme-handler/http" = "librewolf.desktop";
+      "x-scheme-handler/https" = "librewolf.desktop";
+      "application/xhtml+xml" = "librewolf.desktop";
+    };
+  };
 
   ### Environment
 
