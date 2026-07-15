@@ -1,15 +1,11 @@
 {
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-
-    nixpkgs-stable = {
       url = "github:nixos/nixpkgs/nixos-26.05";
     };
 
-    swayline = {
-      url = "github:patrickswijgman/swayline";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -21,7 +17,7 @@
         work = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/configuration.nix
+            ./configuration.nix
             ./hosts/work/configuration.nix
           ];
         };
@@ -29,7 +25,7 @@
         desktop = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/configuration.nix
+            ./configuration.nix
             ./hosts/desktop/configuration.nix
           ];
         };
