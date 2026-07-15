@@ -6,7 +6,7 @@ with lib.hm.gvariant;
 {
   dconf.settings = {
     "org/gnome/control-center" = {
-      last-panel = "multitasking";
+      last-panel = "keyboard";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -140,8 +140,6 @@ with lib.hm.gvariant;
       switch-to-workspace-2 = [ "<Super>2" ];
       switch-to-workspace-3 = [ "<Super>3" ];
       switch-to-workspace-4 = [ "<Super>4" ];
-      switch-to-workspace-left = [ "<Super>h" ];
-      switch-to-workspace-right = [ "<Super>l" ];
       toggle-fullscreen = [ "<Super>f" ];
     };
 
@@ -202,10 +200,24 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/keybindings" = {
+      open-new-window-application-1 = [];
+      open-new-window-application-2 = [];
+      open-new-window-application-3 = [];
+      open-new-window-application-4 = [];
+      open-new-window-application-5 = [];
+      open-new-window-application-6 = [];
+      open-new-window-application-7 = [];
+      open-new-window-application-8 = [];
+      open-new-window-application-9 = [];
       switch-to-application-1 = [];
       switch-to-application-2 = [];
       switch-to-application-3 = [];
       switch-to-application-4 = [];
+      switch-to-application-5 = [];
+      switch-to-application-6 = [];
+      switch-to-application-7 = [];
+      switch-to-application-8 = [];
+      switch-to-application-9 = [];
       toggle-message-tray = [];
     };
 
