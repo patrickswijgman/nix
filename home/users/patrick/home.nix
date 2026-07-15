@@ -20,7 +20,9 @@
       "browser.toolbars.bookmarks.visibility" = "never";
       "browser.translations.enable" = false;
       "browser.uiCustomization.state" = builtins.readFile ../../modules/librewolf/toolbar.json;
-      "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
+      "devtools.theme" = "dark";
+      "privacy.clearOnShutdown_v2.cache" = false;
+      "privacy.sanitize.sanitizeOnShutdown" = false;
       "sidebar.visibility" = "hide-sidebar";
     };
     policies = {
