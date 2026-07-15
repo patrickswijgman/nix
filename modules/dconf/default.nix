@@ -15,24 +15,12 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/app-folders" = {
-      folder-children = [ "System" "Utilities" "YaST" "Pardus" ];
+      folder-children = [];
     };
 
     "org/gnome/desktop/app-folders/folders/Pardus" = {
       categories = [ "X-Pardus-Apps" ];
       name = "X-Pardus-Apps.directory";
-      translate = true;
-    };
-
-    "org/gnome/desktop/app-folders/folders/System" = {
-      apps = [ "org.gnome.baobab.desktop" "org.gnome.DiskUtility.desktop" ];
-      name = "X-GNOME-Shell-System.directory";
-      translate = true;
-    };
-
-    "org/gnome/desktop/app-folders/folders/Utilities" = {
-      apps = [ "org.gnome.Papers.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop" ];
-      name = "X-GNOME-Shell-Utilities.directory";
       translate = true;
     };
 
