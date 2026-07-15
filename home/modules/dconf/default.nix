@@ -6,7 +6,7 @@ with lib.hm.gvariant;
 {
   dconf.settings = {
     "org/gnome/control-center" = {
-      last-panel = "system";
+      last-panel = "wellbeing";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -45,10 +45,10 @@ with lib.hm.gvariant;
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/dithered-sun-l.jxl";
-      picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/dithered-sun-d.jxl";
-      primary-color = "#e1ffb9";
-      secondary-color = "#5c0526";
+      picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/amber-l.jxl";
+      picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/amber-d.jxl";
+      primary-color = "#ff7800";
+      secondary-color = "#000000";
     };
 
     "org/gnome/desktop/break-reminders" = {
@@ -71,19 +71,32 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
       enable-hot-corners = false;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "com-mitchellh-ghostty" "spotify" "gnome-wellbeing-panel" ];
+      application-children = [ "com-mitchellh-ghostty" "spotify" "gnome-wellbeing-panel" "org-gnome-settings" ];
     };
 
     "org/gnome/desktop/notifications/application/com-mitchellh-ghostty" = {
       application-id = "com.mitchellh.ghostty.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/gnome-about-panel" = {
+      application-id = "gnome-about-panel.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/gnome-wellbeing-panel" = {
       application-id = "gnome-wellbeing-panel.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/librewolf" = {
+      application-id = "librewolf.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-settings" = {
+      application-id = "org.gnome.Settings.desktop";
     };
 
     "org/gnome/desktop/notifications/application/spotify" = {
@@ -102,9 +115,9 @@ with lib.hm.gvariant;
       color-shading-type = "solid";
       lock-delay = mkUint32 60;
       picture-options = "zoom";
-      picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/dithered-sun-l.jxl";
-      primary-color = "#e1ffb9";
-      secondary-color = "#5c0526";
+      picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/amber-l.jxl";
+      primary-color = "#ff7800";
+      secondary-color = "#000000";
     };
 
     "org/gnome/desktop/search-providers" = {
@@ -123,10 +136,18 @@ with lib.hm.gvariant;
       migrated-gtk-settings = true;
     };
 
+    "org/gnome/nautilus/window-state" = {
+      initial-size = mkTuple [ 890 550 ];
+    };
+
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
       night-light-schedule-automatic = false;
       night-light-schedule-to = 7.0;
+    };
+
+    "org/gnome/settings-daemon/plugins/housekeeping" = {
+      donation-reminder-last-shown = mkInt64 1784110072195327;
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
