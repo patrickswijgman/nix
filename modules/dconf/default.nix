@@ -128,6 +128,10 @@ with lib.hm.gvariant;
       switch-to-workspace-2 = [ "<Super>2" ];
       switch-to-workspace-3 = [ "<Super>3" ];
       switch-to-workspace-4 = [ "<Super>4" ];
+      switch-to-workspace-down = [];
+      switch-to-workspace-left = [];
+      switch-to-workspace-right = [];
+      switch-to-workspace-up = [];
       toggle-fullscreen = [ "<Super>f" ];
     };
 
