@@ -24,6 +24,7 @@
       "network.cookie.lifetimePolicy" = 0;
       "privacy.clearOnShutdown_v2.cache" = true;
       "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
+      "privacy.clearOnShutdown_v2.history" = false;
       "privacy.sanitize.sanitizeOnShutdown" = true;
       "sidebar.visibility" = "hide-sidebar";
     };
