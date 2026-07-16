@@ -6,7 +6,7 @@ with lib.hm.gvariant;
 {
   dconf.settings = {
     "org/gnome/control-center" = {
-      last-panel = "keyboard";
+      last-panel = "mouse";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -21,6 +21,18 @@ with lib.hm.gvariant;
     "org/gnome/desktop/app-folders/folders/Pardus" = {
       categories = [ "X-Pardus-Apps" ];
       name = "X-Pardus-Apps.directory";
+      translate = true;
+    };
+
+    "org/gnome/desktop/app-folders/folders/System" = {
+      apps = [ "org.gnome.baobab.desktop" "org.gnome.DiskUtility.desktop" ];
+      name = "X-GNOME-Shell-System.directory";
+      translate = true;
+    };
+
+    "org/gnome/desktop/app-folders/folders/Utilities" = {
+      apps = [ "org.gnome.Papers.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop" ];
+      name = "X-GNOME-Shell-Utilities.directory";
       translate = true;
     };
 
@@ -96,6 +108,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/peripherals/touchpad" = {
+      click-method = "areas";
+      natural-scroll = false;
       two-finger-scrolling-enabled = true;
     };
 
@@ -183,6 +197,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell" = {
+      command-history = [ "slack" ];
       favorite-apps = [];
       welcome-dialog-last-shown-version = "50.2";
     };
@@ -211,6 +226,21 @@ with lib.hm.gvariant;
       switch-to-application-8 = [];
       switch-to-application-9 = [];
       toggle-message-tray = [];
+    };
+
+    "org/gtk/settings/file-chooser" = {
+      date-format = "regular";
+      location-mode = "path-bar";
+      show-hidden = false;
+      show-size-column = true;
+      show-type-column = true;
+      sidebar-width = 171;
+      sort-column = "name";
+      sort-directories-first = false;
+      sort-order = "ascending";
+      type-format = "category";
+      window-position = mkTuple [ 20 20 ];
+      window-size = mkTuple [ 1621 1389 ];
     };
 
   };
