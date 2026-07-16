@@ -18,8 +18,9 @@
   # Allow unfree packages (e.g. Spotify).
   nixpkgs.config.allowUnfree = true;
 
+  # Allow insecure packages.
   nixpkgs.config.permittedInsecurePackages = [
-    "pnpm-9.15.9"
+    "pnpm-9.15.9" # needed for stylelint
   ];
 
   # Enable flakes.
