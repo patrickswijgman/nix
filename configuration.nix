@@ -18,6 +18,10 @@
   # Allow unfree packages (e.g. Spotify).
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-9.15.9"
+  ];
+
   # Enable flakes.
   nix.settings.experimental-features = [
     "nix-command"

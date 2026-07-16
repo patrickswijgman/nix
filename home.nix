@@ -171,6 +171,8 @@
       vscode-css-languageserver
       cssmodules-language-server
       emmet-language-server
+      stylelint
+      stylelint-lsp
 
       # Go
       go_1_25
