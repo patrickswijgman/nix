@@ -40,7 +40,28 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "veila": "veila"
+      }
+    },
+    "veila": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783086198,
+        "narHash": "sha256-91LyFnvVgL/IvAPqDbJVbv0ykHei2dOtCTB5YUPHWY0=",
+        "owner": "naurissteins",
+        "repo": "Veila",
+        "rev": "0a3d5d050224fb5327fef1d1ca58d2c8e6c3bd40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "naurissteins",
+        "repo": "Veila",
+        "type": "github"
       }
     }
   },

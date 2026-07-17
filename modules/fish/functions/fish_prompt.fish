@@ -1,4 +1,5 @@
 # @fish-lsp-disable 4001
+
 set -g __fish_git_prompt_show_informative_status true
 set -g __fish_git_prompt_showuntrackedfiles true
 set -g __fish_git_prompt_showdirtystate true
@@ -23,15 +24,15 @@ set -g __fish_git_prompt_color_stashstate magenta
 set -g __fish_git_prompt_color_upstream yellow
 
 if set -q VIRTUAL_ENV
-  set vnv (set_color brblack)" 󰌠 $(basename (dirname $VIRTUAL_ENV))"
+  set vnv (set_color brblack)"󰌠 $(basename (dirname $VIRTUAL_ENV))"
 end
 
 if set -q IN_NIX_SHELL
-  set nix (set_color brblack)" 󱄅 $IN_NIX_SHELL"
+  set nix (set_color brblack)"󱄅 $IN_NIX_SHELL"
 end
 
-set dir (set_color blue)" 󰉋 $(prompt_pwd --dir-length=0)"
-set git (set_color brblue)(fish_git_prompt " 󰘬 %s")
-set sym (set_color white)" 󰈺 "
+set dir (set_color blue)"󰉋 $(prompt_pwd --dir-length=0)"
+set git (set_color brblue)(fish_git_prompt "󰘬 %s")
+set sym (set_color white)"󰈺"
 
-echo -s $vnv $nix $dir $git $sym (set_color --reset)
+string join ' ' -- $vnv $nix $dir $git $sym (set_color --reset)
