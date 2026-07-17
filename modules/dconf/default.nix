@@ -6,7 +6,7 @@ with lib.hm.gvariant;
 {
   dconf.settings = {
     "org/gnome/control-center" = {
-      last-panel = "mouse";
+      last-panel = "wellbeing";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -52,7 +52,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/break-reminders" = {
-      selected-breaks = [ "movement" ];
+      selected-breaks = [];
     };
 
     "org/gnome/desktop/break-reminders/eyesight" = {
@@ -71,7 +71,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
+      color-scheme = "default";
       enable-hot-corners = false;
     };
 
@@ -199,6 +199,7 @@ with lib.hm.gvariant;
     "org/gnome/shell" = {
       command-history = [ "slack" ];
       favorite-apps = [];
+      last-selected-power-profile = "performance";
       welcome-dialog-last-shown-version = "50.2";
     };
 

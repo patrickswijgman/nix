@@ -51,15 +51,15 @@ vim.cmd.colorscheme("vague")
 
 --- Plugins
 
--- require("telescope").setup({
--- 	defaults = {
--- 		mappings = {
--- 			i = {
--- 				["<esc>"] = require("telescope.actions").close,
--- 			},
--- 		},
--- 	},
--- })
+require("telescope").setup({
+	defaults = {
+		mappings = {
+			i = {
+				["<esc>"] = require("telescope.actions").close,
+			},
+		},
+	},
+})
 
 require("conform").setup({
 	formatters_by_ft = {
@@ -150,7 +150,7 @@ vim.lsp.config("vtsls", {
 	},
 })
 
-vim.lsp.config("json_ls", {
+vim.lsp.config("jsonls", {
 	settings = {
 		json = {
 			schemas = {
@@ -220,6 +220,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	group = augroup,
 	callback = function(ev)
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
 		if client and client:supports_method("textDocument/completion") then
 			client.server_capabilities.completionProvider.triggerCharacters = all_chars
 			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
