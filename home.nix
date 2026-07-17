@@ -65,6 +65,26 @@
     ];
   };
 
+  # Editor
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    initLua = builtins.readFile ./modules/neovim/init.lua;
+    plugins =
+      let
+        butter-nvim = pkgs.callPackage ./modules/neovim/plugins/butter-nvim.nix { };
+      in
+      with pkgs.vimPlugins;
+      [
+        butter-nvim
+        conform-nvim
+        nvim-lspconfig
+        nvim-treesitter.withAllGrammars
+        telescope-nvim
+        vague-nvim
+      ];
+  };
+
   # Terminal
   programs.ghostty = {
     enable = true;
@@ -108,6 +128,9 @@
   programs.git = {
     enable = true;
     settings = {
+      core = {
+        editor = "nvim";
+      };
       pull = {
         rebase = true;
       };
@@ -139,79 +162,64 @@
   };
 
   # Packages (these don't have a programs option or override my configuration file by force).
-  home.packages =
-    let
-      cssmodules-language-server = pkgs.callPackage ./pkgs/cssmodules-language-server.nix { };
-    in
-    with pkgs;
-    [
-      # GUI
-      spotify
-      gimp
+  home.packages = with pkgs; [
+    # GUI
+    spotify
+    gimp
 
-      # TUI
-      neovim
+    # CLI
+    curl
+    fd
+    ripgrep
+    tree
+    wl-clipboard
+    dconf2nix
+    jq # needed for claude statusline
+    gcc # needed for pre-commit hooks
 
-      # CLI
-      curl
-      fd
-      ripgrep
-      tree
-      wl-clipboard
-      dconf2nix
-      jq # needed for claude statusline
-      gcc # needed for pre-commit hooks
+    ### Dev
 
-      ### Dev
+    # Web
+    nodejs_24
+    vtsls
+    typescript-language-server # needed for claude code LSP
+    vscode-css-languageserver
 
-      # Web
-      nodejs_24
-      vtsls
-      typescript-language-server # needed for claude code LSP
-      vscode-css-languageserver
-      cssmodules-language-server
-      emmet-language-server
-      stylelint
-      stylelint-lsp
+    # Go
+    go_1_25
+    gopls
 
-      # Go
-      go_1_25
-      gopls
-      golangci-lint
-      golangci-lint-langserver
+    # Python
+    python314
+    python314Packages.python-lsp-server
+    ruff
+    uv
 
-      # Python
-      python314
-      python314Packages.python-lsp-server
-      ruff
-      uv
+    # Lua
+    lua
+    lua-language-server
+    stylua
 
-      # Lua
-      lua
-      lua-language-server
-      stylua
+    # Nix
+    nixd
+    nixfmt
 
-      # Nix
-      nixd
-      nixfmt
+    # Fish
+    fish-lsp
 
-      # Fish
-      fish-lsp
+    # AI
+    claude-code
 
-      # AI
-      claude-code
-
-      # Other
-      codebook
-      prettierd
-      taplo
-      vscode-json-languageserver
-      yaml-language-server
-    ];
+    # Other
+    codebook
+    prettierd
+    taplo
+    vscode-json-languageserver
+    yaml-language-server
+  ];
 
   ### XDG configuration
 
-  # Default apps
   xdg = {
     mimeApps = {
       enable = true;
@@ -226,21 +234,10 @@
 
   ### Environment
 
-  home.sessionVariables =
-    let
-      treesitter = pkgs.callPackage ./pkgs/treesitter.nix { };
-    in
-    {
-      # Default editor.
-      EDITOR = "nvim";
-      GIT_EDITOR = "nvim";
-
-      # Treesitter parsers and queries for Neovim.
-      TREESITTER_PATH = "${treesitter}";
-
-      # Disable builtin virtual env segment in Fish prompt.
-      VIRTUAL_ENV_DISABLE_PROMPT = "1";
-    };
+  home.sessionVariables = {
+    # Disable builtin virtual env segment in Fish prompt.
+    VIRTUAL_ENV_DISABLE_PROMPT = "1";
+  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
