@@ -1,9 +1,16 @@
+-------------------
+---- VARIABLES ----
+-------------------
+
 local augroup = vim.api.nvim_create_augroup("Config", { clear = true })
 
---- Options
+-----------------
+---- OPTIONS ----
+-----------------
 
 vim.o.mouse = "a"
 vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 vim.o.signcolumn = "yes"
 vim.o.scrolloff = 10
 vim.o.number = true
@@ -27,9 +34,9 @@ vim.o.backup = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.showmatch = true
-vim.o.hlsearch = true
+vim.o.hlsearch = false
 vim.o.incsearch = true
-vim.o.inccommand = "split"
+vim.o.inccommand = "nosplit"
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
@@ -39,61 +46,100 @@ vim.o.autoindent = true
 
 vim.o.completeopt = "menuone,noselect,popup,fuzzy"
 
+vim.o.termguicolors = false
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
---- Colorscheme
-
-vim.cmd.colorscheme("vague")
-
---- Plugins
+-----------------
+---- PLUGINS ----
+-----------------
 
 require("telescope").setup({
-	defaults = {
-		mappings = {
-			i = {
-				["<esc>"] = require("telescope.actions").close,
-			},
-		},
-	},
+  defaults = {
+    path_display = { "filename_first" },
+    mappings = {
+      i = {
+        ["<esc>"] = require("telescope.actions").close,
+        ["<c-s>"] = require("telescope.actions").select_horizontal,
+        ["<c-v>"] = require("telescope.actions").select_vertical,
+        ["<c-up>"] = require("telescope.actions").cycle_history_prev,
+        ["<c-down>"] = require("telescope.actions").cycle_history_next,
+        ["<m-p>"] = require("telescope.actions.layout").toggle_preview,
+      },
+    },
+    vimgrep_arguments = {
+      "rg",
+      "--vimgrep",
+      "--smart-case",
+      "--trim",
+      "--hidden",
+      "--no-ignore",
+      "--glob=!.git",
+      "--glob=!node_modules",
+      "--glob=!dist",
+    },
+  },
+  pickers = {
+    find_files = {
+      find_command = {
+        "fd",
+        "--type=file",
+        "--hidden",
+        "--no-ignore",
+        "--exclude=.git",
+        "--exclude=node_modules",
+        "--exclude=dist",
+      },
+    },
+  },
 })
 
+require("telescope").load_extension("fzf")
+require("telescope").load_extension("ui-select")
+
 require("conform").setup({
-	formatters_by_ft = {
-		javascript = { "biome", "prettierd", stop_after_first = true },
-		typescript = { "biome", "prettierd", stop_after_first = true },
-		javascriptreact = { "biome", "prettierd", stop_after_first = true },
-		typescriptreact = { "biome", "prettierd", stop_after_first = true },
-		html = { "biome", "prettierd", stop_after_first = true },
-		css = { "biome", "prettierd", stop_after_first = true },
-		json = { "biome", "prettierd", stop_after_first = true },
-		jsonc = { "biome", "prettierd", stop_after_first = true },
-		yaml = { "prettierd" },
-		markdown = { "prettierd" },
-		toml = { "taplo" },
-		python = { "ruff_organize_imports", "ruff_format" },
-		go = { "gofmt" },
-		lua = { "stylua" },
-		nix = { "nixfmt" },
-		_ = { "trim_whitespace" },
-	},
-	format_on_save = {
-		timeout_ms = 1000,
-		lsp_format = "fallback",
-	},
+  formatters_by_ft = {
+    javascript = { "biome", "prettierd", stop_after_first = true },
+    typescript = { "biome", "prettierd", stop_after_first = true },
+    javascriptreact = { "biome", "prettierd", stop_after_first = true },
+    typescriptreact = { "biome", "prettierd", stop_after_first = true },
+    html = { "biome", "prettierd", stop_after_first = true },
+    css = { "biome", "prettierd", stop_after_first = true },
+    json = { "biome", "prettierd", stop_after_first = true },
+    jsonc = { "biome", "prettierd", stop_after_first = true },
+    yaml = { "prettierd" },
+    markdown = { "prettierd" },
+    toml = { "taplo" },
+    python = { "ruff_organize_imports", "ruff_format" },
+    go = { "gofmt" },
+    lua = { "stylua" },
+    nix = { "nixfmt" },
+    _ = { "trim_whitespace" },
+  },
+  format_on_save = {
+    timeout_ms = 1000,
+    lsp_format = "fallback",
+  },
 })
 
 require("butter").setup({
-	show_hidden = true,
-	no_ignore = true,
-	exclude = { ".git", "node_modules", "dist" },
-	auto_open = true,
+  show_hidden = true,
+  no_ignore = true,
+  exclude = { ".git", "node_modules", "dist" },
+  auto_open = true,
 })
 
---- Keymaps
+require("nvim-web-devicons").setup({
+  color_icons = false,
+})
+
+-----------------
+---- KEYMAPS ----
+-----------------
 
 vim.keymap.set("n", "<leader>e", "<cmd>Butter<cr>")
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<cr>")
@@ -101,6 +147,16 @@ vim.keymap.set("n", "<leader>g", "<cmd>Telescope live_grep<cr>")
 vim.keymap.set("n", "<leader>h", "<cmd>Telescope help_tags<cr>")
 vim.keymap.set("n", "<leader>s", "<cmd>Telescope git_status<cr>")
 vim.keymap.set("n", "<leader>'", "<cmd>Telescope resume<cr>")
+vim.keymap.set("n", "<leader>i", "<cmd>Inspect<cr>")
+vim.keymap.set("n", "<leader>x", "<cmd>source %<cr>")
+
+vim.keymap.set("n", "<c-]>", "<cmd>Telescope lsp_definitions<cr>")
+vim.keymap.set("n", "gri", "<cmd>Telescope lsp_implementations<cr>")
+vim.keymap.set("n", "grr", "<cmd>Telescope lsp_references<cr>")
+vim.keymap.set("n", "grt", "<cmd>Telescope lsp_type_definitions<cr>")
+vim.keymap.set("n", "gre", "<cmd>Telescope diagnostics bufnr=0<cr>")
+vim.keymap.set("n", "grO", "<cmd>Telescope lsp_workspace_symbols<cr>")
+vim.keymap.set("n", "gO", "<cmd>Telescope lsp_document_symbols<cr>")
 
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
@@ -115,137 +171,171 @@ vim.keymap.set("n", "q", "<nop>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "U", "<nop>")
 
---- LSP
+-------------
+---- LSP ----
+-------------
 
 vim.lsp.config("lua_ls", {
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-			},
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME,
-				},
-			},
-		},
-	},
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+        },
+      },
+    },
+  },
 })
 
 vim.lsp.config("vtsls", {
-	settings = {
-		javascript = {
-			preferences = {
-				importModuleSpecifier = "non-relative",
-				importModuleSpecifierEnding = "js",
-			},
-		},
-		typescript = {
-			preferences = {
-				importModuleSpecifier = "non-relative",
-				importModuleSpecifierEnding = "js",
-			},
-		},
-	},
-})
-
-vim.lsp.config("jsonls", {
-	settings = {
-		json = {
-			schemas = {
-				{
-					fileMatch = { "package.json" },
-					url = "https://www.schemastore.org/package.json",
-				},
-				{
-					fileMatch = { "tsconfig.json" },
-					url = "https://www.schemastore.org/tsconfig.json",
-				},
-			},
-		},
-	},
+  settings = {
+    javascript = {
+      preferences = {
+        importModuleSpecifier = "non-relative",
+        importModuleSpecifierEnding = "js",
+      },
+    },
+    typescript = {
+      preferences = {
+        importModuleSpecifier = "non-relative",
+        importModuleSpecifierEnding = "js",
+      },
+    },
+  },
 })
 
 vim.lsp.config("codebook", {
-	filetypes = {
-		"c",
-		"config",
-		"css",
-		"fish",
-		"gitcommit",
-		"go",
-		"haskell",
-		"html",
-		"java",
-		"javascript",
-		"javascriptreact",
-		"lua",
-		"markdown",
-		"nix",
-		"php",
-		"python",
-		"ruby",
-		"rust",
-		"swift",
-		"text",
-		"toml",
-		"typescript",
-		"typescriptreact",
-		"zig",
-	},
+  filetypes = {
+    "css",
+    "fish",
+    "gitcommit",
+    "go",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "lua",
+    "markdown",
+    "nix",
+    "python",
+    "rust",
+    "text",
+    "toml",
+    "typescript",
+    "typescriptreact",
+  },
 })
 
 vim.lsp.enable({
-	"biome",
-	"codebook",
-	"cssls",
-	"fish_lsp",
-	"jsonls",
-	"lua_ls",
-	"nixd",
-	"taplo",
-	"vtsls",
-	"yamlls",
+  "biome",
+  "codebook",
+  "cssls",
+  "fish_lsp",
+  "lua_ls",
+  "nixd",
+  "vtsls",
 })
 
 vim.lsp.semantic_tokens.enable(false)
 
 local all_chars = {}
 for i = 32, 126 do
-	table.insert(all_chars, string.char(i))
+  table.insert(all_chars, string.char(i))
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = augroup,
-	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+  group = augroup,
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-		if client and client:supports_method("textDocument/completion") then
-			client.server_capabilities.completionProvider.triggerCharacters = all_chars
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-	end,
+    if client and client:supports_method("textDocument/completion") then
+      client.server_capabilities.completionProvider.triggerCharacters = all_chars
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    end
+  end,
 })
 
---- Diagnostics
+---------------------
+---- DIAGNOSTICS ----
+---------------------
 
 vim.diagnostic.config({
-	severity_sort = true,
+  severity_sort = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "󰅚",
+      [vim.diagnostic.severity.WARN] = "󰀪",
+      [vim.diagnostic.severity.INFO] = "󰋽",
+      [vim.diagnostic.severity.HINT] = "󰌶",
+    },
+  },
 })
 
---- Auto commands
+-----------------------
+---- AUTO COMMANDS ----
+-----------------------
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	group = augroup,
-	callback = function()
-		vim.hl.on_yank()
-	end,
+  group = augroup,
+  callback = function()
+    vim.hl.on_yank()
+  end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	group = augroup,
-	callback = function(ev)
-		pcall(vim.treesitter.start, ev.buf)
-	end,
+  group = augroup,
+  callback = function(ev)
+    pcall(vim.treesitter.start, ev.buf)
+  end,
 })
+
+---------------------
+---- COLORSCHEME ----
+---------------------
+
+vim.cmd("hi clear")
+
+-- UI
+vim.api.nvim_set_hl(0, "CurSearch", { ctermbg = 11, ctermfg = 0 })
+vim.api.nvim_set_hl(0, "CursorLine", { ctermbg = 0 })
+vim.api.nvim_set_hl(0, "CursorLineNr", { ctermfg = 7 })
+vim.api.nvim_set_hl(0, "Directory", { ctermfg = 4 })
+vim.api.nvim_set_hl(0, "FloatBorder", { ctermfg = 8 })
+vim.api.nvim_set_hl(0, "LineNr", { ctermfg = 8 })
+vim.api.nvim_set_hl(0, "MatchParen", { ctermfg = 3, cterm = { bold = true } })
+vim.api.nvim_set_hl(0, "Normal", {})
+vim.api.nvim_set_hl(0, "NormalFloat", {})
+vim.api.nvim_set_hl(0, "Pmenu", { ctermbg = 0 })
+vim.api.nvim_set_hl(0, "PmenuSel", { ctermbg = 8 })
+vim.api.nvim_set_hl(0, "Search", { ctermbg = 3, ctermfg = 0 })
+vim.api.nvim_set_hl(0, "SignColumn", {})
+vim.api.nvim_set_hl(0, "StatusLine", { ctermbg = 0 })
+vim.api.nvim_set_hl(0, "Title", { ctermfg = 4, cterm = { bold = true } })
+vim.api.nvim_set_hl(0, "Visual", { ctermbg = 0 })
+vim.api.nvim_set_hl(0, "WinSeparator", { ctermfg = 8 })
+
+-- Syntax
+vim.api.nvim_set_hl(0, "Comment", { ctermfg = 8 })
+vim.api.nvim_set_hl(0, "Constant", { ctermfg = 6 })
+vim.api.nvim_set_hl(0, "Error", { ctermfg = 1 })
+vim.api.nvim_set_hl(0, "Function", { ctermfg = 4 })
+vim.api.nvim_set_hl(0, "Identifier", { ctermfg = 7 })
+vim.api.nvim_set_hl(0, "Keyword", { ctermfg = 5 })
+vim.api.nvim_set_hl(0, "PreProc", { ctermfg = 5 })
+vim.api.nvim_set_hl(0, "Special", { ctermfg = 6 })
+vim.api.nvim_set_hl(0, "Statement", { ctermfg = 5 })
+vim.api.nvim_set_hl(0, "String", { ctermfg = 2 })
+vim.api.nvim_set_hl(0, "Todo", { ctermfg = 0, ctermbg = 3 })
+vim.api.nvim_set_hl(0, "Type", { ctermfg = 3 })
+
+-- Diagnostics
+vim.api.nvim_set_hl(0, "DiagnosticError", { ctermfg = 1 })
+vim.api.nvim_set_hl(0, "DiagnosticWarn", { ctermfg = 3 })
+vim.api.nvim_set_hl(0, "DiagnosticInfo", { ctermfg = 4 })
+vim.api.nvim_set_hl(0, "DiagnosticHint", { ctermfg = 6 })
+
+-- Plugins
+vim.api.nvim_set_hl(0, "DevIconDefault", { ctermfg = 5 })

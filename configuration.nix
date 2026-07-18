@@ -11,6 +11,7 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.veila.nixosModules.default
   ];
 
   ### Nix
@@ -75,55 +76,8 @@
 
   ### Desktop environment
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.excludePackages = [ pkgs.xterm ];
-
-  # Configure keymap in X11.
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
-  # Enable the GNOME Desktop Environment (with fractional scaling support).
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
-  # Auto login.
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "patrick";
-  };
-
-  # Remove unused GNOME default software.
-  environment.gnome.excludePackages = with pkgs; [
-    # baobab
-    decibels
-    epiphany
-    geary
-    # gnome-calculator
-    gnome-calendar
-    gnome-characters
-    gnome-clocks
-    gnome-connections
-    gnome-console
-    gnome-contacts
-    gnome-font-viewer
-    gnome-logs
-    gnome-maps
-    gnome-music
-    gnome-system-monitor
-    gnome-text-editor
-    gnome-tour
-    gnome-weather
-    # loupe
-    # nautilus
-    # papers
-    showtime
-    simple-scan
-    snapshot
-    yelp
-  ];
+  programs.hyprland.enable = true;
+  programs.veila.enable = true;
 
   security.rtkit.enable = true;
   services.pipewire = {
