@@ -9,13 +9,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    veila = {
-      url = "github:naurissteins/Veila";
+    stylix = {
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix = {
-      url = "github:nix-community/stylix/release-26.05";
+    veila = {
+      url = "github:naurissteins/Veila";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
