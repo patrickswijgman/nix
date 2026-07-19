@@ -400,7 +400,6 @@
     brightnessctl
     playerctl
     pamixer
-    wlopm
   ];
 
   ### XDG configuration
