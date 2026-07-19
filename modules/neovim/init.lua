@@ -8,6 +8,7 @@ local augroup = vim.api.nvim_create_augroup("Config", { clear = true })
 ---- OPTIONS ----
 -----------------
 
+-- General
 vim.o.mouse = "a"
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
@@ -20,17 +21,21 @@ vim.o.timeoutlen = 300
 vim.o.winborder = "rounded"
 vim.o.pumborder = "rounded"
 
+-- Line wrapping
 vim.o.wrap = true
 vim.o.breakindent = true
 vim.o.showbreak = "↪ "
 
+-- Splitting
 vim.o.splitright = true
 vim.o.splitbelow = true
 
+-- Persistence
 vim.o.undofile = true
 vim.o.swapfile = false
 vim.o.backup = false
 
+-- Searching
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.showmatch = true
@@ -38,19 +43,24 @@ vim.o.hlsearch = false
 vim.o.incsearch = true
 vim.o.inccommand = "nosplit"
 
+-- Indentation
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.o.autoindent = true
 
+-- Completion
 vim.o.completeopt = "menuone,noselect,popup,fuzzy"
 
+-- Use ANSI colors from the terminal.
 vim.o.termguicolors = false
 
+-- Leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Disable builtin file explorer
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -71,29 +81,11 @@ require("telescope").setup({
         ["<m-p>"] = require("telescope.actions.layout").toggle_preview,
       },
     },
-    vimgrep_arguments = {
-      "rg",
-      "--vimgrep",
-      "--smart-case",
-      "--trim",
-      "--hidden",
-      "--no-ignore",
-      "--glob=!.git",
-      "--glob=!node_modules",
-      "--glob=!dist",
-    },
+    vimgrep_arguments = { "rg", "--vimgrep", "--smart-case", "--trim", "--hidden", "--no-ignore", "--glob=!.git", "--glob=!node_modules", "--glob=!dist" },
   },
   pickers = {
     find_files = {
-      find_command = {
-        "fd",
-        "--type=file",
-        "--hidden",
-        "--no-ignore",
-        "--exclude=.git",
-        "--exclude=node_modules",
-        "--exclude=dist",
-      },
+      find_command = { "fd", "--type=file", "--hidden", "--no-ignore", "--exclude=.git", "--exclude=node_modules", "--exclude=dist" },
     },
   },
 })
@@ -141,6 +133,7 @@ require("nvim-web-devicons").setup({
 ---- KEYMAPS ----
 -----------------
 
+-- General
 vim.keymap.set("n", "<leader>e", "<cmd>Butter<cr>")
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<cr>")
 vim.keymap.set("n", "<leader>g", "<cmd>Telescope live_grep<cr>")
@@ -150,6 +143,7 @@ vim.keymap.set("n", "<leader>'", "<cmd>Telescope resume<cr>")
 vim.keymap.set("n", "<leader>i", "<cmd>Inspect<cr>")
 vim.keymap.set("n", "<leader>x", "<cmd>source %<cr>")
 
+-- LSP
 vim.keymap.set("n", "<c-]>", "<cmd>Telescope lsp_definitions<cr>")
 vim.keymap.set("n", "gri", "<cmd>Telescope lsp_implementations<cr>")
 vim.keymap.set("n", "grr", "<cmd>Telescope lsp_references<cr>")
@@ -158,15 +152,19 @@ vim.keymap.set("n", "gre", "<cmd>Telescope diagnostics bufnr=0<cr>")
 vim.keymap.set("n", "grO", "<cmd>Telescope lsp_workspace_symbols<cr>")
 vim.keymap.set("n", "gO", "<cmd>Telescope lsp_document_symbols<cr>")
 
+-- Clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
 vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
 
+-- Replace
 vim.keymap.set("v", "R", '"_dP')
 vim.keymap.set("v", "<leader>R", '"_d"+P')
 
+-- Other
 vim.keymap.set("n", "<esc>", "<cmd>nohl<cr>", { silent = true })
 
+-- Disabled
 vim.keymap.set("n", "q", "<nop>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "U", "<nop>")
@@ -241,6 +239,7 @@ vim.lsp.enable({
 
 vim.lsp.semantic_tokens.enable(false)
 
+-- Trigger characters
 local all_chars = {}
 for i = 32, 126 do
   table.insert(all_chars, string.char(i))
@@ -329,7 +328,7 @@ vim.api.nvim_set_hl(0, "Special", { ctermfg = 6 })
 vim.api.nvim_set_hl(0, "Statement", { ctermfg = 5 })
 vim.api.nvim_set_hl(0, "String", { ctermfg = 2 })
 vim.api.nvim_set_hl(0, "Todo", { ctermfg = 0, ctermbg = 3 })
-vim.api.nvim_set_hl(0, "Type", { ctermfg = 3 })
+vim.api.nvim_set_hl(0, "Type", { ctermfg = 6 })
 
 -- Diagnostics
 vim.api.nvim_set_hl(0, "DiagnosticError", { ctermfg = 1 })

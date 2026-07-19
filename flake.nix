@@ -10,7 +10,12 @@
     };
 
     veila = {
-      url = "github:naurissteins/Veila";
+      url = "github:patrickswijgman/Veila/home-manager-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

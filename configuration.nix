@@ -11,18 +11,12 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.veila.nixosModules.default
   ];
 
   ### Nix
 
-  # Allow unfree packages (e.g. Spotify).
+  # Allow unfree packages at the system level (e.g. nvidia, steam).
   nixpkgs.config.allowUnfree = true;
-
-  # Allow insecure packages.
-  nixpkgs.config.permittedInsecurePackages = [
-    "pnpm-9.15.9" # needed for stylelint
-  ];
 
   # Enable flakes.
   nix.settings.experimental-features = [
@@ -68,7 +62,6 @@
   ### Home manager
 
   home-manager = {
-    useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
     users.patrick.imports = [ ./home.nix ];
@@ -77,7 +70,9 @@
   ### Desktop environment
 
   programs.hyprland.enable = true;
-  programs.veila.enable = true;
+  security.pam.services.veila = { };
+
+  ### Media
 
   security.rtkit.enable = true;
   services.pipewire = {

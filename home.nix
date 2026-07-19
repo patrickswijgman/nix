@@ -1,16 +1,31 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
-  imports = [ ./modules/veila ];
+  imports = [
+    inputs.stylix.homeModules.stylix
+    inputs.veila.homeModules.default
+  ];
 
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
+  # Home Manager needs a bit of information about you and the paths it should manage.
   home.username = "patrick";
   home.homeDirectory = "/home/patrick";
+
+  # Allow unfree packages (e.g. spotify).
+  nixpkgs.config.allowUnfree = true;
+
+  # Allow insecure packages.
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-9.15.9" # needed for stylelint
+  ];
 
   # Browser
   programs.librewolf = {
     enable = true;
+    profiles = {
+      default = {
+        isDefault = true;
+      };
+    };
     settings = {
       "browser.ctrlTab.sortByRecentlyUsed" = true;
       "browser.startup.page" = 3;
@@ -91,7 +106,6 @@
     server.enable = true;
     settings = {
       main = {
-        font = "monospace:size=12";
         pad = "10x5 center";
       };
     };
@@ -112,9 +126,6 @@
     };
     shellInit = ''
       set fish_greeting
-    '';
-    interactiveShellInit = ''
-      cat ~/.cache/wallust/sequences
     '';
     shellAbbrs = {
       # Git
@@ -202,25 +213,38 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
-    defaultOptions = [
-      "--color=fg:-1"
-      "--color=bg:-1"
-      "--color=gutter:0"
-      "--color=fg+:-1"
-      "--color=bg+:0"
-      "--color=hl:4"
-      "--color=hl+:4"
-      "--color=prompt:5"
-      "--color=pointer:1"
-      "--color=marker:2"
-      "--color=info:8"
-      "--color=border:8"
-      "--color=header:8"
-      "--color=spinner:4"
-    ];
   };
 
   # Desktop environment
+  stylix = {
+    enable = true;
+    image = ./wallpapers/giethoorn.jpg;
+    polarity = "dark";
+    targets = {
+      librewolf = {
+        profileNames = [ "default" ];
+      };
+    };
+    fonts = {
+      serif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
+      };
+      sansSerif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";
@@ -229,11 +253,12 @@
 
   programs.veila = {
     enable = true;
+    service.enable = true;
     settings = {
       theme = "seceda";
       background = {
         mode = "file";
-        path = "${./wallpapers/giethoorn.jpg}";
+        path = ./wallpapers/giethoorn.jpg;
       };
       visuals = {
         clock = {
@@ -270,102 +295,7 @@
 
   programs.hyprshot.enable = true;
 
-  services.wayle = {
-    enable = true;
-    settings = {
-      general = {
-        font-sans = "sans-serif";
-        font-mono = "monospace";
-      };
-      styling = {
-        rounding = "md";
-        theme-provider = "wallust";
-        wallust-palette = "dark16";
-        wallust-backend = "wal";
-        wallust-colorspace = "labmixed";
-      };
-      wallpaper = {
-        engine-enabled = true;
-        monitors = [
-          {
-            name = "";
-            wallpaper = "${./wallpapers/giethoorn.jpg}";
-            fit-mode = "fill";
-          }
-        ];
-      };
-      bar = {
-        location = "top";
-        button-variant = "basic";
-        button-icon-size = 0.8;
-        layout = [
-          {
-            monitor = "*";
-            left = [
-              "hyprland-workspaces"
-            ];
-            center = [
-              "window-title"
-            ];
-            right = [
-              "media"
-              "idle-inhibit"
-              "hyprsunset"
-              "bluetooth"
-              "network"
-              "volume"
-              "brightness"
-              "battery"
-              "clock"
-            ];
-          }
-        ];
-      };
-      modules = {
-        hyprland-workspaces = {
-          label-size = 0.8;
-          active-color = "red";
-        };
-        clock = {
-          format = "%H:%M";
-          icon-color = "accent";
-          label-color = "accent";
-        };
-        media = {
-          icon-color = "accent";
-          label-color = "accent";
-        };
-        idle-inhibit = {
-          icon-color = "accent";
-          label-color = "accent";
-        };
-        hyprsunset = {
-          icon-color = "accent";
-          label-color = "accent";
-        };
-        bluetooth = {
-          icon-color = "accent";
-          label-color = "accent";
-        };
-        network = {
-          icon-color = "accent";
-          label-color = "accent";
-        };
-        volume = {
-          icon-color = "accent";
-          label-color = "accent";
-        };
-        brightness = {
-          icon-color = "accent";
-          label-color = "accent";
-        };
-        battery = {
-          icon-color = "accent";
-          label-color = "accent";
-        };
-      };
-    };
-  };
+  services.mako.enable = true;
 
   services.hypridle = {
     enable = true;
@@ -419,23 +349,8 @@
     };
   };
 
-  fonts.fontconfig = {
-    enable = true;
-    defaultFonts = {
-      serif = [ "Noto Serif" ];
-      sansSerif = [ "Noto Sans" ];
-      monospace = [ "JetBrainsMono Nerd Font" ];
-      emoji = [ "Noto Color Emoji" ];
-    };
-  };
-
   # Packages (these don't have a programs option or override my configuration file by force).
   home.packages = with pkgs; [
-    # Fonts
-    nerd-fonts.jetbrains-mono
-    noto-fonts
-    noto-fonts-color-emoji
-
     # GUI
     spotify
     gimp

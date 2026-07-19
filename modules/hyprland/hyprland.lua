@@ -1,24 +1,6 @@
 -- Refer to the wiki for more information.
 -- https://wiki.hypr.land/Configuring/Start/
 
----------------------
----- COLORSCHEME ----
----------------------
-
---- Colors from the Wallust palette Wayle generates from the wallpaper.
-local colors = {}
-do
-  local file = io.open(os.getenv("HOME") .. "/.cache/wayle/wallust-colors.json")
-  if file then
-    local data = file:read("*a")
-    file:close()
-
-    for k, v in data:gmatch('"([%w_]+)"%s*:%s*"(#%x+)"') do
-      colors[k] = v
-    end
-  end
-end
-
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
@@ -30,15 +12,6 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_THEME", "Adwaita")
 hl.env("HYPRCURSOR_SIZE", "24")
 
--------------------
----- AUTOSTART ----
--------------------
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
-hl.on("hyprland.start", function()
-  hl.exec_cmd("veilad")
-end)
-
 ------------------
 ---- SETTINGS ----
 ------------------
@@ -47,12 +20,8 @@ end)
 hl.config({
   general = {
     layout = "dwindle",
-    border_size = 2,
+    border_size = 0,
     resize_on_border = true,
-    col = {
-      active_border = colors.foreground,
-      inactive_border = colors.background,
-    },
   },
   dwindle = {
     preserve_split = true,
@@ -60,9 +29,9 @@ hl.config({
   decoration = {
     rounding = 10,
     active_opacity = 1.0,
-    inactive_opacity = 0.85,
+    inactive_opacity = 0.8,
     shadow = {
-      enabled = false,
+      enabled = true,
     },
     blur = {
       enabled = true,
@@ -153,7 +122,7 @@ hl.config({
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
--- See https://wiki.hypr.land/Configuring/Basics/Binds/ for more
+-- See https://wiki.hypr.land/Configuring/Basics/Binds/
 
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot --mode=region --clipboard-only"))
 hl.bind("SUPER + Return", hl.dsp.exec_cmd("footclient"))
