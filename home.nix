@@ -295,6 +295,16 @@
           };
         };
       };
+      lock = {
+        screen_off_seconds = 10;
+        suspend_seconds = 60;
+        suspend_only_on_battery = true;
+      };
+    };
+    idle = {
+      enable = true;
+      lockAfter = 180;
+      lockBeforeSleep = true;
     };
   };
 
@@ -303,29 +313,6 @@
   services.swaync = {
     enable = true;
     style = lib.mkAfter (builtins.readFile ./modules/swaync/style.css);
-  };
-
-  services.hypridle = {
-    enable = true;
-    settings = {
-      general = {
-        lock_cmd = "veila lock --wait-ready";
-        before_sleep_cmd = "veila lock --wait-ready";
-        after_sleep_cmd = "wlopm --on '*'";
-        inhibit_sleep = 3;
-      };
-      listener = [
-        {
-          timeout = 150;
-          on-timeout = "wlopm --off '*'";
-          on-resume = "wlopm --on '*'";
-        }
-        {
-          timeout = 180;
-          on-timeout = "veila lock --wait-ready";
-        }
-      ];
-    };
   };
 
   services.hyprsunset = {
