@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -295,7 +300,10 @@
 
   programs.hyprshot.enable = true;
 
-  services.mako.enable = true;
+  services.swaync = {
+    enable = true;
+    style = lib.mkAfter (builtins.readFile ./modules/swaync/style.css);
+  };
 
   services.hypridle = {
     enable = true;

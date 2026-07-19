@@ -1,0 +1,28 @@
+.notification-default-action,
+.notification-default-action:hover {
+  background: @base00;
+  padding: 8px 12px;
+}
+
+.notification-content {
+  border: none;
+}
+
+.notification-content .image {
+  margin-right: 8px;
+}
+
+.close-button {
+  background: @base08;
+  color: @base00;
+}
+
+.close-button:hover {
+  background: lighter(@base08);
+  color: lighter(@base00);
+}
+
+.close-button:active {
+  background: darker(@base08);
+  color: @base00;
+}

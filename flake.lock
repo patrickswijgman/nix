@@ -328,16 +328,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1784447999,
+        "lastModified": 1784451290,
         "narHash": "sha256-/TpBVvsMCz4Xr8B0HuUjVVY/FQeyRlZNAMs4fi01KyE=",
-        "owner": "patrickswijgman",
+        "owner": "naurissteins",
         "repo": "Veila",
-        "rev": "5a4c18505ed8ae7a4ade44c7b8547b521afee9dd",
+        "rev": "928f51f89896618076eb17b32855d627c4eefd9d",
         "type": "github"
       },
       "original": {
-        "owner": "patrickswijgman",
-        "ref": "home-manager-module",
+        "owner": "naurissteins",
         "repo": "Veila",
         "type": "github"
       }

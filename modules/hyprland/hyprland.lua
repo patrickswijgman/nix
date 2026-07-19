@@ -182,3 +182,10 @@ hl.define_submap("resize", function()
   hl.bind("l", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
+
+----------------------------
+---- WINDOW/LAYER RULES ----
+----------------------------
+-- see https://wiki.hypr.land/Configuring/Basics/Window-Rules
+
+-- hl.layer_rule({ match = { namespace = "swaync-notification-window" }, blur = false, blur_popups = false })
