@@ -310,37 +310,37 @@
 
   programs.hyprshot.enable = true;
 
+  services.kanshi = {
+    enable = true;
+  };
+
+  services.gammastep = {
+    enable = true;
+    latitude = 53.21917;
+    longitude = 6.56667;
+    provider = "manual";
+  };
+
   services.swaync = {
     enable = true;
     style = lib.mkAfter (builtins.readFile ./modules/swaync/style.css);
   };
 
-  services.hyprsunset = {
+  home.pointerCursor = {
     enable = true;
-    settings = {
-      profile = [
-        {
-          time = "7:30";
-          identity = true;
-        }
-        {
-          time = "20:30";
-          temperature = 4500;
-          gamma = 0.75;
-        }
-      ];
-    };
+    package = pkgs.adwaita-icon-theme;
+    name = "Adwaita";
+    size = 24;
+    hyprcursor.enable = true;
+    gtk.enable = true;
+    x11.enable = true;
   };
 
   gtk = {
     enable = true;
     iconTheme = {
-      name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
-    };
-    cursorTheme = {
       name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
     };
   };
 

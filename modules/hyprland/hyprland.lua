@@ -1,17 +1,6 @@
 -- Refer to the wiki for more information.
 -- https://wiki.hypr.land/Configuring/Start/
 
--------------------------------
----- ENVIRONMENT VARIABLES ----
--------------------------------
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
-
-hl.env("XCURSOR_THEME", "Adwaita")
-hl.env("XCURSOR_SIZE", "24")
-
-hl.env("HYPRCURSOR_THEME", "Adwaita")
-hl.env("HYPRCURSOR_SIZE", "24")
-
 ------------------
 ---- SETTINGS ----
 ------------------
@@ -43,6 +32,7 @@ hl.config({
   cursor = {
     inactive_timeout = 5,
     no_warps = true,
+    no_hardware_cursors = 1,
   },
   ecosystem = {
     no_update_news = true,
@@ -80,25 +70,6 @@ hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "al
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
-------------------
----- MONITORS ----
-------------------
--- See https://wiki.hypr.land/Configuring/Basics/Monitors/
-
-hl.monitor({
-  output = "",
-  mode = "preferred",
-  position = "auto",
-  scale = "auto",
-})
-
-hl.monitor({
-  output = "desc:AOC Q24G4 VH0R7HA002360",
-  mode = "2560x1440@180.00Hz",
-  position = "0x0",
-  scale = "1",
-})
-
 ---------------
 ---- INPUT ----
 ---------------
@@ -127,7 +98,6 @@ hl.config({
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot --mode=region --clipboard-only"))
 hl.bind("SUPER + Return", hl.dsp.exec_cmd("footclient"))
 hl.bind("SUPER + Delete", hl.dsp.exec_cmd("veila lock"))
-hl.bind("SUPER + Tab", hl.dsp.focus({ urgent_or_last = true }))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("librewolf"))
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "left" }))
@@ -168,10 +138,10 @@ hl.bind("SUPER + minus", hl.dsp.exec_cmd("pamixer --decrease 5"), { locked = tru
 hl.bind("SUPER + 0", hl.dsp.exec_cmd("pamixer --toggle-mute"), { locked = true, repeating = true })
 
 -- Brightness
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true })
-hl.bind("SUPER + plus", hl.dsp.exec_cmd("brightnessctl set 5%+"), { locked = true, repeating = true })
-hl.bind("SUPER + underscore", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 10%+"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 10%-"), { locked = true, repeating = true })
+hl.bind("SUPER + plus", hl.dsp.exec_cmd("brightnessctl set 10%+"), { locked = true, repeating = true })
+hl.bind("SUPER + underscore", hl.dsp.exec_cmd("brightnessctl set 10%-"), { locked = true, repeating = true })
 
 -- Resize
 hl.bind("SUPER + R", hl.dsp.submap("resize"))
@@ -182,10 +152,3 @@ hl.define_submap("resize", function()
   hl.bind("l", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
-
-----------------------------
----- WINDOW/LAYER RULES ----
-----------------------------
--- see https://wiki.hypr.land/Configuring/Basics/Window-Rules
-
--- hl.layer_rule({ match = { namespace = "swaync-notification-window" }, blur = false, blur_popups = false })
