@@ -23,6 +23,12 @@
 
   networking.hostName = "patrick-swijgman-work";
 
+  # Add firewall exception for Docker bridges.
+  # Needed to load a frontend into vg using the web container Docker IP: 172.20.0.254:3000 (requires frontend host: 0.0.0.0)
+  networking.firewall.extraCommands = ''
+    iptables -I nixos-fw 1 -i br-+ -j ACCEPT
+  '';
+
   ### Bluetooth
 
   hardware.bluetooth = {

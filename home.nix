@@ -110,7 +110,7 @@
     settings = {
       main = {
         include = "${./modules/foot/themes/vague.ini}";
-        font = "monospace:size=10";
+        font = "monospace:size=12";
         pad = "10x5 center";
       };
     };
@@ -253,7 +253,7 @@
       main = {
         terminal = "${pkgs.foot}/bin/foot";
         list-executables-in-path = "yes";
-        dpi-aware = "no";
+        font = "sans-serif:size=10";
         prompt = "'> '";
         placeholder = "'_'";
         inner-pad = 8;
@@ -329,7 +329,7 @@
   services.mako = {
     enable = true;
     settings = {
-      font = "monospace 10";
+      font = "sans-serif 10";
       background-color = "#141415";
       text-color = "#cdcdcd";
       border-color = "#606079";
@@ -462,6 +462,9 @@
 
     # Hint Electron apps to use Wayland.
     NIXOS_OZONE_WL = "1";
+
+    # LibreWolf's resistFingerprinting spoofs the timezone to UTC; RFP honors TZ if set.
+    TZ = "Europe/Amsterdam";
   };
 
   # This value determines the Home Manager release that your
