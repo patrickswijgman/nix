@@ -83,17 +83,21 @@
     initLua = builtins.readFile ./modules/neovim/init.lua;
     plugins =
       let
+        birb-nvim = pkgs.callPackage ./modules/neovim/plugins/birb-nvim.nix { };
+        bulb-nvim = pkgs.callPackage ./modules/neovim/plugins/bulb-nvim.nix { };
         butter-nvim = pkgs.callPackage ./modules/neovim/plugins/butter-nvim.nix { };
       in
       with pkgs.vimPlugins;
       [
+        birb-nvim
+        bulb-nvim
         butter-nvim
         conform-nvim
         nvim-lspconfig
         nvim-treesitter.withAllGrammars
         nvim-web-devicons
-        telescope-nvim
         telescope-fzf-native-nvim
+        telescope-nvim
         telescope-ui-select-nvim
         vague-nvim
       ];
@@ -249,9 +253,26 @@
       main = {
         terminal = "${pkgs.foot}/bin/foot";
         list-executables-in-path = "yes";
-        prompt = "''";
-        placeholder = "_";
+        dpi-aware = "no";
+        prompt = "'> '";
+        placeholder = "'_'";
         inner-pad = 8;
+      };
+      colors = {
+        background = "141415ff";
+        text = "cdcdcdff";
+        prompt = "878787ff";
+        placeholder = "606079ff";
+        input = "cdcdcdff";
+        match = "f3be7cff";
+        selection = "252530ff";
+        selection-text = "cdcdcdff";
+        selection-match = "f3be7cff";
+        border = "7e98e8ff";
+      };
+      border = {
+        radius = 8;
+        width = 1;
       };
     };
   };

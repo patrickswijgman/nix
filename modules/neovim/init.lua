@@ -128,6 +128,29 @@ require("butter").setup({
   auto_open = true,
 })
 
+require("bulb").setup({
+  servers = {
+    "biome",
+    "codebook",
+    "cssls",
+    "fish_lsp",
+    "lua_ls",
+    "nixd",
+    "vtsls",
+  },
+  semantic_tokens = false,
+  completion = {
+    enable = false,
+    autotrigger = false,
+    trigger_characters = require("bulb").all_chars,
+  },
+})
+
+require("birb").setup({
+  use_folds = true,
+  auto_open_folds = true,
+})
+
 -----------------
 ---- KEYMAPS ----
 -----------------
@@ -226,36 +249,6 @@ vim.lsp.config("codebook", {
   },
 })
 
-vim.lsp.enable({
-  "biome",
-  "codebook",
-  "cssls",
-  "fish_lsp",
-  "lua_ls",
-  "nixd",
-  "vtsls",
-})
-
-vim.lsp.semantic_tokens.enable(false)
-
--- Trigger characters
-local all_chars = {}
-for i = 32, 126 do
-  table.insert(all_chars, string.char(i))
-end
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = augroup,
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-
-    if client and client:supports_method("textDocument/completion") then
-      client.server_capabilities.completionProvider.triggerCharacters = all_chars
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-    end
-  end,
-})
-
 ---------------------
 ---- DIAGNOSTICS ----
 ---------------------
@@ -280,12 +273,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup,
   callback = function()
     vim.hl.on_yank()
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup,
-  callback = function(ev)
-    pcall(vim.treesitter.start, ev.buf)
   end,
 })

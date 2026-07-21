@@ -12,7 +12,6 @@ end)
 ------------------
 ---- SETTINGS ----
 ------------------
--- See https://wiki.hypr.land/Configuring/Basics/Variables/
 
 hl.config({
   general = {
@@ -51,7 +50,6 @@ hl.config({
 --------------------
 ---- ANIMATIONS ----
 --------------------
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
 hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
@@ -81,7 +79,6 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 ---------------
 ---- INPUT ----
 ---------------
--- See https://wiki.hypr.land/Configuring/Basics/Variables/#input
 
 hl.config({
   input = {
@@ -101,7 +98,6 @@ hl.config({
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
--- See https://wiki.hypr.land/Configuring/Basics/Binds/
 
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot --mode=region --clipboard-only"))
 hl.bind("SUPER + Return", hl.dsp.exec_cmd("footclient"))
