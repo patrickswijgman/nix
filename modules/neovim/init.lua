@@ -53,9 +53,6 @@ vim.o.autoindent = true
 -- Completion
 vim.o.completeopt = "menuone,noselect,popup,fuzzy"
 
--- Use ANSI colors from the terminal.
-vim.o.termguicolors = false
-
 -- Leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -63,6 +60,12 @@ vim.g.maplocalleader = " "
 -- Disable builtin file explorer
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+---------------------
+---- COLORSCHEME ----
+---------------------
+
+vim.cmd.colorscheme("vague")
 
 -----------------
 ---- PLUGINS ----
@@ -123,10 +126,6 @@ require("butter").setup({
   no_ignore = true,
   exclude = { ".git", "node_modules", "dist" },
   auto_open = true,
-})
-
-require("nvim-web-devicons").setup({
-  color_icons = false,
 })
 
 -----------------
@@ -290,51 +289,3 @@ vim.api.nvim_create_autocmd("FileType", {
     pcall(vim.treesitter.start, ev.buf)
   end,
 })
-
----------------------
----- COLORSCHEME ----
----------------------
-
-vim.cmd("hi clear")
-
--- UI
-vim.api.nvim_set_hl(0, "CurSearch", { ctermbg = 11, ctermfg = 0 })
-vim.api.nvim_set_hl(0, "CursorLine", { ctermbg = 0 })
-vim.api.nvim_set_hl(0, "CursorLineNr", { ctermfg = 7 })
-vim.api.nvim_set_hl(0, "Directory", { ctermfg = 4 })
-vim.api.nvim_set_hl(0, "FloatBorder", { ctermfg = 8 })
-vim.api.nvim_set_hl(0, "LineNr", { ctermfg = 8 })
-vim.api.nvim_set_hl(0, "MatchParen", { ctermfg = 3, cterm = { bold = true } })
-vim.api.nvim_set_hl(0, "Normal", {})
-vim.api.nvim_set_hl(0, "NormalFloat", {})
-vim.api.nvim_set_hl(0, "Pmenu", { ctermbg = 0 })
-vim.api.nvim_set_hl(0, "PmenuSel", { ctermbg = 8 })
-vim.api.nvim_set_hl(0, "Search", { ctermbg = 3, ctermfg = 0 })
-vim.api.nvim_set_hl(0, "SignColumn", {})
-vim.api.nvim_set_hl(0, "StatusLine", { ctermbg = 0 })
-vim.api.nvim_set_hl(0, "Title", { ctermfg = 4, cterm = { bold = true } })
-vim.api.nvim_set_hl(0, "Visual", { ctermbg = 0 })
-vim.api.nvim_set_hl(0, "WinSeparator", { ctermfg = 8 })
-
--- Syntax
-vim.api.nvim_set_hl(0, "Comment", { ctermfg = 8 })
-vim.api.nvim_set_hl(0, "Constant", { ctermfg = 6 })
-vim.api.nvim_set_hl(0, "Error", { ctermfg = 1 })
-vim.api.nvim_set_hl(0, "Function", { ctermfg = 4 })
-vim.api.nvim_set_hl(0, "Identifier", { ctermfg = 7 })
-vim.api.nvim_set_hl(0, "Keyword", { ctermfg = 5 })
-vim.api.nvim_set_hl(0, "PreProc", { ctermfg = 5 })
-vim.api.nvim_set_hl(0, "Special", { ctermfg = 6 })
-vim.api.nvim_set_hl(0, "Statement", { ctermfg = 5 })
-vim.api.nvim_set_hl(0, "String", { ctermfg = 2 })
-vim.api.nvim_set_hl(0, "Todo", { ctermfg = 0, ctermbg = 3 })
-vim.api.nvim_set_hl(0, "Type", { ctermfg = 6 })
-
--- Diagnostics
-vim.api.nvim_set_hl(0, "DiagnosticError", { ctermfg = 1 })
-vim.api.nvim_set_hl(0, "DiagnosticWarn", { ctermfg = 3 })
-vim.api.nvim_set_hl(0, "DiagnosticInfo", { ctermfg = 4 })
-vim.api.nvim_set_hl(0, "DiagnosticHint", { ctermfg = 6 })
-
--- Plugins
-vim.api.nvim_set_hl(0, "DevIconDefault", { ctermfg = 5 })

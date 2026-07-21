@@ -22,7 +22,7 @@
           }
           {
             criteria = "Dell Inc. DELL U2715H GH85D7C600JL";
-            mode = "2560x1440@60.000Hz";
+            mode = "2560x1440@60.00Hz";
           }
         ];
       }

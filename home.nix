@@ -1,13 +1,11 @@
 {
   pkgs,
   inputs,
-  lib,
   ...
 }:
 
 {
   imports = [
-    inputs.stylix.homeModules.stylix
     inputs.veila.homeModules.default
   ];
 
@@ -18,33 +16,36 @@
   # Allow unfree packages (e.g. spotify).
   nixpkgs.config.allowUnfree = true;
 
-  # Allow insecure packages.
-  nixpkgs.config.permittedInsecurePackages = [
-    "pnpm-9.15.9" # needed for stylelint
-  ];
+  # Nix User Repositories.
+  nixpkgs.overlays = [ inputs.nur.overlays.default ];
 
   # Browser
   programs.librewolf = {
     enable = true;
     profiles = {
       default = {
+        name = "Patrick";
         isDefault = true;
+        settings = {
+          "browser.ctrlTab.sortByRecentlyUsed" = true;
+          "browser.startup.page" = 3;
+          "browser.toolbars.bookmarks.visibility" = "never";
+          "browser.translations.enable" = false;
+          "browser.uiCustomization.state" = builtins.readFile ./modules/librewolf/toolbar.json;
+          "devtools.theme" = "dark";
+          "network.cookie.lifetimePolicy" = 0;
+          "privacy.clearOnShutdown_v2.cache" = true;
+          "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
+          "privacy.clearOnShutdown_v2.history" = false;
+          "privacy.sanitize.sanitizeOnShutdown" = true;
+          "sidebar.visibility" = "hide-sidebar";
+          "ui.systemUsesDarkTheme" = 0;
+        };
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          seventv
+          bitwarden
+        ];
       };
-    };
-    settings = {
-      "browser.ctrlTab.sortByRecentlyUsed" = true;
-      "browser.startup.page" = 3;
-      "browser.toolbars.bookmarks.visibility" = "never";
-      "browser.translations.enable" = false;
-      "browser.uiCustomization.state" = builtins.readFile ./modules/librewolf/toolbar.json;
-      "devtools.theme" = "dark";
-      "network.cookie.lifetimePolicy" = 0;
-      "privacy.clearOnShutdown_v2.cache" = true;
-      "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
-      "privacy.clearOnShutdown_v2.history" = false;
-      "privacy.sanitize.sanitizeOnShutdown" = true;
-      "sidebar.visibility" = "hide-sidebar";
-      "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
     policies = {
       SearchEngines = {
@@ -60,14 +61,6 @@
         ];
       };
       ExtensionSettings = {
-        "moz-addon-prod@7tv.app" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/7tv-extension/latest.xpi";
-          installation_mode = "normal_installed";
-        };
-        "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-          installation_mode = "normal_installed";
-        };
         "nl-NL@dictionaries.addons.mozilla.org" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/woordenboek-nederlands/latest.xpi";
           installation_mode = "normal_installed";
@@ -102,6 +95,7 @@
         telescope-nvim
         telescope-fzf-native-nvim
         telescope-ui-select-nvim
+        vague-nvim
       ];
   };
 
@@ -111,6 +105,8 @@
     server.enable = true;
     settings = {
       main = {
+        include = "${./modules/foot/themes/vague.ini}";
+        font = "monospace:size=10";
         pad = "10x5 center";
       };
     };
@@ -127,6 +123,10 @@
       print_colors = {
         description = "Print the 16 base ANSI colors";
         body = builtins.readFile ./modules/fish/functions/print_colors.fish;
+      };
+      hyperfocus = {
+        description = "Show a break time notification";
+        body = builtins.readFile ./modules/fish/functions/hyperfocus.fish;
       };
     };
     shellInit = ''
@@ -218,42 +218,42 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
+    defaultOptions = [
+      "--color=fg:#cdcdcd"
+      "--color=bg:#141415"
+      "--color=hl:#f3be7c"
+      "--color=fg+:#aeaed1"
+      "--color=bg+:#252530"
+      "--color=hl+:#f3be7c"
+      "--color=border:#606079"
+      "--color=header:#6e94b2"
+      "--color=gutter:#141415"
+      "--color=spinner:#7fa563"
+      "--color=info:#f3be7c"
+      "--color=pointer:#aeaed1"
+      "--color=marker:#d8647e"
+      "--color=prompt:#bb9dbd"
+    ];
   };
 
   # Desktop environment
-  stylix = {
-    enable = true;
-    image = ./wallpapers/giethoorn.jpg;
-    polarity = "dark";
-    targets = {
-      librewolf = {
-        profileNames = [ "default" ];
-      };
-    };
-    fonts = {
-      serif = {
-        package = pkgs.noto-fonts;
-        name = "Noto Serif";
-      };
-      sansSerif = {
-        package = pkgs.noto-fonts;
-        name = "Noto Sans";
-      };
-      monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font";
-      };
-      emoji = {
-        package = pkgs.noto-fonts-color-emoji;
-        name = "Noto Color Emoji";
-      };
-    };
-  };
-
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";
     extraConfig = builtins.readFile ./modules/hyprland/hyprland.lua;
+  };
+
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        terminal = "${pkgs.foot}/bin/foot";
+        list-executables-in-path = "yes";
+        prompt = "''";
+        placeholder = "_";
+        inner-pad = 8;
+      };
+    };
   };
 
   programs.veila = {
@@ -263,37 +263,7 @@
       theme = "seceda";
       background = {
         mode = "file";
-        path = ./wallpapers/giethoorn.jpg;
-      };
-      visuals = {
-        clock = {
-          font_family = "sans-serif";
-        };
-        date = {
-          font_family = "sans-serif";
-        };
-        input = {
-          font_family = "sans-serif";
-        };
-        username = {
-          font_family = "sans-serif";
-        };
-        weather = {
-          temperature = {
-            font_family = "sans-serif";
-          };
-          location = {
-            font_family = "sans-serif";
-          };
-        };
-        now_playing = {
-          artist = {
-            font_family = "sans-serif";
-          };
-          title = {
-            font_family = "sans-serif";
-          };
-        };
+        path = "${./wallpapers/giethoorn.jpg}";
       };
       lock = {
         screen_off_seconds = 10;
@@ -310,6 +280,20 @@
 
   programs.hyprshot.enable = true;
 
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      splash = false;
+      wallpaper = [
+        {
+          monitor = "";
+          path = "${./wallpapers/giethoorn.jpg}";
+          fit_mode = "fill";
+        }
+      ];
+    };
+  };
+
   services.kanshi = {
     enable = true;
   };
@@ -321,15 +305,32 @@
     provider = "manual";
   };
 
-  services.swaync = {
+  services.mako = {
     enable = true;
-    style = lib.mkAfter (builtins.readFile ./modules/swaync/style.css);
+    settings = {
+      font = "monospace 10";
+      background-color = "#141415";
+      text-color = "#cdcdcd";
+      border-color = "#606079";
+      border-size = 1;
+      border-radius = 5;
+      padding = 10;
+      margin = 10;
+      default-timeout = 5000;
+      "urgency=low" = {
+        border-color = "#7fa563";
+      };
+      "urgency=critical" = {
+        border-color = "#d8647e";
+        default-timeout = 0;
+      };
+    };
   };
 
   home.pointerCursor = {
     enable = true;
-    package = pkgs.adwaita-icon-theme;
-    name = "Adwaita";
+    package = pkgs.yaru-theme;
+    name = "Yaru";
     size = 24;
     hyprcursor.enable = true;
     gtk.enable = true;
@@ -339,13 +340,28 @@
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
+      package = pkgs.yaru-theme;
+      name = "Yaru";
+    };
+  };
+
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      serif = [ "Noto Serif" ];
+      sansSerif = [ "Noto Sans" ];
+      monospace = [ "JetBrainsMono Nerd Font" ];
+      emoji = [ "Noto Color Emoji" ];
     };
   };
 
   # Packages (these don't have a programs option or override my configuration file by force).
   home.packages = with pkgs; [
+    # Fonts
+    nerd-fonts.jetbrains-mono
+    noto-fonts-color-emoji
+    noto-fonts
+
     # GUI
     spotify
     gimp
@@ -356,6 +372,7 @@
     ripgrep
     tree
     wl-clipboard
+    libnotify
     jq # needed for claude statusline
     gcc # needed for pre-commit hooks
 

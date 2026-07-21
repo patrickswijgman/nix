@@ -1,6 +1,14 @@
 -- Refer to the wiki for more information.
 -- https://wiki.hypr.land/Configuring/Start/
 
+-------------------
+---- AUTOSTART ----
+-------------------
+
+hl.on("hyprland.start", function()
+  hl.exec_cmd("fish -c hyperfocus")
+end)
+
 ------------------
 ---- SETTINGS ----
 ------------------
@@ -98,6 +106,7 @@ hl.config({
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot --mode=region --clipboard-only"))
 hl.bind("SUPER + Return", hl.dsp.exec_cmd("footclient"))
 hl.bind("SUPER + Delete", hl.dsp.exec_cmd("veila lock"))
+hl.bind("SUPER + D", hl.dsp.exec_cmd("fuzzel"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("librewolf"))
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "left" }))
@@ -146,9 +155,9 @@ hl.bind("SUPER + underscore", hl.dsp.exec_cmd("brightnessctl set 10%-"), { locke
 -- Resize
 hl.bind("SUPER + R", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
-  hl.bind("h", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
-  hl.bind("j", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
-  hl.bind("k", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
-  hl.bind("l", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
+  hl.bind("H", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
+  hl.bind("J", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
+  hl.bind("K", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
+  hl.bind("L", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
