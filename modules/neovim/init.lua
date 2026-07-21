@@ -140,8 +140,8 @@ require("bulb").setup({
   },
   semantic_tokens = false,
   completion = {
-    enable = false,
-    autotrigger = false,
+    enable = true,
+    autotrigger = true,
     trigger_characters = require("bulb").all_chars,
   },
 })
