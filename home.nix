@@ -38,10 +38,11 @@
           "privacy.clearOnShutdown_v2.cache" = true;
           "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
           "privacy.clearOnShutdown_v2.history" = false;
+          "privacy.fingerprintingProtection" = true;
           "privacy.fingerprintingProtection.overrides" = "+AllTargets,-JSDateTimeUTC";
+          "privacy.resistFingerprinting" = false;
           "privacy.sanitize.sanitizeOnShutdown" = true;
           "sidebar.visibility" = "hide-sidebar";
-          # "ui.systemUsesDarkTheme" = 0;
         };
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           seventv
