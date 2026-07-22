@@ -134,6 +134,7 @@ require("bulb").setup({
     "codebook",
     "cssls",
     "fish_lsp",
+    "jsonls",
     "lua_ls",
     "nixd",
     "vtsls",

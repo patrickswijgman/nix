@@ -17,6 +17,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Nix User Repositories.
+  # Needed for Firefox/Librewolf addons.
   nixpkgs.overlays = [ inputs.nur.overlays.default ];
 
   # Browser
@@ -415,6 +416,7 @@
     vtsls
     typescript-language-server # needed for claude code LSP
     vscode-css-languageserver
+    vscode-json-languageserver
 
     # Go
     go_1_25
