@@ -129,17 +129,72 @@ require("butter").setup({
 })
 
 require("bulb").setup({
-  servers = {
-    "biome",
-    "codebook",
-    "cssls",
-    "fish_lsp",
-    "jsonls",
-    "lua_ls",
-    "nixd",
-    "vtsls",
+  clients = {
+    enabled = {
+      "biome",
+      "codebook",
+      "cssls",
+      "fish_lsp",
+      "jsonls",
+      "lua_ls",
+      "nixd",
+      "vtsls",
+    },
+    config = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+              },
+            },
+          },
+        },
+      },
+      vtsls = {
+        settings = {
+          javascript = {
+            preferences = {
+              importModuleSpecifier = "non-relative",
+              importModuleSpecifierEnding = "js",
+            },
+          },
+          typescript = {
+            preferences = {
+              importModuleSpecifier = "non-relative",
+              importModuleSpecifierEnding = "js",
+            },
+          },
+        },
+      },
+      codebook = {
+        filetypes = {
+          "css",
+          "fish",
+          "gitcommit",
+          "go",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "lua",
+          "markdown",
+          "nix",
+          "python",
+          "rust",
+          "text",
+          "toml",
+          "typescript",
+          "typescriptreact",
+        },
+      },
+    },
+    semantic_tokens = false,
   },
-  semantic_tokens = false,
   completion = {
     enable = true,
     autotrigger = true,
@@ -191,65 +246,6 @@ vim.keymap.set("n", "<esc>", "<cmd>nohl<cr>", { silent = true })
 vim.keymap.set("n", "q", "<nop>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "U", "<nop>")
-
--------------
----- LSP ----
--------------
-
--- TODO add lsp config feature to bulb
-vim.lsp.config("lua_ls", {
-  settings = {
-    Lua = {
-      runtime = {
-        version = "LuaJIT",
-      },
-      workspace = {
-        checkThirdParty = false,
-        library = {
-          vim.env.VIMRUNTIME,
-        },
-      },
-    },
-  },
-})
-
-vim.lsp.config("vtsls", {
-  settings = {
-    javascript = {
-      preferences = {
-        importModuleSpecifier = "non-relative",
-        importModuleSpecifierEnding = "js",
-      },
-    },
-    typescript = {
-      preferences = {
-        importModuleSpecifier = "non-relative",
-        importModuleSpecifierEnding = "js",
-      },
-    },
-  },
-})
-
-vim.lsp.config("codebook", {
-  filetypes = {
-    "css",
-    "fish",
-    "gitcommit",
-    "go",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "lua",
-    "markdown",
-    "nix",
-    "python",
-    "rust",
-    "text",
-    "toml",
-    "typescript",
-    "typescriptreact",
-  },
-})
 
 ---------------------
 ---- DIAGNOSTICS ----

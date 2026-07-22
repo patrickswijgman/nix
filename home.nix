@@ -269,7 +269,6 @@
     settings = {
       main = {
         terminal = "${pkgs.foot}/bin/foot";
-        list-executables-in-path = "yes";
         font = "sans-serif:size=10";
         prompt = "'󰅂 '";
         placeholder = "'_'";
