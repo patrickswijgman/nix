@@ -24,7 +24,7 @@
   programs.librewolf = {
     enable = true;
     profiles = {
-      default = {
+      patrick = {
         name = "Patrick";
         isDefault = true;
         settings = {
@@ -41,7 +41,7 @@
           "privacy.fingerprintingProtection.overrides" = "+AllTargets,-JSDateTimeUTC";
           "privacy.sanitize.sanitizeOnShutdown" = true;
           "sidebar.visibility" = "hide-sidebar";
-          "ui.systemUsesDarkTheme" = 0;
+          # "ui.systemUsesDarkTheme" = 0;
         };
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           seventv
