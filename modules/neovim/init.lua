@@ -207,6 +207,37 @@ require("birb").setup({
   auto_open_folds = true,
 })
 
+require("lualine").setup({
+  options = {
+    section_separators = "",
+    component_separators = "",
+  },
+  tabline = {
+    lualine_a = { "buffers" },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { "tabs" },
+  },
+  sections = {
+    lualine_a = { "mode" },
+    lualine_b = {},
+    lualine_c = { { "filename", path = 1 } },
+    lualine_x = { "searchcount", "diagnostics", "diff", "filetype", "location" },
+    lualine_y = {},
+    lualine_z = {},
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { { "filename", path = 1 } },
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
+  },
+})
+
 -----------------
 ---- KEYMAPS ----
 -----------------
@@ -220,6 +251,14 @@ vim.keymap.set("n", "<leader>s", "<cmd>Telescope git_status<cr>")
 vim.keymap.set("n", "<leader>'", "<cmd>Telescope resume<cr>")
 vim.keymap.set("n", "<leader>i", "<cmd>Inspect<cr>")
 vim.keymap.set("n", "<leader>x", "<cmd>source %<cr>")
+
+-- Tabs
+vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
+vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
+
+-- Buffers
+vim.keymap.set("n", "H", "<cmd>bprev<cr>")
+vim.keymap.set("n", "L", "<cmd>bnext<cr>")
 
 -- LSP
 vim.keymap.set("n", "<c-]>", "<cmd>Telescope lsp_definitions<cr>")

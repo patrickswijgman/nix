@@ -38,6 +38,7 @@
           "privacy.clearOnShutdown_v2.cache" = true;
           "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
           "privacy.clearOnShutdown_v2.history" = false;
+          "privacy.fingerprintingProtection.overrides" = "+AllTargets,-JSDateTimeUTC";
           "privacy.sanitize.sanitizeOnShutdown" = true;
           "sidebar.visibility" = "hide-sidebar";
           "ui.systemUsesDarkTheme" = 0;
@@ -87,6 +88,7 @@
         bulb-nvim
         butter-nvim
         conform-nvim
+        lualine-nvim
         nvim-lspconfig
         nvim-treesitter.withAllGrammars
         nvim-web-devicons
@@ -280,13 +282,13 @@
         background = "eeeeeeff";
         text = "1e1e1eff";
         border = "00000020";
-        prompt = "808080ff";
+        prompt = "1e1e1eff";
         placeholder = "808080ff";
         input = "1e1e1eff";
-        match = "000000ff";
+        match = "1e1e1eff";
         selection = "ddddddff";
         selection-text = "1e1e1eff";
-        selection-match = "000000ff";
+        selection-match = "1e1e1eff";
       };
       border = {
         radius = 8;
@@ -348,6 +350,7 @@
     enable = true;
     settings = {
       layer = "overlay";
+      icon-path = "${pkgs.papirus-icon-theme}/share/icons/Papirus:${pkgs.adwaita-icon-theme}/share/icons/Adwaita:${pkgs.hicolor-icon-theme}/share/icons/hicolor";
       ignore-timeout = 1;
       font = "sans-serif 10";
       background-color = "#eeeeee";
@@ -357,6 +360,7 @@
       border-radius = 8;
       padding = 10;
       margin = 10;
+      width = 400;
     };
   };
 
@@ -475,11 +479,7 @@
     # Hint Electron apps to use Wayland.
     NIXOS_OZONE_WL = "1";
 
-    # LibreWolf's resistFingerprinting spoofs the timezone to UTC; RFP honors TZ if set.
-    TZ = "Europe/Amsterdam";
-    TZDIR = "/etc/zoneinfo";
-
-    # Support SVGs in GTK icon themes.
+    # SVG loader for GTK app icons.
     GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
   };
 
