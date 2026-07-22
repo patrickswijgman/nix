@@ -27,8 +27,7 @@ hl.config({
     active_opacity = 1.0,
     inactive_opacity = 0.8,
     shadow = {
-      enabled = true,
-      color = "#00000044",
+      enabled = false,
     },
     blur = {
       enabled = true,
@@ -152,9 +151,19 @@ hl.bind("SUPER + underscore", hl.dsp.exec_cmd("brightnessctl set 10%-"), { locke
 -- Resize
 hl.bind("SUPER + R", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
-  hl.bind("H", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
-  hl.bind("J", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
-  hl.bind("K", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
-  hl.bind("L", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
+  hl.bind("H", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), { repeating = true })
+  hl.bind("J", hl.dsp.window.resize({ x = 0, y = 100, relative = true }), { repeating = true })
+  hl.bind("K", hl.dsp.window.resize({ x = 0, y = -100, relative = true }), { repeating = true })
+  hl.bind("L", hl.dsp.window.resize({ x = 100, y = 0, relative = true }), { repeating = true })
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
+
+---------------
+---- RULES ----
+---------------
+
+hl.window_rule({
+  name = "suppress-maximize-events",
+  match = { class = ".*" },
+  suppress_event = "maximize",
+})

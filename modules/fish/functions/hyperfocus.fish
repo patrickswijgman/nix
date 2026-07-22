@@ -2,5 +2,5 @@
 
 while true
   sleep 30m
-  notify-send --icon=document-open-recent "Hyperfocus" "Time for a short break! It's $(date "+%R")"
+  notify-send --icon=computer "Hyperfocus" "Time for a short break! It's $(date "+%R")"
 end

@@ -195,6 +195,7 @@ vim.keymap.set("n", "U", "<nop>")
 ---- LSP ----
 -------------
 
+-- TODO add lsp config feature to bulb
 vim.lsp.config("lua_ls", {
   settings = {
     Lua = {

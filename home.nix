@@ -45,21 +45,14 @@
           seventv
           bitwarden
         ];
+        search = {
+          force = true;
+          default = "ddg";
+          engines = { };
+        };
       };
     };
     policies = {
-      SearchEngines = {
-        Add = [ ];
-        Remove = [
-          "Amazon.com"
-          "Bing"
-          "Google"
-          "Perplexity"
-          "Twitter"
-          "Wikipedia (en)"
-          "eBay"
-        ];
-      };
       ExtensionSettings = {
         "nl-NL@dictionaries.addons.mozilla.org" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/woordenboek-nederlands/latest.xpi";
@@ -240,6 +233,29 @@
     ];
   };
 
+  programs.btop = {
+    enable = true;
+    themes = {
+      vague = builtins.readFile ./modules/btop/themes/vague.theme;
+    };
+    settings = {
+      color_theme = "vague";
+    };
+  };
+
+  programs.bat = {
+    enable = true;
+    themes = {
+      vague = {
+        file = "vague.tmTheme";
+        src = ./modules/bat/themes;
+      };
+    };
+    config = {
+      theme = "vague";
+    };
+  };
+
   # Desktop environment
   wayland.windowManager.hyprland = {
     enable = true;
@@ -254,21 +270,23 @@
         terminal = "${pkgs.foot}/bin/foot";
         list-executables-in-path = "yes";
         font = "sans-serif:size=10";
-        prompt = "'> '";
+        prompt = "'󰅂 '";
         placeholder = "'_'";
-        inner-pad = 8;
+        horizontal-pad = 40;
+        vertical-pad = 20;
+        inner-pad = 10;
       };
       colors = {
-        background = "141415ff";
-        text = "cdcdcdff";
-        prompt = "878787ff";
-        placeholder = "606079ff";
-        input = "cdcdcdff";
-        match = "f3be7cff";
-        selection = "252530ff";
-        selection-text = "cdcdcdff";
-        selection-match = "f3be7cff";
-        border = "7e98e8ff";
+        background = "eeeeeeff";
+        text = "1e1e1eff";
+        border = "00000020";
+        prompt = "808080ff";
+        placeholder = "808080ff";
+        input = "1e1e1eff";
+        match = "000000ff";
+        selection = "ddddddff";
+        selection-text = "1e1e1eff";
+        selection-match = "000000ff";
       };
       border = {
         radius = 8;
@@ -321,48 +339,41 @@
 
   services.gammastep = {
     enable = true;
+    provider = "manual";
     latitude = 53.21917;
     longitude = 6.56667;
-    provider = "manual";
   };
 
   services.mako = {
     enable = true;
     settings = {
+      layer = "overlay";
+      ignore-timeout = 1;
       font = "sans-serif 10";
-      background-color = "#141415";
-      text-color = "#cdcdcd";
-      border-color = "#606079";
+      background-color = "#eeeeee";
+      text-color = "#1e1e1e";
+      border-color = "#00000020";
       border-size = 1;
-      border-radius = 5;
+      border-radius = 8;
       padding = 10;
       margin = 10;
-      default-timeout = 5000;
-      "urgency=low" = {
-        border-color = "#7fa563";
-      };
-      "urgency=critical" = {
-        border-color = "#d8647e";
-        default-timeout = 0;
-      };
     };
   };
 
   home.pointerCursor = {
     enable = true;
-    package = pkgs.yaru-theme;
-    name = "Yaru";
-    size = 24;
-    hyprcursor.enable = true;
     gtk.enable = true;
     x11.enable = true;
+    package = pkgs.adwaita-icon-theme;
+    name = "Adwaita";
+    size = 24;
   };
 
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.yaru-theme;
-      name = "Yaru";
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus";
     };
   };
 
@@ -465,6 +476,10 @@
 
     # LibreWolf's resistFingerprinting spoofs the timezone to UTC; RFP honors TZ if set.
     TZ = "Europe/Amsterdam";
+    TZDIR = "/etc/zoneinfo";
+
+    # Support SVGs in GTK icon themes.
+    GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
   };
 
   # This value determines the Home Manager release that your
