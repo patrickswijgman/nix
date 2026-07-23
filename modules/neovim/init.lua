@@ -38,7 +38,7 @@ vim.o.backup = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.showmatch = true
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 vim.o.incsearch = true
 vim.o.inccommand = "nosplit"
 
@@ -197,7 +197,7 @@ require("bulb").setup({
   completion = {
     enable = true,
     autotrigger = true,
-    trigger_characters = require("bulb").all_chars,
+    trigger_characters = require("bulb.core").get_trigger_characters(),
   },
 })
 
@@ -205,6 +205,12 @@ require("birb").setup({
   use_folds = true,
   auto_open_folds = true,
 })
+
+local function filename()
+  local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+  local file = vim.fn.fnamemodify(vim.fn.expand("%:p"), ":.")
+  return vim.fs.joinpath(cwd, file)
+end
 
 require("lualine").setup({
   options = {
@@ -222,7 +228,7 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode" },
     lualine_b = {},
-    lualine_c = { { "filename", path = 1 } },
+    lualine_c = { filename },
     lualine_x = { "searchcount", "diagnostics", "filetype", "location" },
     lualine_y = {},
     lualine_z = {},
@@ -230,7 +236,7 @@ require("lualine").setup({
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { { "filename", path = 1 } },
+    lualine_c = { filename },
     lualine_x = {},
     lualine_y = {},
     lualine_z = {},

@@ -7,7 +7,7 @@ vimUtils.buildVimPlugin {
   src = fetchFromGitHub {
     owner = "patrickswijgman";
     repo = "butter.nvim";
-    rev = "81239b508b4e853610e36b00db2acaa5afbbed3e";
-    hash = "sha256-0QawdYBJqjx5f5eeQqtpaXaXRm84IWeHBVOif8YSCqc=";
+    rev = "4eba33d29f5032394a0db8dcb12f7a8647afd38e";
+    hash = "sha256-4W+BGhWAzeObBh2tRPTaZX8M7AfhMrs/zAJv91URfk4=";
   };
 }

@@ -7,7 +7,7 @@ vimUtils.buildVimPlugin {
   src = fetchFromGitHub {
     owner = "patrickswijgman";
     repo = "birb.nvim";
-    rev = "f32320ee2910a15b4c47f70417eacfd5027a4a9f";
-    hash = "sha256-+KARpDTBJpJfqrM0EbD5kg6PhfpCSa39+5UxH0ZTXS4=";
+    rev = "104c68fcd1cd3087a18992e84984b54af7c5759a";
+    hash = "sha256-bW/G6OQAlXGkzoWVwtq+DtnY8B5qCh8tw6Bo3hKjjVI=";
   };
 }
