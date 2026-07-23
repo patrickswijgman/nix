@@ -132,17 +132,10 @@
         description = "Print the 16 base ANSI colors";
         body = builtins.readFile ./modules/fish/functions/print_colors.fish;
       };
-      spawn = {
-        description = "Spawn a disowned process";
-        body = builtins.readFile ./modules/fish/functions/spawn.fish;
-      };
       hyperfocus = {
         description = "Show a break time notification";
         body = builtins.readFile ./modules/fish/functions/hyperfocus.fish;
       };
-    };
-    completions = {
-      spawn = builtins.readFile ./modules/fish/completions/spawn.fish;
     };
     shellInit = ''
       set fish_greeting

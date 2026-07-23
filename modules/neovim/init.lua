@@ -11,7 +11,6 @@ local augroup = vim.api.nvim_create_augroup("Config", { clear = true })
 -- General
 vim.o.mouse = "a"
 vim.o.cursorline = true
-vim.o.cursorlineopt = "number"
 vim.o.signcolumn = "yes"
 vim.o.scrolloff = 10
 vim.o.number = true
@@ -224,7 +223,7 @@ require("lualine").setup({
     lualine_a = { "mode" },
     lualine_b = {},
     lualine_c = { { "filename", path = 1 } },
-    lualine_x = { "searchcount", "diagnostics", "diff", "filetype", "location" },
+    lualine_x = { "searchcount", "diagnostics", "filetype", "location" },
     lualine_y = {},
     lualine_z = {},
   },
@@ -307,6 +306,13 @@ vim.diagnostic.config({
     },
   },
 })
+
+--------------------
+---- TREESITTER ----
+--------------------
+
+-- Use normal highlights for lua docs.
+vim.treesitter.query.set("lua", "injections", "")
 
 -----------------------
 ---- AUTO COMMANDS ----
