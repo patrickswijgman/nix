@@ -2,5 +2,9 @@
 
 while true
   sleep 30m
-  notify-send --icon=computer "Hyperfocus" "Time for a short break! It's $(date "+%R")"
+  if test (hostname) = patrick-desktop
+    veila lock
+  else
+    notify-send --icon=computer "Hyperfocus" "Time for a short break! It's $(date "+%R")"
+  end
 end
