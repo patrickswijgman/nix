@@ -276,8 +276,8 @@
         path = "${./wallpapers/giethoorn.jpg}";
       };
       lock = {
-        screen_off_seconds = 10;
-        suspend_seconds = 60;
+        screen_off_seconds = 30;
+        suspend_seconds = 300;
         suspend_only_on_battery = true;
       };
     };
