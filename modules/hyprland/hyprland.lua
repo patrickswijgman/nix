@@ -7,6 +7,10 @@
 
 hl.on("hyprland.start", function()
   hl.exec_cmd("fish -c hyperfocus")
+  hl.exec_cmd("librewolf", { workspace = 1 })
+  hl.exec_cmd("footclient", { workspace = 2 })
+  hl.exec_cmd("spotify", { workspace = 4 })
+  hl.exec_cmd("slack", { workspace = 5 })
 end)
 
 ------------------
@@ -102,7 +106,6 @@ hl.config({
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot --mode=region --clipboard-only"))
 hl.bind("SUPER + Return", hl.dsp.exec_cmd("footclient"))
 hl.bind("SUPER + Delete", hl.dsp.exec_cmd("veila lock"))
-hl.bind("SUPER + D", hl.dsp.exec_cmd("fuzzel"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("librewolf"))
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "left" }))
@@ -120,10 +123,12 @@ hl.bind("SUPER + 1", hl.dsp.focus({ workspace = 1 }))
 hl.bind("SUPER + 2", hl.dsp.focus({ workspace = 2 }))
 hl.bind("SUPER + 3", hl.dsp.focus({ workspace = 3 }))
 hl.bind("SUPER + 4", hl.dsp.focus({ workspace = 4 }))
+hl.bind("SUPER + 5", hl.dsp.focus({ workspace = 5 }))
 hl.bind("SUPER + SHIFT + 1", hl.dsp.window.move({ workspace = 1 }))
 hl.bind("SUPER + SHIFT + 2", hl.dsp.window.move({ workspace = 2 }))
 hl.bind("SUPER + SHIFT + 3", hl.dsp.window.move({ workspace = 3 }))
 hl.bind("SUPER + SHIFT + 4", hl.dsp.window.move({ workspace = 4 }))
+hl.bind("SUPER + SHIFT + 5", hl.dsp.window.move({ workspace = 5 }))
 
 -- Media
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })

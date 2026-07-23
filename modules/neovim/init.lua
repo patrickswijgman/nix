@@ -238,6 +238,10 @@ require("lualine").setup({
   },
 })
 
+require("nvim-surround").setup({})
+require("nvim-autopairs").setup({})
+require("scope").setup({})
+
 -----------------
 ---- KEYMAPS ----
 -----------------
@@ -255,10 +259,13 @@ vim.keymap.set("n", "<leader>x", "<cmd>source %<cr>")
 -- Tabs
 vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
+vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
+vim.keymap.set("n", "<c-q>", "<cmd>tabclose<cr>")
 
 -- Buffers
 vim.keymap.set("n", "H", "<cmd>bprev<cr>")
 vim.keymap.set("n", "L", "<cmd>bnext<cr>")
+vim.keymap.set("n", "Q", "<cmd>Bwipeout<cr>")
 
 -- LSP
 vim.keymap.set("n", "<c-]>", "<cmd>Telescope lsp_definitions<cr>")
@@ -283,7 +290,6 @@ vim.keymap.set("n", "<esc>", "<cmd>nohl<cr>", { silent = true })
 
 -- Disabled
 vim.keymap.set("n", "q", "<nop>")
-vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "U", "<nop>")
 
 ---------------------

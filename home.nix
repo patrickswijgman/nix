@@ -86,13 +86,17 @@
       with pkgs.vimPlugins;
       [
         birb-nvim
+        bufdelete-nvim
         bulb-nvim
         butter-nvim
         conform-nvim
         lualine-nvim
+        nvim-autopairs
         nvim-lspconfig
+        nvim-surround
         nvim-treesitter.withAllGrammars
         nvim-web-devicons
+        scope-nvim
         telescope-fzf-native-nvim
         telescope-nvim
         telescope-ui-select-nvim
@@ -110,6 +114,9 @@
         font = "monospace:size=12";
         pad = "10x5 center";
       };
+      scrollback = {
+        indicator-position = "none";
+      };
     };
   };
 
@@ -125,16 +132,22 @@
         description = "Print the 16 base ANSI colors";
         body = builtins.readFile ./modules/fish/functions/print_colors.fish;
       };
+      spawn = {
+        description = "Spawn a disowned process";
+        body = builtins.readFile ./modules/fish/functions/spawn.fish;
+      };
       hyperfocus = {
         description = "Show a break time notification";
         body = builtins.readFile ./modules/fish/functions/hyperfocus.fish;
       };
     };
+    completions = {
+      spawn = builtins.readFile ./modules/fish/completions/spawn.fish;
+    };
     shellInit = ''
       set fish_greeting
     '';
     shellAbbrs = {
-      # Git
       gb = "git branch";
       gc = "git switch";
       ga = "git add";
@@ -161,20 +174,6 @@
       grsm = "git restore --source origin/main";
       yolo = "git commit --amend --no-edit && git push --force";
       yeet = "git commit --amend --no-edit --no-verify && git push --force --no-verify";
-
-      # Docker
-      dc = "docker compose";
-      dcu = "docker compose up";
-      dcr = "docker compose run --rm";
-
-      # NixOS
-      ns = "nix-shell --run fish";
-      nc = "sudo nix-collect-garbage";
-      nr = "nix run";
-
-      # Virtualenv
-      va = "source .venv/bin/activate.fish";
-      vd = "source .venv/bin/deactivate.fish";
     };
   };
 
@@ -267,42 +266,11 @@
     extraConfig = builtins.readFile ./modules/hyprland/hyprland.lua;
   };
 
-  programs.fuzzel = {
-    enable = true;
-    settings = {
-      main = {
-        terminal = "${pkgs.foot}/bin/foot";
-        font = "sans-serif:size=10";
-        prompt = "'󰅂 '";
-        placeholder = "'_'";
-        horizontal-pad = 40;
-        vertical-pad = 20;
-        inner-pad = 10;
-      };
-      colors = {
-        background = "eeeeeeff";
-        text = "1e1e1eff";
-        border = "00000020";
-        prompt = "1e1e1eff";
-        placeholder = "808080ff";
-        input = "1e1e1eff";
-        match = "1e1e1eff";
-        selection = "ddddddff";
-        selection-text = "1e1e1eff";
-        selection-match = "1e1e1eff";
-      };
-      border = {
-        radius = 8;
-        width = 1;
-      };
-    };
-  };
-
   programs.veila = {
     enable = true;
     service.enable = true;
     settings = {
-      theme = "seceda";
+      theme = "normandy";
       background = {
         mode = "file";
         path = "${./wallpapers/giethoorn.jpg}";
@@ -347,22 +315,8 @@
     longitude = 6.56667;
   };
 
-  services.mako = {
+  services.swaync = {
     enable = true;
-    settings = {
-      layer = "overlay";
-      icon-path = "${pkgs.papirus-icon-theme}/share/icons/Papirus:${pkgs.adwaita-icon-theme}/share/icons/Adwaita:${pkgs.hicolor-icon-theme}/share/icons/hicolor";
-      ignore-timeout = 1;
-      font = "sans-serif 10";
-      background-color = "#eeeeee";
-      text-color = "#1e1e1e";
-      border-color = "#00000020";
-      border-size = 1;
-      border-radius = 8;
-      padding = 10;
-      margin = 10;
-      width = 400;
-    };
   };
 
   home.pointerCursor = {
