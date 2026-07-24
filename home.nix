@@ -270,16 +270,20 @@
           speed = 0.67;
         };
       };
-      osd = {
-        position = "bottom_center";
-      };
       bar = {
         main = {
           enabled = false;
         };
       };
+      battery = {
+        warning_threshold = 20;
+      };
+      osd = {
+        position = "bottom_center";
+      };
       notification = {
         layer = "overlay";
+        show_app_name = false;
       };
       theme = {
         mode = "dark";
