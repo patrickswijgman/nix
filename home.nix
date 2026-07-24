@@ -7,6 +7,7 @@
 {
   imports = [
     inputs.veila.homeModules.default
+    inputs.noctalia.homeModules.default
   ];
 
   # Home Manager needs a bit of information about you and the paths it should manage.
@@ -259,6 +260,39 @@
     extraConfig = builtins.readFile ./modules/hyprland/hyprland.lua;
   };
 
+  programs.noctalia = {
+    enable = true;
+    systemd.enable = true;
+    settings = {
+      shell = {
+        launch_apps_as_systemd_services = true;
+        animation = {
+          speed = 0.67;
+        };
+      };
+      osd = {
+        position = "bottom_center";
+      };
+      bar = {
+        main = {
+          enabled = false;
+        };
+      };
+      notification = {
+        layer = "overlay";
+      };
+      theme = {
+        mode = "dark";
+        source = "wallpaper";
+        wallpaper_scheme = "m3-monochrome";
+      };
+      wallpaper = {
+        enabled = true;
+        default.path = "${./wallpapers/giethoorn.jpg}";
+      };
+    };
+  };
+
   programs.veila = {
     enable = true;
     service.enable = true;
@@ -281,34 +315,7 @@
     };
   };
 
-  programs.hyprshot.enable = true;
-
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      splash = false;
-      wallpaper = [
-        {
-          monitor = "";
-          path = "${./wallpapers/giethoorn.jpg}";
-          fit_mode = "fill";
-        }
-      ];
-    };
-  };
-
   services.kanshi = {
-    enable = true;
-  };
-
-  services.gammastep = {
-    enable = true;
-    provider = "manual";
-    latitude = 53.21917;
-    longitude = 6.56667;
-  };
-
-  services.swaync = {
     enable = true;
   };
 
@@ -397,11 +404,6 @@
     # Other
     codebook
     prettierd
-
-    # Desktop environment
-    brightnessctl
-    playerctl
-    pamixer
   ];
 
   ### XDG configuration

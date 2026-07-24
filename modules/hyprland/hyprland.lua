@@ -8,9 +8,10 @@
 hl.on("hyprland.start", function()
   hl.exec_cmd("fish -c hyperfocus")
   hl.exec_cmd("librewolf", { workspace = 1 })
-  hl.exec_cmd("footclient", { workspace = 2 })
+  hl.exec_cmd("foot", { workspace = 2 })
   hl.exec_cmd("spotify", { workspace = 4 })
   hl.exec_cmd("slack", { workspace = 5 })
+  hl.dsp.focus({ workspace = 1 })
 end)
 
 ------------------
@@ -103,7 +104,7 @@ hl.config({
 ---- KEYBINDINGS ----
 ---------------------
 
-hl.bind("Print", hl.dsp.exec_cmd("hyprshot --mode=region --clipboard-only"))
+hl.bind("Print", hl.dsp.exec_cmd("noctalia msg screenshot-region"))
 hl.bind("SUPER + Return", hl.dsp.exec_cmd("footclient"))
 hl.bind("SUPER + Delete", hl.dsp.exec_cmd("veila lock"))
 hl.bind("SUPER + W", hl.dsp.exec_cmd("librewolf"))
@@ -131,27 +132,27 @@ hl.bind("SUPER + SHIFT + 4", hl.dsp.window.move({ workspace = 4 }))
 hl.bind("SUPER + SHIFT + 5", hl.dsp.window.move({ workspace = 5 }))
 
 -- Media
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
-hl.bind("SUPER + P", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("SUPER + bracketright", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("SUPER + bracketleft", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("noctalia msg media play"), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("noctalia msg media pause"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("noctalia msg media next"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("noctalia msg media previous"), { locked = true })
+hl.bind("SUPER + P", hl.dsp.exec_cmd("noctalia msg media toggle"), { locked = true })
+hl.bind("SUPER + bracketright", hl.dsp.exec_cmd("noctalia msg media next"), { locked = true })
+hl.bind("SUPER + bracketleft", hl.dsp.exec_cmd("noctalia msg media previous"), { locked = true })
 
 -- Volume
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer --increase 5"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pamixer --decrease 5"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pamixer --toggle-mute"), { locked = true, repeating = true })
-hl.bind("SUPER + equal", hl.dsp.exec_cmd("pamixer --increase 5"), { locked = true, repeating = true })
-hl.bind("SUPER + minus", hl.dsp.exec_cmd("pamixer --decrease 5"), { locked = true, repeating = true })
-hl.bind("SUPER + 0", hl.dsp.exec_cmd("pamixer --toggle-mute"), { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia msg volume-down"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia msg volume-mute"), { locked = true, repeating = true })
+hl.bind("SUPER + equal", hl.dsp.exec_cmd("noctalia msg volume-up"), { locked = true, repeating = true })
+hl.bind("SUPER + minus", hl.dsp.exec_cmd("noctalia msg volume-down"), { locked = true, repeating = true })
+hl.bind("SUPER + 0", hl.dsp.exec_cmd("noctalia msg volume-mute"), { locked = true, repeating = true })
 
 -- Brightness
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 10%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 10%-"), { locked = true, repeating = true })
-hl.bind("SUPER + plus", hl.dsp.exec_cmd("brightnessctl set 10%+"), { locked = true, repeating = true })
-hl.bind("SUPER + underscore", hl.dsp.exec_cmd("brightnessctl set 10%-"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"), { locked = true, repeating = true })
+hl.bind("SUPER + plus", hl.dsp.exec_cmd("noctalia msg brightness-up"), { locked = true, repeating = true })
+hl.bind("SUPER + underscore", hl.dsp.exec_cmd("noctalia msg brightness-down"), { locked = true, repeating = true })
 
 -- Resize
 hl.bind("SUPER + R", hl.dsp.submap("resize"))
@@ -171,4 +172,15 @@ hl.window_rule({
   name = "suppress-maximize-events",
   match = { class = ".*" },
   suppress_event = "maximize",
+})
+
+hl.layer_rule({
+  name = "noctalia",
+  match = {
+    namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+  },
+  no_anim = true,
+  ignore_alpha = 0.5,
+  blur = true,
+  blur_popups = true,
 })

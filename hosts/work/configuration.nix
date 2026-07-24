@@ -47,12 +47,21 @@
 
   ### Programs and services
 
+  # Docker
   virtualisation.docker.enable = true;
   users.users.patrick.extraGroups = [ "docker" ];
 
+  # Print documents
   services.printing.enable = true;
+
+  # Needed for firmware updates
   services.fwupd.enable = true;
 
+  # Power management (battery)
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
+
+  # Needed for apps built with ToDesktop
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 }
